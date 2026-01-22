@@ -17,27 +17,29 @@ Phase 5: Polish & Integration   → Both invocation paths working
 
 ---
 
-## Phase 1: Skill Infrastructure
+## Phase 1: Skill Infrastructure ✓
 
 **Goal:** `/tarot` command invokes skill and spawns tarot-reader subagent
+
+**Status:** Complete (2026-01-22)
 
 **Requirements covered:** SKILL-01, SKILL-02, SKILL-03
 
 **Plans:** 1 plan
 
 Plans:
-- [ ] 01-01-PLAN.md — Create tarot skill with context fork and random card selection
+- [x] 01-01-PLAN.md — Create tarot skill with context fork and random card selection
 
 **Deliverables:**
-- [ ] Skill file at `~/.claude/skills/tarot/SKILL.md`
-- [ ] Skill registered in Claude Code
-- [ ] Skill spawns `tarot-reader` subagent via context fork
-- [ ] Random card selection via bash shuf (0-21)
+- [x] Skill file at `~/.claude/skills/tarot/SKILL.md`
+- [x] Skill registered in Claude Code
+- [x] Skill spawns `tarot-reader` subagent via context fork
+- [x] Random card selection via bash shuf (0-21)
 
 **Success criteria:**
-- Running `/tarot` spawns a subagent
-- Subagent receives a random card number
-- Basic response confirms flow works
+- Running `/tarot` spawns a subagent ✓
+- Subagent receives a random card number ✓
+- Basic response confirms flow works ✓
 
 **Dependencies:** None (first phase)
 
@@ -163,4 +165,4 @@ Plans:
 
 ---
 *Roadmap created: 2025-01-21*
-*Last updated: 2025-01-21 after Phase 1 planning*
+*Last updated: 2026-01-22 after Phase 1 completion*

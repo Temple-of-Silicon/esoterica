@@ -9,9 +9,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Skill Infrastructure
 
-- [ ] **SKILL-01**: `/tarot` skill invokes tarot reading flow
-- [ ] **SKILL-02**: Skill spawns tarot-reader subagent for interpretation
-- [ ] **SKILL-03**: Skill handles random card selection (bash shuf or similar)
+- [x] **SKILL-01**: `/tarot` skill invokes tarot reading flow
+- [x] **SKILL-02**: Skill spawns tarot-reader subagent for interpretation
+- [x] **SKILL-03**: Skill handles random card selection (bash shuf or similar)
 
 ### Card System
 
@@ -86,9 +86,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SKILL-01 | Phase 1 | Pending |
-| SKILL-02 | Phase 1 | Pending |
-| SKILL-03 | Phase 1 | Pending |
+| SKILL-01 | Phase 1 | Complete |
+| SKILL-02 | Phase 1 | Complete |
+| SKILL-03 | Phase 1 | Complete |
 | CARD-01 | Phase 2 | Pending |
 | CARD-02 | Phase 2 | Pending |
 | CARD-03 | Phase 2 | Pending |
@@ -107,4 +107,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2025-01-21*
-*Last updated: 2025-01-21 after initial definition*
+*Last updated: 2026-01-22 after Phase 1 completion*
