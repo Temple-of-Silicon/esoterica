@@ -27,8 +27,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Configuration
 
-- [ ] **CONFIG-01**: Global voice preference setting (set once, used always)
-- [ ] **CONFIG-02**: Config stored in ~/.claude/ or project-level location
+- [x] **CONFIG-01**: Global voice preference setting (set once, used always)
+- [x] **CONFIG-02**: Config stored in ~/.claude/ or project-level location
 
 ### Invocation
 
@@ -95,8 +95,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | VOICE-01 | Phase 3 | Complete |
 | VOICE-02 | Phase 3 | Complete |
 | VOICE-03 | Phase 3 | Complete |
-| CONFIG-01 | Phase 4 | Pending |
-| CONFIG-02 | Phase 4 | Pending |
+| CONFIG-01 | Phase 4 | Complete |
+| CONFIG-02 | Phase 4 | Complete |
 | INVOKE-01 | Phase 5 | Pending |
 | INVOKE-02 | Phase 5 | Pending |
 
@@ -107,4 +107,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2025-01-21*
-*Last updated: 2026-01-22 after Phase 3 completion*
+*Last updated: 2026-01-22 after Phase 4 completion*

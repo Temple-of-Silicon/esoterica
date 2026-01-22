@@ -101,27 +101,29 @@ Plans:
 
 ---
 
-## Phase 4: Configuration
+## Phase 4: Configuration ✓
 
 **Goal:** Global voice preference that persists
+
+**Status:** Complete (2026-01-22)
 
 **Requirements covered:** CONFIG-01, CONFIG-02
 
 **Plans:** 1 plan
 
 Plans:
-- [ ] 04-01-PLAN.md — Add config file reading for persistent voice preference
+- [x] 04-01-PLAN.md — Add config file reading for persistent voice preference
 
 **Deliverables:**
-- [ ] Config location determined (~/.claude/ or similar)
-- [ ] Voice preference storage mechanism
-- [ ] Skill reads config on invocation
-- [ ] Default voice if no config set
+- [x] Config location determined (~/.claude/tarot/config and .tarot)
+- [x] Voice preference storage mechanism (key=value format)
+- [x] Skill reads config on invocation
+- [x] Default voice if no config set (grounded)
 
 **Success criteria:**
-- Set voice preference once
-- All subsequent readings use that voice
-- Can change preference at any time
+- Set voice preference once ✓
+- All subsequent readings use that voice ✓
+- Can change preference at any time ✓
 
 **Dependencies:** Phase 3 (voices to choose from)
 
@@ -169,4 +171,4 @@ Plans:
 
 ---
 *Roadmap created: 2025-01-21*
-*Last updated: 2026-01-22 after Phase 4 planning*
+*Last updated: 2026-01-22 after Phase 4 completion*
