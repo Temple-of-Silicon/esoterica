@@ -11,36 +11,41 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 
 Milestone: v1.1 Wizard UI
 Phase: 6 of 9 (Wizard Infrastructure)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-22 - Roadmap created for v1.1
+Plan: 1 of 1 complete
+Status: Phase complete
+Last activity: 2026-01-22 - Completed 06-01-PLAN.md
 
-Progress: v1.1 [----------] 0%
+Progress: v1.1 [██--------] 17%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5 (v1.0)
-- Average duration: N/A (not tracked in v1.0)
-- Total execution time: N/A
+- Total plans completed: 6 (5 v1.0 + 1 v1.1)
+- Average duration (v1.1): 3 min
+- Total execution time (v1.1): 3 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | v1.0 Phases 1-5 | 5 | - | - |
-
-*Metrics reset for v1.1 milestone*
+| Phase 6 (Wizard Infrastructure) | 1 | 3 min | 3 min |
 
 ## Accumulated Context
 
 ### Decisions
 
 Decisions logged in PROJECT.md Key Decisions table.
-v1.0 validated decisions carry forward:
-- Skill + subagent pattern (context fork for isolation)
+v1.0 validated decisions carry forward (with Phase 6 modification):
+- ~~Skill + subagent pattern (context fork for isolation)~~ → Main context execution (Phase 6: required for AskUserQuestion)
 - Shell injection for randomness (bash shuf)
-- Config file precedence (flag > .tarot > ~/.claude/tarot/config)
+- Config file precedence: .tarot > ~/.claude/tarot/config (removed inline --voice flag in Phase 6)
+
+**Phase 6 decisions:**
+- Interactive wizard replaces inline argument parsing
+- AskUserQuestion requires main context (removed context fork)
+- Voice selection remains config-based (not collected in wizard)
+- Progressive implementation: Phase 6 collects Spread/Mode but doesn't implement logic yet
 
 ### Pending Todos
 
@@ -53,13 +58,13 @@ None. Starting fresh milestone.
 ## Session Continuity
 
 Last session: 2026-01-22
-Stopped at: v1.1 roadmap created
+Stopped at: Completed 06-01-PLAN.md (Phase 6 complete)
 Resume file: None
 
 ## Next Steps
 
-1. Run `/gsd:plan-phase 6` to plan Wizard Infrastructure
-2. Phase 6 delivers: AskUserQuestion wizard replacing inline args
+1. Begin Phase 7 (Spread Selection) - implement three-card and custom spreads
+2. Phase 7 uses wizard-collected spread preference from Phase 6 infrastructure
 
 ---
-*Last updated: 2026-01-22 after v1.1 roadmap creation*
+*Last updated: 2026-01-22 after Phase 6 completion*
