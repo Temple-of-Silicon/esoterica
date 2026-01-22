@@ -152,8 +152,38 @@ If user selected "Claude suggests":
 
 ### Custom Spread
 If user selected "Custom":
-- (Implemented in Phase 7 Plan 02)
-- For now: Fall back to single-card reading with note that this will be implemented
+
+1. **Collect position names:**
+   Prompt the user:
+   "Enter your position names, separated by commas (1-5 positions):
+
+   Example: Past, Present, Future"
+
+2. **Parse and validate input:**
+   - Split on commas
+   - Trim whitespace from each position
+   - Filter out empty positions (handle "Position1, , Position3" gracefully)
+   - Count remaining positions
+
+   **Validation rules:**
+   - Minimum: 1 position (custom single-card with named position is valid)
+   - Maximum: 5 positions
+
+   If count < 1: "Please enter at least 1 position name."
+   If count > 5: "Maximum 5 positions allowed. You entered [N]. Please try again with 1-5 positions."
+
+   On validation failure, re-prompt for input.
+
+3. **Show position preview and draw:**
+   "You'll draw [N] card(s) for:
+   1. **[Position 1]**
+   2. **[Position 2]**
+   [... up to 5]
+
+   Drawing cards now..."
+
+   Draw unique cards: `!shuf -i 0-21 -n [N]`
+   - Each line of output corresponds to a position in order
 
 ## Reading Context
 
