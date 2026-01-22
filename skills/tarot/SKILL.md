@@ -53,10 +53,12 @@ Question 2 (Spread):
 - options:
   - label: "Single card (Recommended)"
     description: "One card focus - quick insight, clear message"
-  - label: "Three card"
-    description: "Past/Present/Future or Problem/Solution/Synthesis"
-  - label: "Custom spread"
-    description: "You specify the positions and meaning"
+  - label: "Situation/Action/Outcome"
+    description: "Three cards - what's present, what you can do, where this leads"
+  - label: "Claude suggests"
+    description: "Claude generates three contextual positions based on your question"
+  - label: "Custom"
+    description: "Enter your own position names (1-5 cards)"
 
 Question 3 (Mode):
 - question: "How should cards be drawn?"
