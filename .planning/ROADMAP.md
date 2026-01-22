@@ -23,11 +23,16 @@ Phase 5: Polish & Integration   → Both invocation paths working
 
 **Requirements covered:** SKILL-01, SKILL-02, SKILL-03
 
+**Plans:** 1 plan
+
+Plans:
+- [ ] 01-01-PLAN.md — Create tarot skill with context fork and random card selection
+
 **Deliverables:**
-- [ ] Skill file at `~/.claude/commands/tarot.md`
+- [ ] Skill file at `~/.claude/skills/tarot/SKILL.md`
 - [ ] Skill registered in Claude Code
-- [ ] Skill spawns `tarot-reader` subagent via Task tool
-- [ ] Random card selection via bash shuf (1-22)
+- [ ] Skill spawns `tarot-reader` subagent via context fork
+- [ ] Random card selection via bash shuf (0-21)
 
 **Success criteria:**
 - Running `/tarot` spawns a subagent
@@ -43,6 +48,11 @@ Phase 5: Polish & Integration   → Both invocation paths working
 **Goal:** 22 Major Arcana cards with meanings embedded in subagent
 
 **Requirements covered:** CARD-01, CARD-02, CARD-03
+
+**Plans:** (created by /gsd:plan-phase)
+
+Plans:
+- [ ] TBD — Plan details will be created during phase planning
 
 **Deliverables:**
 - [ ] All 22 Major Arcana cards defined
@@ -65,6 +75,11 @@ Phase 5: Polish & Integration   → Both invocation paths working
 
 **Requirements covered:** VOICE-01, VOICE-02, VOICE-03
 
+**Plans:** (created by /gsd:plan-phase)
+
+Plans:
+- [ ] TBD — Plan details will be created during phase planning
+
 **Deliverables:**
 - [ ] Mystic voice prompt section (evocative, archetypal, witchy language)
 - [ ] Grounded voice prompt section (practical, direct, archetypal)
@@ -86,6 +101,11 @@ Phase 5: Polish & Integration   → Both invocation paths working
 
 **Requirements covered:** CONFIG-01, CONFIG-02
 
+**Plans:** (created by /gsd:plan-phase)
+
+Plans:
+- [ ] TBD — Plan details will be created during phase planning
+
 **Deliverables:**
 - [ ] Config location determined (~/.claude/ or similar)
 - [ ] Voice preference storage mechanism
@@ -106,6 +126,11 @@ Phase 5: Polish & Integration   → Both invocation paths working
 **Goal:** Both user and Claude can invoke readings smoothly
 
 **Requirements covered:** INVOKE-01, INVOKE-02
+
+**Plans:** (created by /gsd:plan-phase)
+
+Plans:
+- [ ] TBD — Plan details will be created during phase planning
 
 **Deliverables:**
 - [ ] User invocation via `/tarot` polished
@@ -134,8 +159,8 @@ Phase 5: Polish & Integration   → Both invocation paths working
 
 **Total v1 requirements:** 13
 **Phases:** 5
-**All requirements mapped:** ✓
+**All requirements mapped:** Yes
 
 ---
 *Roadmap created: 2025-01-21*
-*Last updated: 2025-01-21 after initial definition*
+*Last updated: 2025-01-21 after Phase 1 planning*
