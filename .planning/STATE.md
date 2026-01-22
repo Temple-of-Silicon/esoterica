@@ -1,89 +1,65 @@
 # State: Esoterica
 
-**Current Phase:** Defining requirements
-**Status:** v1.1 milestone started
-**Last activity:** 2026-01-22 - v1.1 scope defined
-
-## Current Position
-
-Milestone: v1.1 Wizard UI
-Phase: Not started (defining requirements)
-Status: Defining requirements
-Last activity: 2026-01-22 — v1.1 milestone started
-
-Progress: v1.1 ░░░░░░░░░░ 0%
-
 ## Project Reference
 
 See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Agents can draw and interpret tarot cards as a perspective-shifting tool
-**Current focus:** v1.1 Wizard UI — interactive flow with spreads
+**Current focus:** v1.1 Wizard UI - Phase 6 (Wizard Infrastructure)
 
-## Milestone Summary
+## Current Position
 
-### v1.0 Tarot Skill (Shipped 2026-01-22)
+Milestone: v1.1 Wizard UI
+Phase: 6 of 9 (Wizard Infrastructure)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-01-22 - Roadmap created for v1.1
 
-5 phases, 5 plans, 13 requirements — all complete
+Progress: v1.1 [----------] 0%
 
-**Delivered:**
-- Working `/tarot` skill with 22 Major Arcana
-- Two voices: Mystic and Grounded
-- Persistent voice preference via config files
-- Claude self-invocation enabled
-- Adaptive output formatting
+## Performance Metrics
 
-See: .planning/MILESTONES.md for full details
-See: .planning/milestones/v1-ROADMAP.md for archived phase details
+**Velocity:**
+- Total plans completed: 5 (v1.0)
+- Average duration: N/A (not tracked in v1.0)
+- Total execution time: N/A
 
-## Accumulated Decisions
+**By Phase:**
 
-Full decision log archived in v1-ROADMAP.md.
+| Phase | Plans | Total | Avg/Plan |
+|-------|-------|-------|----------|
+| v1.0 Phases 1-5 | 5 | - | - |
 
-Key decisions validated in v1.0:
-- Skill + subagent pattern (✓ Good)
-- Major Arcana only (✓ Good)
-- Two voices (✓ Good)
-- Config file precedence (✓ Good)
+*Metrics reset for v1.1 milestone*
 
-## Recent Activity
+## Accumulated Context
 
-- 2025-01-21: Project initialized
-- 2025-01-21: Research and roadmap created
-- 2025-01-21: Phase 1 planned and executed
-- 2026-01-22: Phases 2-5 planned and executed
-- 2026-01-22: Milestone v1.0 audit passed
-- 2026-01-22: Milestone v1.0 complete and archived
+### Decisions
+
+Decisions logged in PROJECT.md Key Decisions table.
+v1.0 validated decisions carry forward:
+- Skill + subagent pattern (context fork for isolation)
+- Shell injection for randomness (bash shuf)
+- Config file precedence (flag > .tarot > ~/.claude/tarot/config)
+
+### Pending Todos
+
+None yet.
+
+### Blockers/Concerns
+
+None. Starting fresh milestone.
 
 ## Session Continuity
 
 Last session: 2026-01-22
-Stopped at: v1.0 milestone complete
+Stopped at: v1.1 roadmap created
 Resume file: None
 
 ## Next Steps
 
-1. Run `/gsd:new-milestone` to start next milestone
-   - Define new requirements (v1.1 polish or v2.0 features)
-   - Create new REQUIREMENTS.md
-   - Create new ROADMAP.md
-
-2. Potential v2 directions:
-   - Minor Arcana (56 additional cards)
-   - Multi-card spreads
-   - x402 micropayments
-   - Other esoteric tools (runes, numerology)
-
-## Blockers/Concerns
-
-None. v1.0 shipped successfully.
-
-## Notes
-
-- Architecture validated: Skill + subagent pattern works well
-- 345 LOC in single SKILL.md file — highly portable
-- All 13 v1 requirements shipped
-- No tech debt identified
+1. Run `/gsd:plan-phase 6` to plan Wizard Infrastructure
+2. Phase 6 delivers: AskUserQuestion wizard replacing inline args
 
 ---
-*Last updated: 2026-01-22 after v1.0 milestone completion*
+*Last updated: 2026-01-22 after v1.1 roadmap creation*
