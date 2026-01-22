@@ -64,14 +64,15 @@ Plans:
 **Requirements**: SPREAD-01, SPREAD-02, SPREAD-03, SPREAD-04
 **Success Criteria** (what must be TRUE):
   1. User can select single card spread (current behavior preserved)
-  2. User can select Problem/Solution/Synthesis 3-card spread
-  3. User can select "Suggest a spread" and LLM generates contextual positions
+  2. User can select Situation/Action/Outcome 3-card spread
+  3. User can select "Claude suggests" and LLM generates contextual positions
   4. User can select custom spread and type their own position names
   5. Selected spread passes position names to card selection flow
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 07-01: Implement spread selection logic and position generation
+- [ ] 07-01-PLAN.md — Wizard options update, spread dispatch, three-card preset implementation
+- [ ] 07-02-PLAN.md — LLM-suggested and custom spread implementations
 
 ---
 
@@ -121,10 +122,10 @@ Plans:
 | 4. Configuration | v1.0 | 1/1 | Complete | 2026-01-22 |
 | 5. Polish & Integration | v1.0 | 1/1 | Complete | 2026-01-22 |
 | 6. Wizard Infrastructure | v1.1 | 1/1 | Complete | 2026-01-22 |
-| 7. Spread Options | v1.1 | 0/1 | Not started | - |
+| 7. Spread Options | v1.1 | 0/2 | Not started | - |
 | 8. Reading Modes | v1.1 | 0/1 | Not started | - |
 | 9. Multi-Card Interpretation | v1.1 | 0/1 | Not started | - |
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-22 - Phase 6 complete*
+*Last updated: 2026-01-22 - Phase 7 planned (2 plans)*
