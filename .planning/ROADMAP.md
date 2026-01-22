@@ -50,10 +50,10 @@ Phase 9: Multi-Card Interpretation -> Position-aware multi-card readings
   3. Tab 2 presents spread selection (options can be placeholder for now)
   4. Tab 3 presents mode selection (options can be placeholder for now)
   5. Completing wizard triggers reading flow with collected inputs
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 06-01: Replace inline args with AskUserQuestion wizard structure
+- [ ] 06-01-PLAN.md — Add AskUserQuestion wizard, remove context fork, update reading flow
 
 ---
 
@@ -120,11 +120,11 @@ Plans:
 | 3. Voice System | v1.0 | 1/1 | Complete | 2026-01-22 |
 | 4. Configuration | v1.0 | 1/1 | Complete | 2026-01-22 |
 | 5. Polish & Integration | v1.0 | 1/1 | Complete | 2026-01-22 |
-| 6. Wizard Infrastructure | v1.1 | 0/1 | Not started | - |
+| 6. Wizard Infrastructure | v1.1 | 0/1 | Planned | - |
 | 7. Spread Options | v1.1 | 0/1 | Not started | - |
 | 8. Reading Modes | v1.1 | 0/1 | Not started | - |
 | 9. Multi-Card Interpretation | v1.1 | 0/1 | Not started | - |
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-22 - v1.1 phases defined*
+*Last updated: 2026-01-22 - Phase 6 planned*
