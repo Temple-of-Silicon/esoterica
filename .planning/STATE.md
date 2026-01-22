@@ -1,179 +1,89 @@
 # State: Esoterica
 
-**Current Phase:** Milestone v1 Complete
-**Status:** All phases complete
-**Last activity:** 2026-01-22 - Phase 5 verified and milestone complete
+**Current Phase:** Ready for next milestone
+**Status:** v1.0 shipped
+**Last activity:** 2026-01-22 - Milestone v1.0 complete
 
 ## Current Position
 
-Phase: 5 of 5 (Polish & Integration)
-Plan: 1 of 1 in phase
-Status: Milestone v1 complete
-Last activity: 2026-01-22 - Completed 05-01-PLAN.md (polish-integration)
+Milestone: v1.0 complete
+Phase: Ready for v2 planning
+Status: Between milestones
+Last activity: 2026-01-22 - v1.0 shipped
 
-Progress: ██████████ 100% (5/5 phases)
+Progress: v1.0 ██████████ 100% SHIPPED
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2025-01-21)
+See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Agents can draw and interpret tarot cards as a perspective-shifting tool
-**Current focus:** Phase 5 - Polish & Integration
+**Current focus:** Planning next milestone (v1.1 or v2.0)
 
-## Phase Status
+## Milestone Summary
 
-| Phase | Name | Status | Plans Complete |
-|-------|------|--------|----------------|
-| 1 | Skill Infrastructure | ✓ Complete | 1/1 |
-| 2 | Card System | ✓ Complete | 1/1 |
-| 3 | Voice System | ✓ Complete | 1/1 |
-| 4 | Configuration | ✓ Complete | 1/1 |
-| 5 | Polish & Integration | ✓ Complete | 1/1 |
+### v1.0 Tarot Skill (Shipped 2026-01-22)
 
-## Phase 1 Summary
+5 phases, 5 plans, 13 requirements — all complete
 
-**Completed:** 2026-01-21
+**Delivered:**
+- Working `/tarot` skill with 22 Major Arcana
+- Two voices: Mystic and Grounded
+- Persistent voice preference via config files
+- Claude self-invocation enabled
+- Adaptive output formatting
 
-**Deliverables:**
-- ✓ Working `/tarot` skill command
-- ✓ Forked subagent context for isolated readings
-- ✓ Random Major Arcana selection (0-21)
-- ✓ Basic card reference and interpretation structure
-
-**Key Files:**
-- `~/.claude/skills/tarot/SKILL.md` - Core skill definition
-
-## Phase 2 Summary
-
-**Completed:** 2026-01-22
-
-**Deliverables:**
-- ✓ Complete Major Arcana (22 cards) with rich archetypal meanings
-- ✓ Structured card definitions (Themes, Situations, Shadows, Symbols)
-- ✓ Contextual interpretation framework
-- ✓ Subagent acts as tarot reader, not card lookup
-
-**Key Files:**
-- `skills/tarot/SKILL.md` - Updated with complete Major Arcana meanings
-
-## Phase 3 Summary
-
-**Completed:** 2026-01-22
-
-**Deliverables:**
-- ✓ Mystic voice (techno-mystic cosmic priestess, "we/one" pronouns, cosmic-earth metaphors)
-- ✓ Grounded voice (pragmatic advisor, direct "you", actionable language)
-- ✓ Voice examples (The Tower in both voices with technical context)
-- ✓ Voice consistency instructions (maintain voice throughout, including technical topics)
-- ✓ `--voice` flag parsing for immediate voice selection
-
-**Key Files:**
-- `skills/tarot/SKILL.md` - Voice system, examples, argument parsing
-
-## Phase 4 Summary
-
-**Completed:** 2026-01-22
-
-**Deliverables:**
-- ✓ Persistent voice preference via config files
-- ✓ Three-tier precedence: --voice flag > project .tarot > global config > default
-- ✓ Safe grep-based config parsing (no eval, validated values)
-- ✓ Silent fallback on config errors (skill never breaks)
-- ✓ Config documentation in SKILL.md
-
-**Key Files:**
-- `skills/tarot/SKILL.md` - Config reading in voice shell injection
+See: .planning/MILESTONES.md for full details
+See: .planning/milestones/v1-ROADMAP.md for archived phase details
 
 ## Accumulated Decisions
 
-Decisions made during execution that affect future work:
+Full decision log archived in v1-ROADMAP.md.
 
-| Decision | Phase | Context | Rationale |
-|----------|-------|---------|-----------|
-| Context isolation via fork | 01-01 | Tarot skill | Prevents reading context bleeding into main session |
-| Card numbering 0-21 | 01-01 | Major Arcana | Matches canonical tarot deck (The Fool = 0) |
-| Shell injection for randomness | 01-01 | Card selection | Uses system entropy for true random selection |
-| Voice system deferred | 01-01 | Skill structure | Phase 3 will implement, placeholders in place |
-| Embedded card data in prompt | 02-01 | Card meanings | All card knowledge in SKILL.md, no external files |
-| 4-section card structure | 02-01 | Card definitions | Themes/Situations/Shadows/Symbols for each card |
-| Subagent as tarot reader | 02-01 | Interpretation | Directs subagent to interpret FOR user, not provide lookup |
-| Archetypal language | 02-01 | Card meanings | Enables contextual connections to diverse situations |
-| Voice as lens not persona | 03-01 | Voice system | Both voices interpret same cards, just frame differently |
-| --voice flag for selection | 03-01 | Argument parsing | Enables immediate voice choice; config default deferred to Phase 4 |
-| Grounded as default | 03-01 | Voice default | Less alienating for skeptics; can override with --voice mystic |
-| Config file format | 04-01 | Configuration | Simple key=value (voice=mystic), easy to grep, hard to mess up |
-| Safe config parsing | 04-01 | Configuration | grep+cut only (no eval/source), validates values, silent fallback |
-| Three-tier precedence | 04-01 | Configuration | flag > project .tarot > global ~/.claude/tarot/config > default |
-
-## Phase 5 Summary
-
-**Completed:** 2026-01-22
-
-**Deliverables:**
-- ✓ Claude self-invocation enabled (disable-model-invocation removed)
-- ✓ Trigger keywords in description for contextual invocation
-- ✓ Maintainer documentation added
-- ✓ Adaptive output length (quick/standard/deep draw)
-- ✓ Context echoing instructions
-- ✓ Specific reflective question guidance
-
-**Key Files:**
-- `skills/tarot/SKILL.md` - Polished skill with all Phase 5 additions
+Key decisions validated in v1.0:
+- Skill + subagent pattern (✓ Good)
+- Major Arcana only (✓ Good)
+- Two voices (✓ Good)
+- Config file precedence (✓ Good)
 
 ## Recent Activity
 
-- 2025-01-21: Codebase mapped
-- 2025-01-21: PROJECT.md created
-- 2025-01-21: Research completed (stack, features, architecture, pitfalls)
-- 2025-01-21: REQUIREMENTS.md created (13 v1 requirements)
-- 2025-01-21: ROADMAP.md created (5 phases)
-- 2025-01-21: STATE.md created
-- 2025-01-21: Phase 1 research completed (01-RESEARCH.md)
-- 2025-01-21: Phase 1 plan 01 created (01-01-PLAN.md)
-- 2025-01-21: Phase 1 plan 01 executed (task 1 committed: 1bbd194)
-- 2026-01-22: Phase 1 plan 01 checkpoint approved by user
-- 2026-01-22: Phase 1 plan 01 completed (01-01-SUMMARY.md)
-- 2026-01-22: Phase 2 plan 01 executed (task 1 committed: 6cacd26)
-- 2026-01-22: Phase 2 plan 01 checkpoint approved by user
-- 2026-01-22: Phase 2 plan 01 completed (02-01-SUMMARY.md)
-- 2026-01-22: Phase 2 verified and complete
-- 2026-01-22: Phase 3 plan 01 executed (task 1 committed: 03e9817)
-- 2026-01-22: Phase 3 voice argument parsing fixed (committed: 765dc2e)
-- 2026-01-22: Phase 3 plan 01 checkpoint approved by user
-- 2026-01-22: Phase 3 plan 01 completed (03-01-SUMMARY.md)
-- 2026-01-22: Phase 3 verified and complete
-- 2026-01-22: Phase 4 plan 01 executed (task 1 committed: 575498a)
-- 2026-01-22: Phase 4 plan 01 checkpoint approved by user
-- 2026-01-22: Phase 4 plan 01 completed (04-01-SUMMARY.md)
-- 2026-01-22: Phase 4 verified and complete
-- 2026-01-22: Phase 5 plan 01 executed (tasks 1-2 committed: 03ae089)
-- 2026-01-22: Phase 5 plan 01 checkpoint approved by user
-- 2026-01-22: Phase 5 plan 01 completed (05-01-SUMMARY.md)
-- 2026-01-22: Phase 5 verified and complete
-- 2026-01-22: Milestone v1 complete
+- 2025-01-21: Project initialized
+- 2025-01-21: Research and roadmap created
+- 2025-01-21: Phase 1 planned and executed
+- 2026-01-22: Phases 2-5 planned and executed
+- 2026-01-22: Milestone v1.0 audit passed
+- 2026-01-22: Milestone v1.0 complete and archived
 
 ## Session Continuity
 
 Last session: 2026-01-22
-Stopped at: Milestone v1 complete
+Stopped at: v1.0 milestone complete
 Resume file: None
 
 ## Next Steps
 
-1. Run `/gsd:audit-milestone` to verify cross-phase integration
-2. Run `/gsd:complete-milestone` to archive and prepare for v2
-3. Optionally plan v2 features (Minor Arcana, spreads, monetization)
+1. Run `/gsd:new-milestone` to start next milestone
+   - Define new requirements (v1.1 polish or v2.0 features)
+   - Create new REQUIREMENTS.md
+   - Create new ROADMAP.md
+
+2. Potential v2 directions:
+   - Minor Arcana (56 additional cards)
+   - Multi-card spreads
+   - x402 micropayments
+   - Other esoteric tools (runes, numerology)
 
 ## Blockers/Concerns
 
-None. Milestone v1 complete with all 13 requirements satisfied.
+None. v1.0 shipped successfully.
 
 ## Notes
 
-- Architecture: Skill + subagent pattern (no MCP server)
-- Voices: Mystic (witchy) and Grounded (practical) - to be implemented in Phase 3
-- Future: x402 micropayments for paid readings (v2)
-- Skill pattern established: frontmatter + shell injection + forked context
+- Architecture validated: Skill + subagent pattern works well
+- 345 LOC in single SKILL.md file — highly portable
+- All 13 v1 requirements shipped
+- No tech debt identified
 
 ---
-*Last updated: 2026-01-22 after completing Phase 4*
+*Last updated: 2026-01-22 after v1.0 milestone completion*

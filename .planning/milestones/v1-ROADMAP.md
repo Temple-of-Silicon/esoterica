@@ -1,7 +1,8 @@
-# Roadmap: Esoterica v1
+# Milestone v1.0: Tarot Skill
 
-**Created:** 2025-01-21
-**Core Value:** Agents can draw and interpret tarot cards as a perspective-shifting tool for problem-solving, planning, and self-mythologizing.
+**Status:** SHIPPED 2026-01-22
+**Phases:** 1-5
+**Total Plans:** 5
 
 ## Overview
 
@@ -15,17 +16,13 @@ Phase 4: Configuration          → Global voice preference
 Phase 5: Polish & Integration   → Both invocation paths working
 ```
 
----
+## Phases
 
-## Phase 1: Skill Infrastructure ✓
+### Phase 1: Skill Infrastructure
 
-**Goal:** `/tarot` command invokes skill and spawns tarot-reader subagent
-
-**Status:** Complete (2026-01-22)
-
-**Requirements covered:** SKILL-01, SKILL-02, SKILL-03
-
-**Plans:** 1 plan
+**Goal**: `/tarot` command invokes skill and spawns tarot-reader subagent
+**Depends on**: None (first phase)
+**Plans**: 1 plan
 
 Plans:
 - [x] 01-01-PLAN.md — Create tarot skill with context fork and random card selection
@@ -41,19 +38,15 @@ Plans:
 - Subagent receives a random card number ✓
 - Basic response confirms flow works ✓
 
-**Dependencies:** None (first phase)
+**Requirements covered:** SKILL-01, SKILL-02, SKILL-03
 
 ---
 
-## Phase 2: Card System ✓
+### Phase 2: Card System
 
-**Goal:** 22 Major Arcana cards with rich meanings embedded in subagent
-
-**Status:** Complete (2026-01-22)
-
-**Requirements covered:** CARD-01, CARD-02, CARD-03
-
-**Plans:** 1 plan
+**Goal**: 22 Major Arcana cards with rich meanings embedded in subagent
+**Depends on**: Phase 1 (skill infrastructure exists)
+**Plans**: 1 plan
 
 Plans:
 - [x] 02-01-PLAN.md — Embed complete Major Arcana meanings with contextual interpretation
@@ -69,19 +62,15 @@ Plans:
 - Given a card number, subagent provides relevant interpretation ✓
 - Interpretation relates to the context/question provided ✓
 
-**Dependencies:** Phase 1 (skill infrastructure exists)
+**Requirements covered:** CARD-01, CARD-02, CARD-03
 
 ---
 
-## Phase 3: Voice System ✓
+### Phase 3: Voice System
 
-**Goal:** Two interpretive voices - Mystic and Grounded
-
-**Status:** Complete (2026-01-22)
-
-**Requirements covered:** VOICE-01, VOICE-02, VOICE-03
-
-**Plans:** 1 plan
+**Goal**: Two interpretive voices - Mystic and Grounded
+**Depends on**: Phase 2 (cards to interpret)
+**Plans**: 1 plan
 
 Plans:
 - [x] 03-01-PLAN.md — Add Mystic and Grounded voice definitions with examples and consistency instructions
@@ -97,19 +86,15 @@ Plans:
 - Neither voice loses ability to discuss technical topics ✓
 - Voice is tone/framing, not persona change ✓
 
-**Dependencies:** Phase 2 (cards to interpret)
+**Requirements covered:** VOICE-01, VOICE-02, VOICE-03
 
 ---
 
-## Phase 4: Configuration ✓
+### Phase 4: Configuration
 
-**Goal:** Global voice preference that persists
-
-**Status:** Complete (2026-01-22)
-
-**Requirements covered:** CONFIG-01, CONFIG-02
-
-**Plans:** 1 plan
+**Goal**: Global voice preference that persists
+**Depends on**: Phase 3 (voices to choose from)
+**Plans**: 1 plan
 
 Plans:
 - [x] 04-01-PLAN.md — Add config file reading for persistent voice preference
@@ -125,19 +110,15 @@ Plans:
 - All subsequent readings use that voice ✓
 - Can change preference at any time ✓
 
-**Dependencies:** Phase 3 (voices to choose from)
+**Requirements covered:** CONFIG-01, CONFIG-02
 
 ---
 
-## Phase 5: Polish & Integration ✓
+### Phase 5: Polish & Integration
 
-**Goal:** Both user and Claude can invoke readings smoothly
-
-**Status:** Complete (2026-01-22)
-
-**Requirements covered:** INVOKE-01, INVOKE-02
-
-**Plans:** 1 plan
+**Goal**: Both user and Claude can invoke readings smoothly
+**Depends on**: Phases 1-4 complete
+**Plans**: 1 plan
 
 Plans:
 - [x] 05-01-PLAN.md — Enable Claude self-invocation and add adaptive output formatting
@@ -154,24 +135,44 @@ Plans:
 - Claude can invoke when stuck/exploring ✓
 - Clear output format for both paths ✓
 
-**Dependencies:** Phases 1-4 complete
+**Requirements covered:** INVOKE-01, INVOKE-02
 
 ---
 
-## Phase Summary
+## Milestone Summary
 
-| Phase | Goal | Requirements | Est. Complexity |
-|-------|------|--------------|-----------------|
-| 1 | Skill Infrastructure | SKILL-01,02,03 | Low |
-| 2 | Card System | CARD-01,02,03 | Medium |
-| 3 | Voice System | VOICE-01,02,03 | Medium |
-| 4 | Configuration | CONFIG-01,02 | Low |
-| 5 | Polish & Integration | INVOKE-01,02 | Low |
+**Key Decisions:**
 
-**Total v1 requirements:** 13
-**Phases:** 5
-**All requirements mapped:** Yes
+| Decision | Phase | Context | Rationale |
+|----------|-------|---------|-----------|
+| Context isolation via fork | 01-01 | Tarot skill | Prevents reading context bleeding into main session |
+| Card numbering 0-21 | 01-01 | Major Arcana | Matches canonical tarot deck (The Fool = 0) |
+| Shell injection for randomness | 01-01 | Card selection | Uses system entropy for true random selection |
+| Embedded card data in prompt | 02-01 | Card meanings | All card knowledge in SKILL.md, no external files |
+| 4-section card structure | 02-01 | Card definitions | Themes/Situations/Shadows/Symbols for each card |
+| Subagent as tarot reader | 02-01 | Interpretation | Directs subagent to interpret FOR user, not provide lookup |
+| Voice as lens not persona | 03-01 | Voice system | Both voices interpret same cards, just frame differently |
+| --voice flag for selection | 03-01 | Argument parsing | Enables immediate voice choice |
+| Grounded as default | 03-01 | Voice default | Less alienating for skeptics |
+| Config file format | 04-01 | Configuration | Simple key=value (voice=mystic), easy to grep |
+| Safe config parsing | 04-01 | Configuration | grep+cut only (no eval/source), validates values |
+| Three-tier precedence | 04-01 | Configuration | flag > project .tarot > global ~/.claude/tarot/config > default |
+| Enable self-invocation | 05-01 | Claude invocation | Tarot has no side effects; safe for Claude to invoke autonomously |
+
+**Issues Resolved:**
+- None (clean development)
+
+**Issues Deferred:**
+- Minor Arcana (56 cards) — deferred to v2
+- Multi-card spreads — deferred to v2
+- x402 micropayments — deferred to v2
+
+**Technical Debt Incurred:**
+- None identified
 
 ---
-*Roadmap created: 2025-01-21*
-*Last updated: 2026-01-22 — Milestone v1 complete*
+
+_For current project status, see .planning/ROADMAP.md (created for next milestone)_
+
+---
+*Archived: 2026-01-22 as part of v1.0 milestone completion*
