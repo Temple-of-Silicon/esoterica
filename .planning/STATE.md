@@ -1,24 +1,24 @@
 # State: Esoterica
 
-**Current Phase:** Phase 3 - Voice System (3 of 5)
-**Status:** Phase 3 complete
-**Last activity:** 2026-01-22 - Phase 3 verified and complete
+**Current Phase:** Phase 4 - Configuration (4 of 5)
+**Status:** Phase 4 complete
+**Last activity:** 2026-01-22 - Phase 4 verified and complete
 
 ## Current Position
 
-Phase: 3 of 5 (Voice System)
+Phase: 4 of 5 (Configuration)
 Plan: 1 of 1 in phase
-Status: Phase 3 complete
-Last activity: 2026-01-22 - Completed 03-01-PLAN.md (voice-system)
+Status: Phase 4 complete
+Last activity: 2026-01-22 - Completed 04-01-PLAN.md (config-file-reading)
 
-Progress: ██████░░░░ 60% (3/5 phases)
+Progress: ████████░░ 80% (4/5 phases)
 
 ## Project Reference
 
 See: .planning/PROJECT.md (updated 2025-01-21)
 
 **Core value:** Agents can draw and interpret tarot cards as a perspective-shifting tool
-**Current focus:** Phase 4 - Configuration
+**Current focus:** Phase 5 - Polish & Integration
 
 ## Phase Status
 
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2025-01-21)
 | 1 | Skill Infrastructure | ✓ Complete | 1/1 |
 | 2 | Card System | ✓ Complete | 1/1 |
 | 3 | Voice System | ✓ Complete | 1/1 |
-| 4 | Configuration | Not Started | 0/? |
+| 4 | Configuration | ✓ Complete | 1/1 |
 | 5 | Polish & Integration | Not Started | 0/? |
 
 ## Phase 1 Summary
@@ -70,6 +70,20 @@ See: .planning/PROJECT.md (updated 2025-01-21)
 **Key Files:**
 - `skills/tarot/SKILL.md` - Voice system, examples, argument parsing
 
+## Phase 4 Summary
+
+**Completed:** 2026-01-22
+
+**Deliverables:**
+- ✓ Persistent voice preference via config files
+- ✓ Three-tier precedence: --voice flag > project .tarot > global config > default
+- ✓ Safe grep-based config parsing (no eval, validated values)
+- ✓ Silent fallback on config errors (skill never breaks)
+- ✓ Config documentation in SKILL.md
+
+**Key Files:**
+- `skills/tarot/SKILL.md` - Config reading in voice shell injection
+
 ## Accumulated Decisions
 
 Decisions made during execution that affect future work:
@@ -87,6 +101,9 @@ Decisions made during execution that affect future work:
 | Voice as lens not persona | 03-01 | Voice system | Both voices interpret same cards, just frame differently |
 | --voice flag for selection | 03-01 | Argument parsing | Enables immediate voice choice; config default deferred to Phase 4 |
 | Grounded as default | 03-01 | Voice default | Less alienating for skeptics; can override with --voice mystic |
+| Config file format | 04-01 | Configuration | Simple key=value (voice=mystic), easy to grep, hard to mess up |
+| Safe config parsing | 04-01 | Configuration | grep+cut only (no eval/source), validates values, silent fallback |
+| Three-tier precedence | 04-01 | Configuration | flag > project .tarot > global ~/.claude/tarot/config > default |
 
 ## Recent Activity
 
@@ -110,25 +127,29 @@ Decisions made during execution that affect future work:
 - 2026-01-22: Phase 3 plan 01 checkpoint approved by user
 - 2026-01-22: Phase 3 plan 01 completed (03-01-SUMMARY.md)
 - 2026-01-22: Phase 3 verified and complete
+- 2026-01-22: Phase 4 plan 01 executed (task 1 committed: 575498a)
+- 2026-01-22: Phase 4 plan 01 checkpoint approved by user
+- 2026-01-22: Phase 4 plan 01 completed (04-01-SUMMARY.md)
+- 2026-01-22: Phase 4 verified and complete
 
 ## Session Continuity
 
 Last session: 2026-01-22
-Stopped at: Completed Phase 3 (Voice System)
+Stopped at: Completed Phase 4 (Configuration)
 Resume file: None
 
 ## Next Steps
 
-1. Plan Phase 4: Configuration
-   - Implement persistent voice preference
-   - Config location (~/.claude/ or project-level)
-   - Skill reads config on invocation
-2. Execute Phase 4
-3. Continue through remaining phases
+1. Plan Phase 5: Polish & Integration
+   - User documentation (how to use /tarot, voice options, config)
+   - Final polish based on usage patterns
+   - Integration testing
+2. Execute Phase 5
+3. Project complete (final phase)
 
 ## Blockers/Concerns
 
-None currently. Phases 1-2 complete, ready to proceed.
+None currently. Phases 1-4 complete, ready for final phase (Polish & Integration).
 
 ## Notes
 
@@ -138,4 +159,4 @@ None currently. Phases 1-2 complete, ready to proceed.
 - Skill pattern established: frontmatter + shell injection + forked context
 
 ---
-*Last updated: 2026-01-22 after completing Phase 3*
+*Last updated: 2026-01-22 after completing Phase 4*
