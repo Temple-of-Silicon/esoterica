@@ -107,10 +107,10 @@ Plans:
 
 **Requirements covered:** CONFIG-01, CONFIG-02
 
-**Plans:** (created by /gsd:plan-phase)
+**Plans:** 1 plan
 
 Plans:
-- [ ] TBD — Plan details will be created during phase planning
+- [ ] 04-01-PLAN.md — Add config file reading for persistent voice preference
 
 **Deliverables:**
 - [ ] Config location determined (~/.claude/ or similar)
@@ -169,4 +169,4 @@ Plans:
 
 ---
 *Roadmap created: 2025-01-21*
-*Last updated: 2026-01-22 after Phase 3 completion*
+*Last updated: 2026-01-22 after Phase 4 planning*
