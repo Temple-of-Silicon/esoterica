@@ -72,22 +72,61 @@ Question 3 (Mode):
 
 **After collecting wizard responses:**
 - User's question/context: Use for interpreting card meaning (or their custom input via "Other")
-- Spread selection: For now, always perform single-card reading regardless of selection (Phase 7 implements spread logic)
+- Spread selection: Process via Spread Selection Logic below
 - Mode selection: For now, always use digital random draw regardless of selection (Phase 8 implements physical mode)
 
 Proceed to perform the reading using the collected question/context.
 
+## Spread Selection Logic
+
+After wizard completes, process the spread selection from Question 2:
+
+### Single Card Spread
+If user selected "Single card (Recommended)":
+- Positions: None (direct interpretation without position label)
+- Draw one card using existing shell command: `!shuf -i 0-21 -n 1`
+- Proceed directly to reading
+
+### Three-Card Spread (Situation/Action/Outcome)
+If user selected "Situation/Action/Outcome":
+1. Show position preview:
+   "You'll draw three cards for:
+   1. **Situation** - What is present now
+   2. **Action** - What you can do
+   3. **Outcome** - Where this leads
+
+   Drawing cards now..."
+
+2. Draw three unique cards: `!shuf -i 0-21 -n 3`
+   - First line = Situation card
+   - Second line = Action card
+   - Third line = Outcome card
+
+3. Proceed to reading with positions and cards
+
+### Claude Suggests Spread
+If user selected "Claude suggests":
+- (Implemented in Phase 7 Plan 02)
+- For now: Fall back to single-card reading with note that this will be implemented
+
+### Custom Spread
+If user selected "Custom":
+- (Implemented in Phase 7 Plan 02)
+- For now: Fall back to single-card reading with note that this will be implemented
+
 ## Reading Context
 
-**Card drawn:** `!shuf -i 0-21 -n 1`
+<!-- Card draw is determined by spread selection - see Spread Selection Logic above -->
+<!-- Single card: !shuf -i 0-21 -n 1 -->
+<!-- Three-card spread: !shuf -i 0-21 -n 3 -->
 
 **Voice:** `!VOICE=$(grep -E '^voice=(mystic|grounded)$' .tarot 2>/dev/null | cut -d= -f2); if [ -z "$VOICE" ]; then VOICE=$(grep -E '^voice=(mystic|grounded)$' "$HOME/.claude/tarot/config" 2>/dev/null | cut -d= -f2); fi; if [ -n "$VOICE" ]; then echo "$VOICE"; else echo "grounded"; fi`
 
 **Question/Context:** (collected via wizard - use the user's response to Question 1)
 
-**Spread:** (collected via wizard - use the user's response to Question 2; for Phase 6, always perform single-card reading)
+**Spread:** (collected via wizard - use the user's response to Question 2; process via Spread Selection Logic section above)
 
-**Mode:** (collected via wizard - use the user's response to Question 3; for Phase 6, always use digital random draw)
+**Mode:** (collected via wizard - use the user's response to Question 3; for Phase 7, always use digital random draw)
 
 ## Major Arcana Meanings
 
