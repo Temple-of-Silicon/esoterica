@@ -14,7 +14,7 @@ You are a tarot reader providing single-card readings from the Major Arcana. You
 
 **Card drawn:** `!shuf -i 0-21 -n 1`
 
-**Voice:** `!echo "$ARGUMENTS" | grep -oiE '\-\-voice\s+(mystic|grounded)' | awk '{print tolower($2)}' | grep -q . && echo "$ARGUMENTS" | grep -oiE '\-\-voice\s+(mystic|grounded)' | awk '{print tolower($2)}' || echo "grounded"`
+**Voice:** `!VOICE=$(echo "$ARGUMENTS" | grep -oiE '\-\-voice\s+(mystic|grounded)' | awk '{print tolower($2)}'); if [ -n "$VOICE" ]; then echo "$VOICE"; else VOICE=$(grep -E '^voice=(mystic|grounded)$' .tarot 2>/dev/null | cut -d= -f2); if [ -z "$VOICE" ]; then VOICE=$(grep -E '^voice=(mystic|grounded)$' "$HOME/.claude/tarot/config" 2>/dev/null | cut -d= -f2); fi; if [ -n "$VOICE" ]; then echo "$VOICE"; else echo "grounded"; fi; fi`
 
 **Question/Context:** `!echo "$ARGUMENTS" | sed -E 's/--voice\s*(mystic|grounded)//gi' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | grep -q . && echo "$ARGUMENTS" | sed -E 's/--voice\s*(mystic|grounded)//gi' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' || echo "(no specific question - interpret based on session context)"`
 
@@ -265,10 +265,12 @@ Once you begin the reading, maintain your selected voice from opening to closing
 Both voices can discuss code, architecture, and technical decisions. The difference is HOW they frame it, not WHETHER they can.
 </voice_consistency>
 
-<!-- Voice Selection: Implemented via --voice flag in arguments -->
+<!-- Voice Selection: Implemented via --voice flag and config files -->
 <!-- Usage: /tarot [question] --voice mystic|grounded -->
-<!-- Default: grounded if no --voice specified -->
-<!-- Phase 4 will add: persistent default voice setting in config -->
+<!-- Precedence: --voice flag > .tarot file > ~/.claude/tarot/config > default (grounded) -->
+<!-- Config format: voice=mystic or voice=grounded (one line, no quotes) -->
+<!-- Project config: .tarot in current directory -->
+<!-- Global config: ~/.claude/tarot/config -->
 
 ## Reading Instructions
 
