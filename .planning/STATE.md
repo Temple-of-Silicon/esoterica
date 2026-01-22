@@ -1,17 +1,17 @@
 # State: Esoterica
 
-**Current Phase:** Phase 4 - Configuration (4 of 5)
-**Status:** Phase 4 complete
-**Last activity:** 2026-01-22 - Phase 4 verified and complete
+**Current Phase:** Milestone v1 Complete
+**Status:** All phases complete
+**Last activity:** 2026-01-22 - Phase 5 verified and milestone complete
 
 ## Current Position
 
-Phase: 4 of 5 (Configuration)
+Phase: 5 of 5 (Polish & Integration)
 Plan: 1 of 1 in phase
-Status: Phase 4 complete
-Last activity: 2026-01-22 - Completed 04-01-PLAN.md (config-file-reading)
+Status: Milestone v1 complete
+Last activity: 2026-01-22 - Completed 05-01-PLAN.md (polish-integration)
 
-Progress: ████████░░ 80% (4/5 phases)
+Progress: ██████████ 100% (5/5 phases)
 
 ## Project Reference
 
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2025-01-21)
 | 2 | Card System | ✓ Complete | 1/1 |
 | 3 | Voice System | ✓ Complete | 1/1 |
 | 4 | Configuration | ✓ Complete | 1/1 |
-| 5 | Polish & Integration | Not Started | 0/? |
+| 5 | Polish & Integration | ✓ Complete | 1/1 |
 
 ## Phase 1 Summary
 
@@ -105,6 +105,21 @@ Decisions made during execution that affect future work:
 | Safe config parsing | 04-01 | Configuration | grep+cut only (no eval/source), validates values, silent fallback |
 | Three-tier precedence | 04-01 | Configuration | flag > project .tarot > global ~/.claude/tarot/config > default |
 
+## Phase 5 Summary
+
+**Completed:** 2026-01-22
+
+**Deliverables:**
+- ✓ Claude self-invocation enabled (disable-model-invocation removed)
+- ✓ Trigger keywords in description for contextual invocation
+- ✓ Maintainer documentation added
+- ✓ Adaptive output length (quick/standard/deep draw)
+- ✓ Context echoing instructions
+- ✓ Specific reflective question guidance
+
+**Key Files:**
+- `skills/tarot/SKILL.md` - Polished skill with all Phase 5 additions
+
 ## Recent Activity
 
 - 2025-01-21: Codebase mapped
@@ -131,25 +146,27 @@ Decisions made during execution that affect future work:
 - 2026-01-22: Phase 4 plan 01 checkpoint approved by user
 - 2026-01-22: Phase 4 plan 01 completed (04-01-SUMMARY.md)
 - 2026-01-22: Phase 4 verified and complete
+- 2026-01-22: Phase 5 plan 01 executed (tasks 1-2 committed: 03ae089)
+- 2026-01-22: Phase 5 plan 01 checkpoint approved by user
+- 2026-01-22: Phase 5 plan 01 completed (05-01-SUMMARY.md)
+- 2026-01-22: Phase 5 verified and complete
+- 2026-01-22: Milestone v1 complete
 
 ## Session Continuity
 
 Last session: 2026-01-22
-Stopped at: Completed Phase 4 (Configuration)
+Stopped at: Milestone v1 complete
 Resume file: None
 
 ## Next Steps
 
-1. Plan Phase 5: Polish & Integration
-   - User documentation (how to use /tarot, voice options, config)
-   - Final polish based on usage patterns
-   - Integration testing
-2. Execute Phase 5
-3. Project complete (final phase)
+1. Run `/gsd:audit-milestone` to verify cross-phase integration
+2. Run `/gsd:complete-milestone` to archive and prepare for v2
+3. Optionally plan v2 features (Minor Arcana, spreads, monetization)
 
 ## Blockers/Concerns
 
-None currently. Phases 1-4 complete, ready for final phase (Polish & Integration).
+None. Milestone v1 complete with all 13 requirements satisfied.
 
 ## Notes
 

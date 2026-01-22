@@ -129,28 +129,30 @@ Plans:
 
 ---
 
-## Phase 5: Polish & Integration
+## Phase 5: Polish & Integration ✓
 
 **Goal:** Both user and Claude can invoke readings smoothly
+
+**Status:** Complete (2026-01-22)
 
 **Requirements covered:** INVOKE-01, INVOKE-02
 
 **Plans:** 1 plan
 
 Plans:
-- [ ] 05-01-PLAN.md — Enable Claude self-invocation and add adaptive output formatting
+- [x] 05-01-PLAN.md — Enable Claude self-invocation and add adaptive output formatting
 
 **Deliverables:**
-- [ ] User invocation via `/tarot` polished
-- [ ] Claude programmatic invocation enabled (disable-model-invocation removed)
-- [ ] Adaptive output length (quick/standard/deep draw)
-- [ ] Context echoing in readings
-- [ ] Reflective closing questions
+- [x] User invocation via `/tarot` polished
+- [x] Claude programmatic invocation enabled (disable-model-invocation removed)
+- [x] Adaptive output length (quick/standard/deep draw)
+- [x] Context echoing in readings
+- [x] Reflective closing questions
 
 **Success criteria:**
-- User can `/tarot` with optional context
-- Claude can invoke when stuck/exploring
-- Clear output format for both paths
+- User can `/tarot` with optional context ✓
+- Claude can invoke when stuck/exploring ✓
+- Clear output format for both paths ✓
 
 **Dependencies:** Phases 1-4 complete
 
@@ -172,4 +174,4 @@ Plans:
 
 ---
 *Roadmap created: 2025-01-21*
-*Last updated: 2026-01-22 after Phase 5 planning*
+*Last updated: 2026-01-22 — Milestone v1 complete*

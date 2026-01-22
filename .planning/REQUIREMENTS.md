@@ -32,8 +32,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Invocation
 
-- [ ] **INVOKE-01**: User can invoke reading via `/tarot` command
-- [ ] **INVOKE-02**: Claude can invoke reading programmatically when stuck/exploring
+- [x] **INVOKE-01**: User can invoke reading via `/tarot` command
+- [x] **INVOKE-02**: Claude can invoke reading programmatically when stuck/exploring
 
 ## v2 Requirements
 
@@ -97,8 +97,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | VOICE-03 | Phase 3 | Complete |
 | CONFIG-01 | Phase 4 | Complete |
 | CONFIG-02 | Phase 4 | Complete |
-| INVOKE-01 | Phase 5 | Pending |
-| INVOKE-02 | Phase 5 | Pending |
+| INVOKE-01 | Phase 5 | Complete |
+| INVOKE-02 | Phase 5 | Complete |
 
 **Coverage:**
 - v1 requirements: 13 total
@@ -107,4 +107,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2025-01-21*
-*Last updated: 2026-01-22 after Phase 4 completion*
+*Last updated: 2026-01-22 — All v1 requirements complete*
