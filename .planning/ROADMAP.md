@@ -135,16 +135,17 @@ Plans:
 
 **Requirements covered:** INVOKE-01, INVOKE-02
 
-**Plans:** (created by /gsd:plan-phase)
+**Plans:** 1 plan
 
 Plans:
-- [ ] TBD — Plan details will be created during phase planning
+- [ ] 05-01-PLAN.md — Enable Claude self-invocation and add adaptive output formatting
 
 **Deliverables:**
 - [ ] User invocation via `/tarot` polished
-- [ ] Claude programmatic invocation documented
-- [ ] Error handling for edge cases
-- [ ] Usage examples in skill help
+- [ ] Claude programmatic invocation enabled (disable-model-invocation removed)
+- [ ] Adaptive output length (quick/standard/deep draw)
+- [ ] Context echoing in readings
+- [ ] Reflective closing questions
 
 **Success criteria:**
 - User can `/tarot` with optional context
@@ -171,4 +172,4 @@ Plans:
 
 ---
 *Roadmap created: 2025-01-21*
-*Last updated: 2026-01-22 after Phase 4 completion*
+*Last updated: 2026-01-22 after Phase 5 planning*
