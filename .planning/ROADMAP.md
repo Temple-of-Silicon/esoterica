@@ -3,7 +3,7 @@
 ## Milestones
 
 - **v1.0 Tarot Skill** - Phases 1-5 (shipped 2026-01-22)
-- **v1.1 Wizard UI** - Phases 6-9 (in progress)
+- **v1.1 Wizard UI** - Phases 6-9 (complete 2026-01-22)
 
 ## Phases
 
@@ -21,7 +21,7 @@ See: `.planning/milestones/v1-ROADMAP.md` for full details.
 
 </details>
 
-### v1.1 Wizard UI (In Progress)
+### v1.1 Wizard UI (Complete)
 
 **Milestone Goal:** Replace inline args with interactive wizard flow, add spread selection and physical reading mode.
 
@@ -35,7 +35,7 @@ Phase 9: Multi-Card Interpretation -> Position-aware multi-card readings
 - [x] **Phase 6: Wizard Infrastructure** - AskUserQuestion wizard replaces inline args
 - [x] **Phase 7: Spread Options** - Four spread types available in wizard
 - [x] **Phase 8: Reading Modes** - Digital and physical reading modes
-- [ ] **Phase 9: Multi-Card Interpretation** - Position-aware interpretation engine
+- [x] **Phase 9: Multi-Card Interpretation** - Position-aware interpretation engine
 
 ## Phase Details
 
@@ -106,7 +106,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 09-01-PLAN.md — Woven narrative format, position-weaving patterns, card relationships, voice examples
+- [x] 09-01-PLAN.md — Woven narrative format, position-weaving patterns, card relationships, voice examples
 
 ---
 
@@ -124,8 +124,8 @@ Plans:
 | 6. Wizard Infrastructure | v1.1 | 1/1 | Complete | 2026-01-22 |
 | 7. Spread Options | v1.1 | 2/2 | Complete | 2026-01-22 |
 | 8. Reading Modes | v1.1 | 1/1 | Complete | 2026-01-22 |
-| 9. Multi-Card Interpretation | v1.1 | 0/1 | Not started | - |
+| 9. Multi-Card Interpretation | v1.1 | 1/1 | Complete | 2026-01-22 |
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-22 - Phase 8 complete*
+*Last updated: 2026-01-22 - Phase 9 complete, v1.1 milestone complete*
