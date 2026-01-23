@@ -185,6 +185,65 @@ If user selected "Custom":
    Draw unique cards: `!shuf -i 0-21 -n [N]`
    - Each line of output corresponds to a position in order
 
+## Card Matching Functions
+
+This section provides helper logic for physical mode card entry. When a user enters a card name or number during physical mode, use this matching strategy to validate their input.
+
+**match_card function logic:**
+
+Input: User-typed card name or number
+Output: Card number (0-21) or "no match"
+
+Matching strategy (apply in order):
+
+1. **Normalize input:**
+   - Convert to lowercase
+   - Strip leading "the " prefix (e.g., "the fool" → "fool")
+
+2. **Exact match against card names:**
+   - Match normalized input against card name table below (e.g., "fool", "magician", "high priestess")
+
+3. **Common variants:**
+   - "wheel" matches "Wheel of Fortune"
+   - "hanged" matches "Hanged Man"
+   - Both "judgement" and "judgment" match card 20
+
+4. **Numeric input:**
+   - If input is a number, validate it's in range 0-21
+   - Convert directly to card number
+
+5. **No match:**
+   - If none of the above match, return failure for user retry
+
+**Card name lookup table:**
+
+Use this table to map card names/numbers to their full names:
+
+- 0: The Fool
+- 1: The Magician
+- 2: The High Priestess
+- 3: The Empress
+- 4: The Emperor
+- 5: The Hierophant
+- 6: The Lovers
+- 7: The Chariot
+- 8: Strength
+- 9: The Hermit
+- 10: Wheel of Fortune
+- 11: Justice
+- 12: The Hanged Man
+- 13: Death
+- 14: Temperance
+- 15: The Devil
+- 16: The Tower
+- 17: The Star
+- 18: The Moon
+- 19: The Sun
+- 20: Judgement
+- 21: The World
+
+When validating user input in physical mode, apply the match_card logic above to convert their input into a card number (0-21), then use the card number for interpretation.
+
 ## Reading Context
 
 <!-- Card draw is determined by spread selection - see Spread Selection Logic above -->
