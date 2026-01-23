@@ -33,7 +33,7 @@ Phase 9: Multi-Card Interpretation -> Position-aware multi-card readings
 ```
 
 - [x] **Phase 6: Wizard Infrastructure** - AskUserQuestion wizard replaces inline args
-- [ ] **Phase 7: Spread Options** - Four spread types available in wizard
+- [x] **Phase 7: Spread Options** - Four spread types available in wizard
 - [ ] **Phase 8: Reading Modes** - Digital and physical reading modes
 - [ ] **Phase 9: Multi-Card Interpretation** - Position-aware interpretation engine
 
@@ -71,8 +71,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 07-01-PLAN.md — Wizard options update, spread dispatch, three-card preset implementation
-- [ ] 07-02-PLAN.md — LLM-suggested and custom spread implementations
+- [x] 07-01-PLAN.md — Wizard options update, spread dispatch, three-card preset implementation
+- [x] 07-02-PLAN.md — LLM-suggested and custom spread implementations
 
 ---
 
@@ -122,10 +122,10 @@ Plans:
 | 4. Configuration | v1.0 | 1/1 | Complete | 2026-01-22 |
 | 5. Polish & Integration | v1.0 | 1/1 | Complete | 2026-01-22 |
 | 6. Wizard Infrastructure | v1.1 | 1/1 | Complete | 2026-01-22 |
-| 7. Spread Options | v1.1 | 0/2 | Not started | - |
+| 7. Spread Options | v1.1 | 2/2 | Complete | 2026-01-22 |
 | 8. Reading Modes | v1.1 | 0/1 | Not started | - |
 | 9. Multi-Card Interpretation | v1.1 | 0/1 | Not started | - |
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-22 - Phase 7 planned (2 plans)*
+*Last updated: 2026-01-22 - Phase 7 complete*
