@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 ## Current Position
 
 Milestone: v1.1 Wizard UI
-Phase: 8 of 9 (Reading Modes)
+Phase: 9 of 9 (Multi-Card Interpretation)
 Plan: 1 of 1 complete
 Status: Phase complete
-Last activity: 2026-01-23 - Completed 08-01-PLAN.md
+Last activity: 2026-01-23 - Completed 09-01-PLAN.md
 
-Progress: v1.1 [████------] 50%
+Progress: v1.1 [█████-----] 56%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9 (5 v1.0 + 4 v1.1)
+- Total plans completed: 10 (5 v1.0 + 5 v1.1)
 - Average duration (v1.1): 2.4 min
-- Total execution time (v1.1): 10 min
+- Total execution time (v1.1): 12 min
 
 **By Phase:**
 
@@ -32,6 +32,7 @@ Progress: v1.1 [████------] 50%
 | Phase 6 (Wizard Infrastructure) | 1 | 3 min | 3 min |
 | Phase 7 (Spread Options) | 2 | 4 min | 2 min |
 | Phase 8 (Reading Modes) | 1 | 3 min | 3 min |
+| Phase 9 (Multi-Card Interpretation) | 1 | 2 min | 2 min |
 
 ## Accumulated Context
 
@@ -63,6 +64,12 @@ v1.0 validated decisions carry forward (with Phase 6 modification):
 - Duplicate prevention in multi-card spreads (follows tarot convention)
 - Summary confirmation for multi-card physical readings (user confidence before interpretation)
 
+**Phase 9 decisions:**
+- Multi-card uses woven narrative, single-card preserves v1.0 format (format distinction based on card count)
+- Position names woven into prose as interpretive prompts, not section headers
+- Card relationships explicitly called out (tensions/harmonies/imagery references)
+- Closing questions must reference multiple cards/positions from reading (no generic "What resonates?")
+
 ### Pending Todos
 
 - [ ] Add a v1 README to the repo
@@ -76,13 +83,14 @@ None. Starting fresh milestone.
 ## Session Continuity
 
 Last session: 2026-01-23
-Stopped at: Completed 08-01-PLAN.md (Phase 8 complete)
+Stopped at: Completed 09-01-PLAN.md (Phase 9 complete)
 Resume file: None
 
 ## Next Steps
 
-1. Begin Phase 9 - Integration & Polish
-2. Digital and physical modes complete and ready for final integration
+1. Phase 9 complete - multi-card interpretation with woven narrative implemented
+2. All core v1.1 functionality complete (wizard, spreads, modes, interpretation)
+3. Ready for integration testing and polish
 
 ---
-*Last updated: 2026-01-23 after Phase 8 completion*
+*Last updated: 2026-01-23 after Phase 9 completion*
