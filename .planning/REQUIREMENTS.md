@@ -23,9 +23,9 @@ Requirements for Wizard UI milestone. Each maps to roadmap phases.
 
 ### Reading Modes
 
-- [ ] **MODE-01**: Digital mode performs random card selection (current behavior)
-- [ ] **MODE-02**: Physical mode prompts user to enter cards they drew
-- [ ] **MODE-03**: Physical mode accepts card names/numbers from real deck
+- [x] **MODE-01**: Digital mode performs random card selection (current behavior)
+- [x] **MODE-02**: Physical mode prompts user to enter cards they drew
+- [x] **MODE-03**: Physical mode accepts card names/numbers from real deck
 
 ### Interpretation
 
@@ -92,9 +92,9 @@ Which phases cover which requirements.
 | SPREAD-02 | Phase 7 | Pending |
 | SPREAD-03 | Phase 7 | Pending |
 | SPREAD-04 | Phase 7 | Pending |
-| MODE-01 | Phase 8 | Pending |
-| MODE-02 | Phase 8 | Pending |
-| MODE-03 | Phase 8 | Pending |
+| MODE-01 | Phase 8 | Complete |
+| MODE-02 | Phase 8 | Complete |
+| MODE-03 | Phase 8 | Complete |
 | INTERP-01 | Phase 9 | Pending |
 | INTERP-02 | Phase 9 | Pending |
 | INTERP-03 | Phase 9 | Pending |
@@ -106,4 +106,4 @@ Which phases cover which requirements.
 
 ---
 *Requirements defined: 2026-01-22*
-*Last updated: 2026-01-22 after v1.1 roadmap creation*
+*Last updated: 2026-01-22 - Phase 8 complete (MODE-01, MODE-02, MODE-03)*

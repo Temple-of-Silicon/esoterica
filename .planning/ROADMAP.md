@@ -34,7 +34,7 @@ Phase 9: Multi-Card Interpretation -> Position-aware multi-card readings
 
 - [x] **Phase 6: Wizard Infrastructure** - AskUserQuestion wizard replaces inline args
 - [x] **Phase 7: Spread Options** - Four spread types available in wizard
-- [ ] **Phase 8: Reading Modes** - Digital and physical reading modes
+- [x] **Phase 8: Reading Modes** - Digital and physical reading modes
 - [ ] **Phase 9: Multi-Card Interpretation** - Position-aware interpretation engine
 
 ## Phase Details
@@ -89,7 +89,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 08-01-PLAN.md - Card matching infrastructure, physical mode entry flow, mode dispatch
+- [x] 08-01-PLAN.md - Card matching infrastructure, physical mode entry flow, mode dispatch
 
 ---
 
@@ -123,9 +123,9 @@ Plans:
 | 5. Polish & Integration | v1.0 | 1/1 | Complete | 2026-01-22 |
 | 6. Wizard Infrastructure | v1.1 | 1/1 | Complete | 2026-01-22 |
 | 7. Spread Options | v1.1 | 2/2 | Complete | 2026-01-22 |
-| 8. Reading Modes | v1.1 | 0/1 | Not started | - |
+| 8. Reading Modes | v1.1 | 1/1 | Complete | 2026-01-22 |
 | 9. Multi-Card Interpretation | v1.1 | 0/1 | Not started | - |
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-22 - Phase 7 complete*
+*Last updated: 2026-01-22 - Phase 8 complete*
