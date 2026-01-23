@@ -73,7 +73,7 @@ Question 3 (Mode):
 **After collecting wizard responses:**
 - User's question/context: Use for interpreting card meaning (or their custom input via "Other")
 - Spread selection: Process via Spread Selection Logic below
-- Mode selection: For now, always use digital random draw regardless of selection (Phase 8 implements physical mode)
+- Mode selection: Digital uses random shuf, Physical uses card entry flow (see Physical Mode Card Entry section)
 
 Proceed to perform the reading using the collected question/context.
 
@@ -84,7 +84,8 @@ After wizard completes, process the spread selection from Question 2:
 ### Single Card Spread
 If user selected "Single card (Recommended)":
 - Positions: None (direct interpretation without position label)
-- Draw one card using existing shell command: `!shuf -i 0-21 -n 1`
+- For digital mode, draw using: `!shuf -i 0-21 -n 1`
+- For physical mode, see Physical Mode Card Entry section
 - Proceed directly to reading
 
 ### Three-Card Spread (Situation/Action/Outcome)
@@ -97,10 +98,12 @@ If user selected "Situation/Action/Outcome":
 
    Drawing cards now..."
 
-2. Draw three unique cards: `!shuf -i 0-21 -n 3`
+2. For digital mode, draw three unique cards: `!shuf -i 0-21 -n 3`
    - First line = Situation card
    - Second line = Action card
    - Third line = Outcome card
+
+   For physical mode, see Physical Mode Card Entry section
 
 3. Proceed to reading with positions and cards
 
@@ -148,7 +151,8 @@ If user selected "Claude suggests":
 
    Drawing cards now..."
 
-   Then draw: `!shuf -i 0-21 -n 3`
+   For digital mode, draw: `!shuf -i 0-21 -n 3`
+   For physical mode, see Physical Mode Card Entry section
 
 ### Custom Spread
 If user selected "Custom":
@@ -182,8 +186,10 @@ If user selected "Custom":
 
    Drawing cards now..."
 
-   Draw unique cards: `!shuf -i 0-21 -n [N]`
+   For digital mode, draw unique cards: `!shuf -i 0-21 -n [N]`
    - Each line of output corresponds to a position in order
+
+   For physical mode, see Physical Mode Card Entry section
 
 ## Card Matching Functions
 
@@ -323,6 +329,40 @@ Handle user response:
 After confirmation (or immediately for single card), you now have the collected cards. Proceed with the same interpretation flow as digital mode - the Reading Instructions section applies identically to both modes.
 
 The cards are now ready for interpretation with their positions.
+
+## Mode Dispatch
+
+This section describes how mode selection from wizard Question 3 determines the card collection method.
+
+**Digital Mode (user selected "Digital (Recommended)"):**
+
+Use existing shell-based random card selection:
+
+- **Single card:** `!shuf -i 0-21 -n 1`
+- **Multi-card:** `!shuf -i 0-21 -n [position_count]`
+
+Proceed directly to interpretation - no user interaction needed for card selection.
+
+**Physical Mode (user selected "Physical deck"):**
+
+Use the Physical Mode Card Entry flow:
+
+1. Display ritual opening from Physical Mode Card Entry section
+2. Wait for user readiness
+3. Collect cards using position-by-position entry
+4. Validate each card using Card Matching Functions
+5. Prevent duplicates in multi-card spreads
+6. Show summary confirmation for multi-card spreads
+7. Proceed to interpretation with collected cards
+
+**Both modes produce the same output:**
+
+After mode dispatch completes, you have:
+- Card number(s) (0-21)
+- Position name(s) (for multi-card spreads)
+- User's question/context
+
+The interpretation flow (Reading Instructions section) is identical for both modes. The mode only affects HOW cards are collected, not HOW they are interpreted.
 
 ## Reading Context
 
