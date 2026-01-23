@@ -95,7 +95,7 @@ Plans:
 
 ### Phase 9: Multi-Card Interpretation
 
-**Goal**: Subagent interprets multi-card spreads with position awareness
+**Goal**: Multi-card spreads produce woven narratives with position-aware interpretation
 **Depends on**: Phase 7 (spreads), Phase 8 (modes)
 **Requirements**: INTERP-01, INTERP-02, INTERP-03
 **Success Criteria** (what must be TRUE):
@@ -103,10 +103,10 @@ Plans:
   2. Multi-card readings connect meaning across positions (not just 3 separate interpretations)
   3. Position names ("Problem", "Solution", "Synthesis") inform how each card is interpreted
   4. LLM-suggested and custom position names work with interpretation engine
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 09-01: Extend subagent prompt for multi-card position-aware interpretation
+- [ ] 09-01-PLAN.md — Woven narrative format, position-weaving patterns, card relationships, voice examples
 
 ---
 
