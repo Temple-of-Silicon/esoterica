@@ -9,17 +9,17 @@ Requirements for Wizard UI milestone. Each maps to roadmap phases.
 
 ### Wizard UI
 
-- [ ] **WIZ-01**: `/tarot` invokes AskUserQuestion wizard instead of accepting inline args
-- [ ] **WIZ-02**: Tab 1 collects user's question/context
-- [ ] **WIZ-03**: Tab 2 presents spread selection options
-- [ ] **WIZ-04**: Tab 3 presents digital vs physical mode selection
+- [x] **WIZ-01**: `/tarot` invokes AskUserQuestion wizard instead of accepting inline args
+- [x] **WIZ-02**: Tab 1 collects user's question/context
+- [x] **WIZ-03**: Tab 2 presents spread selection options
+- [x] **WIZ-04**: Tab 3 presents digital vs physical mode selection
 
 ### Spreads
 
-- [ ] **SPREAD-01**: Single card spread option (current behavior)
-- [ ] **SPREAD-02**: Problem/Solution/Synthesis 3-card spread
-- [ ] **SPREAD-03**: "Suggest a spread" option — LLM generates contextual positions based on question
-- [ ] **SPREAD-04**: Custom spread option — user types their own position names
+- [x] **SPREAD-01**: Single card spread option (current behavior)
+- [x] **SPREAD-02**: Situation/Action/Outcome 3-card spread
+- [x] **SPREAD-03**: "Suggest a spread" option — LLM generates contextual positions based on question
+- [x] **SPREAD-04**: Custom spread option — user types their own position names
 
 ### Reading Modes
 
@@ -29,9 +29,9 @@ Requirements for Wizard UI milestone. Each maps to roadmap phases.
 
 ### Interpretation
 
-- [ ] **INTERP-01**: Single card interpretation works as before
-- [ ] **INTERP-02**: Multi-card interpretation connects cards across positions
-- [ ] **INTERP-03**: Position names inform interpretation (e.g., "Problem" vs "Solution")
+- [x] **INTERP-01**: Single card interpretation works as before
+- [x] **INTERP-02**: Multi-card interpretation connects cards across positions
+- [x] **INTERP-03**: Position names inform interpretation (e.g., "Problem" vs "Solution")
 
 ## Future Requirements
 
@@ -84,26 +84,26 @@ Which phases cover which requirements.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| WIZ-01 | Phase 6 | Pending |
-| WIZ-02 | Phase 6 | Pending |
-| WIZ-03 | Phase 6 | Pending |
-| WIZ-04 | Phase 6 | Pending |
-| SPREAD-01 | Phase 7 | Pending |
-| SPREAD-02 | Phase 7 | Pending |
-| SPREAD-03 | Phase 7 | Pending |
-| SPREAD-04 | Phase 7 | Pending |
+| WIZ-01 | Phase 6 | Complete |
+| WIZ-02 | Phase 6 | Complete |
+| WIZ-03 | Phase 6 | Complete |
+| WIZ-04 | Phase 6 | Complete |
+| SPREAD-01 | Phase 7 | Complete |
+| SPREAD-02 | Phase 7 | Complete |
+| SPREAD-03 | Phase 7 | Complete |
+| SPREAD-04 | Phase 7 | Complete |
 | MODE-01 | Phase 8 | Complete |
 | MODE-02 | Phase 8 | Complete |
 | MODE-03 | Phase 8 | Complete |
-| INTERP-01 | Phase 9 | Pending |
-| INTERP-02 | Phase 9 | Pending |
-| INTERP-03 | Phase 9 | Pending |
+| INTERP-01 | Phase 9 | Complete |
+| INTERP-02 | Phase 9 | Complete |
+| INTERP-03 | Phase 9 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 14 total
-- Mapped to phases: 14
-- Unmapped: 0
+- Satisfied: 14
+- Pending: 0
 
 ---
 *Requirements defined: 2026-01-22*
-*Last updated: 2026-01-22 - Phase 8 complete (MODE-01, MODE-02, MODE-03)*
+*Last updated: 2026-01-23 - v1.1 milestone complete (all 14 requirements satisfied)*
