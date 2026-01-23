@@ -5,24 +5,24 @@
 See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Agents can draw and interpret tarot cards as a perspective-shifting tool
-**Current focus:** v1.1 Wizard UI - Phase 7 (Spread Options)
+**Current focus:** v1.1 Wizard UI - Phase 8 (Reading Modes)
 
 ## Current Position
 
 Milestone: v1.1 Wizard UI
-Phase: 7 of 9 (Spread Options)
-Plan: 2 of 2 complete
+Phase: 8 of 9 (Reading Modes)
+Plan: 1 of 1 complete
 Status: Phase complete
-Last activity: 2026-01-22 - Completed 07-02-PLAN.md
+Last activity: 2026-01-23 - Completed 08-01-PLAN.md
 
-Progress: v1.1 [███-------] 38%
+Progress: v1.1 [████------] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8 (5 v1.0 + 3 v1.1)
-- Average duration (v1.1): 2.3 min
-- Total execution time (v1.1): 7 min
+- Total plans completed: 9 (5 v1.0 + 4 v1.1)
+- Average duration (v1.1): 2.4 min
+- Total execution time (v1.1): 10 min
 
 **By Phase:**
 
@@ -31,6 +31,7 @@ Progress: v1.1 [███-------] 38%
 | v1.0 Phases 1-5 | 5 | - | - |
 | Phase 6 (Wizard Infrastructure) | 1 | 3 min | 3 min |
 | Phase 7 (Spread Options) | 2 | 4 min | 2 min |
+| Phase 8 (Reading Modes) | 1 | 3 min | 3 min |
 
 ## Accumulated Context
 
@@ -56,6 +57,12 @@ v1.0 validated decisions carry forward (with Phase 6 modification):
 - Custom spread accepts 1-5 positions with comma-separated input
 - Position-specific interpretation guidance (lean into LLM specificity, honor custom names)
 
+**Phase 8 decisions:**
+- Physical mode includes ritual moment before card entry (honors practice, creates intentional pause)
+- Fuzzy matching supports card names, variants, and numbers (forgiving UX)
+- Duplicate prevention in multi-card spreads (follows tarot convention)
+- Summary confirmation for multi-card physical readings (user confidence before interpretation)
+
 ### Pending Todos
 
 - [ ] Add a v1 README to the repo
@@ -68,14 +75,14 @@ None. Starting fresh milestone.
 
 ## Session Continuity
 
-Last session: 2026-01-22
-Stopped at: Completed 07-02-PLAN.md (Phase 7 complete)
+Last session: 2026-01-23
+Stopped at: Completed 08-01-PLAN.md (Phase 8 complete)
 Resume file: None
 
 ## Next Steps
 
-1. Begin Phase 8 - Physical Mode implementation
-2. All four spread types complete and ready for physical deck integration
+1. Begin Phase 9 - Integration & Polish
+2. Digital and physical modes complete and ready for final integration
 
 ---
-*Last updated: 2026-01-22 after Phase 7 completion*
+*Last updated: 2026-01-23 after Phase 8 completion*
