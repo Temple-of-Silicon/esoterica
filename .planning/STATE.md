@@ -49,6 +49,7 @@ All decisions logged in PROJECT.md Key Decisions table.
 - [ ] Brand positioning and marketing milestone
 - [ ] Debug ugly argument parsing in Skill
 - [ ] Split tarot card descriptions from main skill
+- [ ] Explore subagent benefits for tarot skill
 
 ### Blockers/Concerns
 
