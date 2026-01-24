@@ -50,6 +50,7 @@ All decisions logged in PROJECT.md Key Decisions table.
 - [ ] Debug ugly argument parsing in Skill
 - [ ] Split tarot card descriptions from main skill
 - [ ] Explore subagent benefits for tarot skill
+- [ ] Integrate tarot with GSD workflow while keeping independence
 
 ### Blockers/Concerns
 
