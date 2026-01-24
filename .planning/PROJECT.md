@@ -8,6 +8,15 @@ A framework for Claude Code agents to use tarot (and eventually other esoteric t
 
 Agents can draw and interpret tarot cards as a perspective-shifting tool for problem-solving, planning, and self-mythologizing.
 
+## Current Milestone: v1.2 Brand & Marketing
+
+**Goal:** Give Esoterica a public presence with clear positioning, documentation, and a landing page.
+
+**Target features:**
+- README with clear value proposition
+- One-line tagline/pitch
+- Landing page / website
+
 ## Current State (v1.1 Shipped)
 
 **Shipped:** 2026-01-23
@@ -49,7 +58,10 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 
 ### Active
 
-(None — planning next milestone)
+**v1.2:**
+- [ ] README with clear value proposition and installation guide
+- [ ] One-line tagline that captures Justice (balance), High Priestess (mystery), Chariot (direction)
+- [ ] Landing page / website for public sharing
 
 ### Out of Scope
 
@@ -105,4 +117,4 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 - [ ] Brand positioning and marketing milestone
 
 ---
-*Last updated: 2026-01-23 after v1.1 milestone*
+*Last updated: 2026-01-23 after starting v1.2 milestone*
