@@ -75,7 +75,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 11-01-PLAN.md — Write README with Esoterica voice (tagline, installation, usage, philosophy)
+- [x] 11-01-PLAN.md — Write README with Esoterica voice (tagline, installation, usage, philosophy)
 
 #### Phase 12: Visual Language
 
@@ -90,10 +90,13 @@ Plans:
 2. Visual language documented for consistency across materials
 3. AI Design Machine integration method established (API, bridge, or manual)
 
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 12-01: TBD
+- [ ] 12-01-PLAN.md — Create generate-image skill with Replicate API integration
+- [ ] 12-02-PLAN.md — Generate hero image variations and select winner
+- [ ] 12-03-PLAN.md — Generate social media assets and favicon
+- [ ] 12-04-PLAN.md — Extract color palette and write brand guide
 
 #### Phase 13: Landing Page
 
@@ -149,10 +152,10 @@ Plans:
 | 9. Multi-Card Interpretation | v1.1 | 1/1 | Complete | 2026-01-22 |
 | 10. Positioning | v1.2 | 2/2 | Complete | 2026-01-24 |
 | 11. Documentation | v1.2 | 1/1 | Complete | 2026-01-24 |
-| 12. Visual Language | v1.2 | 0/0 | Not started | - |
+| 12. Visual Language | v1.2 | 0/4 | Planned | - |
 | 13. Landing Page | v1.2 | 0/0 | Not started | - |
 | 14. Launch Materials | v1.2 | 0/0 | Not started | - |
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-24 - Phase 11 complete*
+*Last updated: 2026-01-24 - Phase 12 planned*
