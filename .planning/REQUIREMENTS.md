@@ -15,9 +15,9 @@ Requirements for Brand & Marketing milestone.
 
 ### Positioning
 
-- [ ] **POS-01**: One-line tagline/pitch
-- [ ] **POS-02**: Positioning that honors tarot reading (Justice, High Priestess, Chariot)
-- [ ] **POS-03**: Dual-audience framing (curious devs AND serious practitioners)
+- [x] **POS-01**: One-line tagline/pitch
+- [x] **POS-02**: Positioning that honors tarot reading (Justice, High Priestess, Chariot)
+- [x] **POS-03**: Dual-audience framing (curious devs AND serious practitioners)
 
 ### Landing Page
 
@@ -81,9 +81,9 @@ Deferred to later milestones:
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| POS-01 | Phase 10 | Pending |
-| POS-02 | Phase 10 | Pending |
-| POS-03 | Phase 10 | Pending |
+| POS-01 | Phase 10 | Complete |
+| POS-02 | Phase 10 | Complete |
+| POS-03 | Phase 10 | Complete |
 | DOC-01 | Phase 11 | Pending |
 | DOC-02 | Phase 11 | Pending |
 | DOC-03 | Phase 11 | Pending |
