@@ -48,6 +48,7 @@ All decisions logged in PROJECT.md Key Decisions table.
 - [ ] Let users save readings to file
 - [ ] Brand positioning and marketing milestone
 - [ ] Debug ugly argument parsing in Skill
+- [ ] Split tarot card descriptions from main skill
 
 ### Blockers/Concerns
 
