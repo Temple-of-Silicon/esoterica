@@ -33,6 +33,15 @@ export interface GenerateOptions {
 
   /** Directory to save generated images */
   outputDir: string;
+
+  /** Content displayed on selenite crystal screens (optional) */
+  screenContent?: string;
+
+  /** How figures should appear in the scene (optional) */
+  figures?: "hands_only" | "no_people" | "background_figures";
+
+  /** Time of day specification (optional, e.g., "golden hour sunrise") */
+  timeOfDay?: string;
 }
 
 /**

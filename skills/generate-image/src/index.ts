@@ -38,6 +38,9 @@ export async function generateImages(
     // Build prompt using Esoterica template
     const prompt = buildEsotericaPrompt({
       sceneDescription: options.scene,
+      screenContent: options.screenContent,
+      figures: options.figures,
+      timeOfDay: options.timeOfDay,
     });
 
     console.log(`Prompt: ${prompt}`);
