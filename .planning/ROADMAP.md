@@ -52,10 +52,11 @@ See: `.planning/milestones/v1.1-ROADMAP.md` for full details.
 2. Positioning statement articulates how this is a serious tool, not a novelty
 3. Dual-audience framing written that welcomes both developers and practitioners
 
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 10-01: TBD
+- [ ] 10-01-PLAN.md — Generate tagline options and name alternatives for user selection
+- [ ] 10-02-PLAN.md — Write positioning documents (statement, audience framing, voice guidelines)
 
 #### Phase 11: Documentation
 
@@ -146,7 +147,7 @@ Plans:
 | 7. Spread Options | v1.1 | 2/2 | Complete | 2026-01-22 |
 | 8. Reading Modes | v1.1 | 1/1 | Complete | 2026-01-22 |
 | 9. Multi-Card Interpretation | v1.1 | 1/1 | Complete | 2026-01-22 |
-| 10. Positioning | v1.2 | 0/0 | Not started | - |
+| 10. Positioning | v1.2 | 0/2 | Planned | - |
 | 11. Documentation | v1.2 | 0/0 | Not started | - |
 | 12. Visual Language | v1.2 | 0/0 | Not started | - |
 | 13. Landing Page | v1.2 | 0/0 | Not started | - |
@@ -154,4 +155,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-23 - v1.2 milestone phases added*
+*Last updated: 2026-01-23 - Phase 10 planned (2 plans)*
