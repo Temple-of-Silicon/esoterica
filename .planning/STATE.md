@@ -47,6 +47,7 @@ All decisions logged in PROJECT.md Key Decisions table.
 - [ ] Make an MVP landing page
 - [ ] Let users save readings to file
 - [ ] Brand positioning and marketing milestone
+- [ ] Debug ugly argument parsing in Skill
 
 ### Blockers/Concerns
 
