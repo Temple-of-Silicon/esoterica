@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-23)
 
 Milestone: v1.2 Brand & Marketing
 Phase: 12 of 14 (Visual Language)
-Plan: 01 of 03
+Plan: 02 of 03
 Status: In progress
-Last activity: 2026-01-24 - Completed 12-01-PLAN.md (generate-image skill)
+Last activity: 2026-01-24 - Completed 12-02-PLAN.md (hero image generation)
 
-Progress: [████████████░░░░░░░░] 79% (11/14 phases complete, 1/3 plans in Phase 12)
+Progress: [████████████░░░░░░░░] 79% (11/14 phases complete, 2/3 plans in Phase 12)
 
 ## Performance Metrics
 
@@ -45,6 +45,10 @@ Progress: [████████████░░░░░░░░] 79% (11
 All decisions logged in PROJECT.md Key Decisions table.
 
 **Recent (Phase 12):**
+- Background-figures composition chosen for hero image over hands-only or no-people alternatives
+- Explicit diversity language required for AI generation: "diverse women" produces homogeneous output
+- "Skin tone spectrum" phrasing most effective for global majority representation
+- Generation scripts cleaned from repo after completion
 - No wizard flow for generate-image - inline parameters for batch generation (differs from tarot skill)
 - Immediate image download to avoid 1-hour URL expiration
 - 150ms delay between generations for rate limit compliance
@@ -63,12 +67,17 @@ All decisions logged in PROJECT.md Key Decisions table.
 
 ### Phase 12 Deliverables
 
-Generate-image skill for agentic image generation:
+**Plan 12-01:** Generate-image skill for agentic image generation:
 - `skills/generate-image/SKILL.md` - Skill documentation with eco-futurist aesthetic guide
 - `skills/generate-image/src/replicate-client.ts` - Replicate API client with async polling
 - `skills/generate-image/src/prompt-builder.ts` - Eco-futurist prompt templates
 - `skills/generate-image/src/index.ts` - Main generateImages function with rate limiting
 - HERO_PROMPT_CONFIG with Joshua Tree altar scene and tagline cards
+
+**Plan 12-02:** Hero image with diversity representation:
+- `brand/hero/winners/hero-primary.png` - Selected hero image (background-figures skin-tone-spectrum composition)
+- Archive of 29 variations preserved locally at ~/Pictures/esoterica-hero-archive/
+- Prompt learnings on AI diversity representation (explicit language required)
 
 ### Phase 11 Deliverables
 
@@ -99,14 +108,14 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-24
-Stopped at: Completed 12-01-PLAN.md (generate-image skill)
+Stopped at: Completed 12-02-PLAN.md (hero image generation)
 Resume file: None
 
 ## Next Steps
 
-1. Continue Phase 12: Plan 02 - Hero image generation using generate-image skill
-2. Generate 10+ variations of Joshua Tree altar scene with tagline cards
-3. Create social media variants and favicon
+1. Continue Phase 12: Plan 03 - Social media asset generation from hero image
+2. Generate og:image, twitter:image, and social share variants
+3. Create favicon variants
 
 ---
-*Last updated: 2026-01-24 after 12-01-PLAN.md completion*
+*Last updated: 2026-01-24 after 12-02-PLAN.md completion*
