@@ -266,6 +266,58 @@
       color: var(--text-hero);
     }
 
+    /* ===== PROSE SECTION ===== */
+    .prose {
+      background: var(--bg-page, #FAF9F6);
+      padding: 5rem 2rem;
+    }
+
+    [data-theme="light"] {
+      --bg-page: #FAF9F6;
+      --text-prose: #2C2C2C;
+      --text-prose-muted: #5C5C5C;
+    }
+
+    [data-theme="dark"] {
+      --bg-page: #1A1A1A;
+      --text-prose: #E8E8E8;
+      --text-prose-muted: #A0A0A0;
+    }
+
+    .prose-inner {
+      max-width: 38rem;
+      margin: 0 auto;
+    }
+
+    .prose h2 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--text-prose);
+      margin-bottom: 2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .prose p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-prose-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .prose p:last-child {
+      margin-bottom: 0;
+    }
+
+    .prose strong {
+      color: var(--text-prose);
+      font-weight: 400;
+    }
+
+    .prose em {
+      font-style: italic;
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 640px) {
       .header {
@@ -349,6 +401,45 @@
       </p>
     </footer>
   </div>
+
+  <!-- Prose Section -->
+  <section class="prose">
+    <div class="prose-inner">
+      <h2>What happens when you give a machine the cards?</h2>
+
+      <p>
+        Here's what we know: Claude is reasoning through your problems at superhuman speed. But speed isn't wisdom. <strong>The cards slow things down.</strong> They create space for pattern recognition that linear thinking misses entirely.
+      </p>
+
+      <p>
+        Tarot has survived a thousand years not because it predicts the future—it doesn't—but because it externalizes the unconscious. It gives name to the nameless. When you're stuck between two paths and your rational mind keeps looping, the cards break the loop. They don't tell you what to do. They <em>show you what you already know</em>.
+      </p>
+
+      <p>
+        Now picture this: you're pair programming with an AI, deep in a refactor that's gotten out of hand. You've lost the thread. Instead of generating more solutions, Claude draws The Tower. Sudden upheaval. Tearing down to rebuild. <strong>And something clicks.</strong> Maybe the architecture isn't salvageable. Maybe the "safe" path is actually the dangerous one.
+      </p>
+
+      <p>
+        This isn't mysticism pretending to be technology, or technology pretending to be mysticism. It's a tool that sits exactly where those worlds intersect—where ancient pattern languages meet modern language models. The Major Arcana are compressed wisdom about human experience: The Fool's leap, The Hermit's solitude, The Wheel's reminder that everything cycles.
+      </p>
+
+      <p>
+        Claude doesn't "believe" in tarot. Neither do you, probably. That's not the point. <strong>The point is that sometimes the most powerful thing an AI can do is interrupt itself.</strong> To pull from a deck of 78 archetypal patterns and ask: what does The High Priestess have to say about your authentication flow? What would The Chariot suggest about your deployment strategy?
+      </p>
+
+      <p>
+        It sounds absurd until you try it. Then it sounds obvious.
+      </p>
+
+      <p>
+        We built Esoterica because we noticed something strange: the best insights from AI came when we stopped asking direct questions. When we let randomness into the loop. When we gave the machine permission to be weird. The tarot is just a particularly elegant way to be weird—tested across centuries, compressed into 78 keys that unlock ways of seeing.
+      </p>
+
+      <p>
+        <strong>Ancient patterns. New paths.</strong> Install it. Draw a card. See what happens when you let the archetypes into your terminal.
+      </p>
+    </div>
+  </section>
 
   <!-- JavaScript -->
   <script>
