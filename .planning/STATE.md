@@ -11,19 +11,19 @@ See: .planning/PROJECT.md (updated 2026-01-23)
 
 Milestone: v1.2 Brand & Marketing
 Phase: 12 of 14 (Visual Language)
-Plan: 02 of 03
-Status: In progress
-Last activity: 2026-01-24 - Completed 12-02-PLAN.md (hero image generation)
+Plan: 03 of 03
+Status: Phase complete
+Last activity: 2026-01-24 - Completed 12-03-PLAN.md (social media & favicon assets)
 
-Progress: [████████████░░░░░░░░] 79% (11/14 phases complete, 2/3 plans in Phase 12)
+Progress: [████████████░░░░░░░░] 86% (12/14 phases complete, 3/3 plans in Phase 12)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 14 (5 v1.0 + 5 v1.1 + 4 v1.2)
+- Total plans completed: 15 (5 v1.0 + 5 v1.1 + 5 v1.2)
 - Average duration (v1.1): 2.4 min
-- Average duration (v1.2): 2.3 min
-- Total execution time (v1.2): 9.2 min
+- Average duration (v1.2): 2.7 min
+- Total execution time (v1.2): 13.5 min
 
 **By Phase:**
 
@@ -36,7 +36,7 @@ Progress: [████████████░░░░░░░░] 79% (11
 | Phase 9 (Multi-Card Interpretation) | 1 | 2 min | 2 min |
 | Phase 10 (Positioning) | 2 | ~13 min | ~6.5 min |
 | Phase 11 (Documentation) | 1 | 1.4 min | 1.4 min |
-| Phase 12 (Visual Language) | 1 | 3 min | 3 min |
+| Phase 12 (Visual Language) | 3 | 10.5 min | 3.5 min |
 
 ## Accumulated Context
 
@@ -45,6 +45,10 @@ Progress: [████████████░░░░░░░░] 79% (11
 All decisions logged in PROJECT.md Key Decisions table.
 
 **Recent (Phase 12):**
+- Asset generation scripts placed in skills/generate-image/ to leverage existing Sharp dependency
+- Sharp's 'attention' positioning for smart cropping social variants
+- Minimalist tarot card with star motif for favicon recognition at small sizes
+- Instagram story 9:16 aspect ratio crops significantly from 16:9 hero - smart cropping handles automatically
 - Background-figures composition chosen for hero image over hands-only or no-people alternatives
 - Explicit diversity language required for AI generation: "diverse women" produces homogeneous output
 - "Skin tone spectrum" phrasing most effective for global majority representation
@@ -79,6 +83,12 @@ All decisions logged in PROJECT.md Key Decisions table.
 - Archive of 29 variations preserved locally at ~/Pictures/esoterica-hero-archive/
 - Prompt learnings on AI diversity representation (explicit language required)
 
+**Plan 12-03:** Social media & favicon assets from hero image:
+- `brand/social/` - 5 social media variants (OG, LinkedIn, Twitter, Instagram square/story)
+- `brand/favicon/` - Favicon set (SVG source + 3 PNG sizes)
+- `skills/generate-image/generate-social-assets.ts` - Social variant generator with smart cropping
+- `skills/generate-image/generate-favicons.ts` - Favicon PNG generator from SVG
+
 ### Phase 11 Deliverables
 
 - `README.md` - 160 lines with Esoterica voice, installation, usage examples
@@ -108,14 +118,14 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-24
-Stopped at: Completed 12-02-PLAN.md (hero image generation)
+Stopped at: Completed 12-03-PLAN.md (social media & favicon assets)
 Resume file: None
 
 ## Next Steps
 
-1. Continue Phase 12: Plan 03 - Social media asset generation from hero image
-2. Generate og:image, twitter:image, and social share variants
-3. Create favicon variants
+1. Phase 12 (Visual Language) complete - all brand assets generated
+2. Move to Phase 13: Landing Page
+3. Integrate hero image, social meta tags, and favicon into web presence
 
 ---
-*Last updated: 2026-01-24 after 12-02-PLAN.md completion*
+*Last updated: 2026-01-24 after 12-03-PLAN.md completion*
