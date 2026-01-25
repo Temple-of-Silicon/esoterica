@@ -27,9 +27,9 @@ Requirements for Brand & Marketing milestone.
 
 ### Visual Assets
 
-- [ ] **VIS-01**: Hero image from AI Design Machine (Joshua Tree style)
-- [ ] **VIS-02**: AI Design Machine integration (API or manual checkpoint)
-- [ ] **VIS-03**: Visual language documentation (for consistency)
+- [x] **VIS-01**: Hero image from AI Design Machine (Joshua Tree style)
+- [x] **VIS-02**: AI Design Machine integration (API or manual checkpoint)
+- [x] **VIS-03**: Visual language documentation (for consistency)
 
 ### Launch Comms
 
@@ -87,9 +87,9 @@ Deferred to later milestones:
 | DOC-01 | Phase 11 | Complete |
 | DOC-02 | Phase 11 | Complete |
 | DOC-03 | Phase 11 | Complete |
-| VIS-01 | Phase 12 | Pending |
-| VIS-02 | Phase 12 | Pending |
-| VIS-03 | Phase 12 | Pending |
+| VIS-01 | Phase 12 | Complete |
+| VIS-02 | Phase 12 | Complete |
+| VIS-03 | Phase 12 | Complete |
 | LAND-01 | Phase 13 | Pending |
 | LAND-02 | Phase 13 | Pending |
 | LAND-03 | Phase 13 | Pending |
