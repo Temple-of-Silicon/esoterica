@@ -1,13 +1,525 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Esoterica: A tarot reading skill for Claude agents. Ancient patterns for modern decision-making.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Esoterica - Ancient patterns, new paths">
+  <meta property="og:description" content="A tarot reading skill for Claude agents. Ancient patterns for modern decision-making.">
+  <meta property="og:image" content="https://111ecosystem.github.io/esoterica/og-image.png">
+  <meta property="og:url" content="https://111ecosystem.github.io/esoterica/">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Esoterica - Ancient patterns, new paths">
+  <meta name="twitter:description" content="A tarot reading skill for Claude agents. Ancient patterns for modern decision-making.">
+  <meta name="twitter:image" content="https://111ecosystem.github.io/esoterica/og-image.png">
+
   <title>Esoterica - Ancient patterns, new paths</title>
+
+  <!-- Favicons -->
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="favicon-16x16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+  <!-- Theme Detection - Prevent FOUC -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <style>
+    /* ===== CSS RESET ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      /* Brand Colors */
+      --primary: #e5c8bc;
+      --secondary: #4b3829;
+      --accent: #a7acaf;
+      --warm-neutral: #9b7c6c;
+      --cool-neutral: #9497a1;
+      --dark-base: #7a7b7b;
+
+      /* Typography */
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Source Sans 3', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    /* Light Theme */
+    [data-theme="light"] {
+      --bg-hero-overlay: rgba(0, 0, 0, 0.3);
+      --text-hero-primary: #e5c8bc;
+      --text-hero-secondary: #ffffff;
+      --text-body: #4b3829;
+      --bg-page: #ffffff;
+      --bg-code: #f5f5f5;
+      --border-code: #e0e0e0;
+      --text-code: #4b3829;
+      --bg-button: #e5c8bc;
+      --text-button: #4b3829;
+      --bg-button-hover: #9b7c6c;
+      --text-link: #a7acaf;
+      --text-link-hover: #4b3829;
+      --bg-header: rgba(255, 255, 255, 0.95);
+      --text-header: #4b3829;
+      --icon-fill: #4b3829;
+    }
+
+    /* Dark Theme */
+    [data-theme="dark"] {
+      --bg-hero-overlay: rgba(0, 0, 0, 0.55);
+      --text-hero-primary: #e5c8bc;
+      --text-hero-secondary: #e5e5e5;
+      --text-body: #e5e5e5;
+      --bg-page: #1a1a1a;
+      --bg-code: #2a2a2a;
+      --border-code: #3a3a3a;
+      --text-code: #e5c8bc;
+      --bg-button: #e5c8bc;
+      --text-button: #1a1a1a;
+      --bg-button-hover: #9b7c6c;
+      --text-link: #a7acaf;
+      --text-link-hover: #e5c8bc;
+      --bg-header: rgba(26, 26, 26, 0.95);
+      --text-header: #e5e5e5;
+      --icon-fill: #e5e5e5;
+    }
+
+    /* ===== BASE STYLES ===== */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--text-body);
+      background: var(--bg-page);
+      min-height: 100vh;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      background: var(--bg-header);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-code);
+      transition: background-color 0.3s ease;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--text-header);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      display: flex;
+      align-items: center;
+      color: var(--text-header);
+      transition: color 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      color: var(--text-link-hover);
+    }
+
+    .theme-toggle:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    .github-link {
+      color: var(--text-header);
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+
+    .github-link:hover {
+      color: var(--text-link-hover);
+    }
+
+    .github-link:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      position: relative;
+      height: 100vh;
+      height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: url('hero-primary.png') center/cover no-repeat;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--bg-hero-overlay);
+      transition: background 0.3s ease;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 2rem;
+      max-width: 800px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--text-hero-primary);
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero h2 {
+      font-family: var(--font-display);
+      font-size: 2.25rem;
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--text-hero-secondary);
+      margin-bottom: 1.5rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.125rem;
+      line-height: 1.6;
+      color: var(--text-hero-secondary);
+      margin-bottom: 2rem;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .install-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .install-command {
+      display: flex;
+      gap: 0.5rem;
+      background: var(--bg-code);
+      border: 1px solid var(--border-code);
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      align-items: center;
+      max-width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    .install-command code {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      color: var(--text-code);
+      user-select: all;
+    }
+
+    .copy-button {
+      background: var(--bg-button);
+      color: var(--text-button);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      white-space: nowrap;
+    }
+
+    .copy-button:hover {
+      background: var(--bg-button-hover);
+    }
+
+    .copy-button:active {
+      transform: scale(0.98);
+    }
+
+    .copy-button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 2rem;
+      text-align: center;
+      background: var(--bg-page);
+      border-top: 1px solid var(--border-code);
+      transition: background-color 0.3s ease;
+    }
+
+    .footer p {
+      font-size: 0.875rem;
+      color: var(--text-body);
+      opacity: 0.8;
+    }
+
+    .footer a {
+      color: var(--text-link);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer a:hover {
+      color: var(--text-link-hover);
+    }
+
+    .footer a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    /* ===== ICONS ===== */
+    .icon {
+      width: 24px;
+      height: 24px;
+      fill: var(--icon-fill);
+      transition: fill 0.3s ease;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (min-width: 768px) {
+      .hero h1 {
+        font-size: 4rem;
+      }
+
+      .hero h2 {
+        font-size: 2.75rem;
+      }
+
+      .hero p {
+        font-size: 1.25rem;
+      }
+
+      .install-command {
+        flex-direction: row;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero h1 {
+        font-size: 5rem;
+      }
+
+      .hero h2 {
+        font-size: 3rem;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .header {
+        padding: 1rem;
+      }
+
+      .logo {
+        font-size: 1.25rem;
+      }
+
+      .header-actions {
+        gap: 1rem;
+      }
+
+      .hero-content {
+        padding: 1.5rem;
+      }
+
+      .install-command {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      .install-command code {
+        font-size: 0.75rem;
+        word-break: break-all;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Esoterica</h1>
-  <p>Landing page coming soon...</p>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <a href="#" class="logo">Esoterica</a>
+      <div class="header-actions">
+        <a href="https://github.com/111ecosystem/esoterica"
+           class="github-link"
+           aria-label="View on GitHub"
+           target="_blank"
+           rel="noopener noreferrer">
+          <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+          </svg>
+        </a>
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Ancient patterns, new paths</h1>
+      <h2>Esoterica</h2>
+      <p>A tarot reading skill for Claude agents. Draw cards, interpret archetypes, and shift perspectives on complex decisions.</p>
+
+      <div class="install-section">
+        <div class="install-command">
+          <code id="install-cmd">npm install -g esoterica</code>
+          <button class="copy-button" id="copy-btn" aria-label="Copy install command">
+            Copy
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>
+      Made with cosmic priestess energy •
+      <a href="https://github.com/111ecosystem/esoterica" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+    </p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+
+    function toggleTheme() {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+
+      // Update aria-label
+      const toggle = document.querySelector('.theme-toggle');
+      toggle.setAttribute('aria-label',
+        newTheme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'
+      );
+    }
+
+    // Theme toggle click handler
+    document.querySelector('.theme-toggle').addEventListener('click', toggleTheme);
+
+    // System preference change listener
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      // Only apply system preference if user hasn't set a preference
+      if (!localStorage.getItem('theme')) {
+        html.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+      }
+    });
+
+    // Copy to Clipboard
+    const copyBtn = document.getElementById('copy-btn');
+    const installCmd = document.getElementById('install-cmd');
+
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(installCmd.textContent);
+
+        // Visual feedback
+        const originalText = copyBtn.textContent;
+        copyBtn.textContent = 'Copied!';
+
+        setTimeout(() => {
+          copyBtn.textContent = originalText;
+        }, 2000);
+      } catch (err) {
+        // Fallback for non-HTTPS or older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = installCmd.textContent;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.select();
+
+        try {
+          document.execCommand('copy');
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => {
+            copyBtn.textContent = 'Copy';
+          }, 2000);
+        } catch (err) {
+          console.error('Copy failed:', err);
+        }
+
+        document.body.removeChild(textArea);
+      }
+    });
+  </script>
 </body>
 </html>
