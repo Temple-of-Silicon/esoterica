@@ -79,3 +79,83 @@ Generated: 2026-01-24T23:37:05.915Z
 | 1 | 2026-01-24T23:43:55.061Z | hero-2026-01-24T23-43-53-1.png | Candid scene from an eco-futurist utopian divine f... |
 | 2 | 2026-01-24T23:44:42.955Z | hero-2026-01-24T23-44-41-2.png | Candid scene from an eco-futurist utopian divine f... |
 
+
+## Terminal Text Variation Batches (Generated: 2026-01-25T00:00:33.704Z)
+
+**Goal:** Improve terminal text to be more "vibe-coding" / Claude Code aesthetic
+**Change:** More recognizable code/terminal, still witchy, better syntax highlighting
+
+### Batch 5 - Vibe Coding Terminal
+
+**Description:** Code editor aesthetic with mystical variable names, soft syntax highlighting
+
+**Configuration:**
+- Scene: at a sacred altar in a sun-drenched Joshua Tree grove at sunrise, three tarot cards (High Priestess, Justice, Chariot) laid beside a selenite crystal-computer
+- Figures: hands_only
+- Screen content: 16:9 glowing screen with elegant TypeScript code using mystical variable names (moonPhase, tarotDeck, crystalGrid), pastel syntax highlighting, soft purple and blue glow
+- Time of day: golden hour sunrise, pink-gold morning light
+- Variations: 3
+
+**Generated Images:**
+
+| # | Timestamp | Filename | Prompt |
+|---|-----------|----------|--------|
+| 1 | 2026-01-25T00:01:11.139Z | hero-2026-01-25T00-01-09-1.png | Candid scene from an eco-futurist utopian divine f... |
+| 2 | 2026-01-25T00:01:48.010Z | hero-2026-01-25T00-01-46-2.png | Candid scene from an eco-futurist utopian divine f... |
+| 3 | 2026-01-25T00:02:55.917Z | hero-2026-01-25T00-02-54-3.png | Candid scene from an eco-futurist utopian divine f... |
+
+### Batch 6 - Claude Code Style
+
+**Description:** Terminal with streaming command output, colorful syntax, prompting aesthetic
+
+**Configuration:**
+- Scene: at a sacred altar in a sun-drenched Joshua Tree grove at sunrise, three tarot cards (High Priestess, Justice, Chariot) laid beside a selenite crystal-computer
+- Figures: hands_only
+- Screen content: 16:9 terminal screen showing streaming colored text output, command prompts with mystical paths (/sacred/altar/readings), soft cyan and magenta ANSI colors, Claude Code aesthetic
+- Time of day: golden hour sunrise, pink-gold morning light
+- Variations: 3
+
+**Generated Images:**
+
+| # | Timestamp | Filename | Prompt |
+|---|-----------|----------|--------|
+| 1 | 2026-01-25T00:03:35.049Z | hero-2026-01-25T00-03-33-1.png | Candid scene from an eco-futurist utopian divine f... |
+| 2 | 2026-01-25T00:04:22.494Z | hero-2026-01-25T00-04-20-2.png | Candid scene from an eco-futurist utopian divine f... |
+| 3 | 2026-01-25T00:04:59.932Z | hero-2026-01-25T00-04-58-3.png | Candid scene from an eco-futurist utopian divine f... |
+
+### Batch 7 - Python Ritual Code
+
+**Description:** Python code with tarot-themed function names, zen aesthetic
+
+**Configuration:**
+- Scene: at a sacred altar in a sun-drenched Joshua Tree grove at sunrise, three tarot cards (High Priestess, Justice, Chariot) laid beside a selenite crystal-computer
+- Figures: no_people
+- Screen content: 16:9 screen displaying Python code with function names like draw_card(), interpret_spread(), crystal_attunement(), gentle syntax highlighting in earth tones, zen coding aesthetic
+- Time of day: golden hour sunrise, pink-gold morning light
+- Variations: 2
+
+**Generated Images:**
+
+| # | Timestamp | Filename | Prompt |
+|---|-----------|----------|--------|
+| 1 | 2026-01-25T00:05:39.166Z | hero-2026-01-25T00-05-37-1.png | Candid scene from an eco-futurist utopian divine f... |
+| 2 | 2026-01-25T00:06:26.470Z | hero-2026-01-25T00-06-25-2.png | Candid scene from an eco-futurist utopian divine f... |
+
+### Batch 8 - Mystical Code Editor
+
+**Description:** Modern code editor UI with soft glowing interface, witchy but recognizable
+
+**Configuration:**
+- Scene: at a sacred altar in a sun-drenched Joshua Tree grove at sunrise, three tarot cards (High Priestess, Justice, Chariot) laid beside a selenite crystal-computer
+- Figures: background_figures
+- Screen content: 16:9 modern code editor interface with soft glowing sidebar, code with celestial variable names (moonCycle, starAlignment, divineGuidance), pastel UI theme, VS Code aesthetic
+- Time of day: golden hour sunrise, pink-gold morning light
+- Variations: 2
+
+**Generated Images:**
+
+| # | Timestamp | Filename | Prompt |
+|---|-----------|----------|--------|
+| 1 | 2026-01-25T00:07:15.521Z | hero-2026-01-25T00-07-14-1.png | Candid scene from an eco-futurist utopian divine f... |
+| 2 | 2026-01-25T00:07:52.359Z | hero-2026-01-25T00-07-51-2.png | Candid scene from an eco-futurist utopian divine f... |
+
