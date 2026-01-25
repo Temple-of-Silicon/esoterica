@@ -399,6 +399,18 @@ ls -lh "$OUTPUT" 2>/dev/null || ls -lh "${OUTPUT%.gif}-optimized.gif"
 - **Twitter name:** Now "X" but "Twitter Card" meta tags still use twitter: namespace (unchanged as of 2026).
 - **Old FFmpeg GIF method:** Direct conversion without palettegen creates large, low-quality GIFs. Always use two-pass method.
 
+## User Direction
+
+**Use Remotion for demo video:** User specified Remotion (React-based programmatic video framework) instead of screen recording + FFmpeg. Benefits:
+- Video as code - reproducible, version-controlled
+- React components for consistent branding (New Spirit font, colors)
+- Smooth animations without screen recording artifacts
+- Export to MP4, GIF, or WebM
+- Easy iteration on timing and content
+- No manual recording required
+
+This replaces the FFmpeg-based GIF workflow in Pattern 3. The Remotion composition would render the wizard flow programmatically rather than capturing screen recordings.
+
 ## Open Questions
 
 Things that couldn't be fully resolved:
