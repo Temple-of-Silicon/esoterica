@@ -76,6 +76,12 @@ All decisions logged in PROJECT.md Key Decisions table.
 - Maintainer notes updated to reflect lazy loading architecture
 - Orchestration pattern: Index → Identify → Load → Interpret
 
+**Phase 17-02 Decisions:**
+- Water element expressed through emotion/relationship domain across all 14 Cups cards
+- Court cards use standard format with archetypal personality embedded in Themes
+- Pip cards follow narrative journey: Ace (seed) → 10 (completion)
+- Situations are concrete scenarios not abstract keywords
+
 **Phase 17-03 Decisions:**
 - Balanced difficult cards (3, 9, 10) with constructive perspective while honoring pain
 - Emphasized concrete situations over abstract keywords throughout Swords suit
