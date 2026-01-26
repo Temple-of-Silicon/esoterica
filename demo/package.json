@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "dev": "remotion studio",
-    "build": "remotion render Demo out/demo.mp4",
-    "build:gif": "remotion render Demo out/demo.gif --image-format=png --codec=gif"
+    "dev": "remotion studio src/Root.tsx",
+    "build": "remotion render src/Root.tsx Demo out/demo.mp4",
+    "build:gif": "remotion render src/Root.tsx Demo out/demo.gif --image-format=png --codec=gif"
   },
   "keywords": [],
   "author": "",
