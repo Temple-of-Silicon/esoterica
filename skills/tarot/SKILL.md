@@ -60,6 +60,16 @@ Question 2 (Spread):
   - label: "Custom"
     description: "Enter your own position names (1-5 cards)"
 
+Question 2.5 (Deck):
+- question: "Which deck would you like to use?"
+- header: "Deck"
+- multiSelect: false
+- options:
+  - label: "Major Arcana only (22 cards)"
+    description: "Focused archetypal readings - recommended for most questions"
+  - label: "Full deck (78 cards)"
+    description: "Complete tarot experience with all suits"
+
 Question 3 (Mode):
 - question: "How should cards be drawn?"
 - header: "Mode"
@@ -73,6 +83,7 @@ Question 3 (Mode):
 **After collecting wizard responses:**
 - User's question/context: Use for interpreting card meaning (or their custom input via "Other")
 - Spread selection: Process via Spread Selection Logic below
+- Deck selection: Determines card pool (0-21 for Major Arcana only, 0-77 for Full deck)
 - Mode selection: Digital uses random shuf, Physical uses card entry flow (see Physical Mode Card Entry section)
 
 Proceed to perform the reading using the collected question/context.
