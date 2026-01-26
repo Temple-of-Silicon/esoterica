@@ -129,6 +129,12 @@ Plans:
 3. Physical mode fuzzy matching recognizes all 78 card names (e.g., "3 of cups", "three cups", "III Cups")
 4. Default deck selection preserves backwards compatibility (Major-only as default)
 
+**Plans:** 2 plans
+
+Plans:
+- [ ] 18-01-PLAN.md — Add deck selection wizard step and conditional mode dispatch
+- [ ] 18-02-PLAN.md — Expand card index to 78 cards and update fuzzy matching
+
 ---
 
 ## Progress
@@ -154,8 +160,8 @@ Plans:
 | 15. Set Up User Installation | v1.2 | 1/1 | Complete | 2026-01-26 |
 | 16. Architecture Refactor | v1.3 | 2/2 | Complete | 2026-01-26 |
 | 17. Minor Arcana Content | v1.3 | 4/4 | Complete | 2026-01-26 |
-| 18. Wizard Enhancement | v1.3 | 0/? | Pending | - |
+| 18. Wizard Enhancement | v1.3 | 0/2 | Pending | - |
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-26 - Phase 17 complete*
+*Last updated: 2026-01-26 - Phase 18 planned*
