@@ -95,7 +95,9 @@ After wizard completes, process the spread selection from Question 2:
 ### Single Card Spread
 If user selected "Single card (Recommended)":
 - Positions: None (direct interpretation without position label)
-- For digital mode, draw using: `!shuf -i 0-21 -n 1`
+- For digital mode, draw using:
+  - If deck is "Major Arcana only": `!shuf -i 0-21 -n 1`
+  - If deck is "Full deck (78 cards)": `!shuf -i 0-77 -n 1`
 - For physical mode, see Physical Mode Card Entry section
 - Proceed directly to reading
 
@@ -109,7 +111,11 @@ If user selected "Situation/Action/Outcome":
 
    Drawing cards now..."
 
-2. For digital mode, draw three unique cards: `!shuf -i 0-21 -n 3`
+2. For digital mode, draw three unique cards:
+   - If deck is "Major Arcana only": `!shuf -i 0-21 -n 3`
+   - If deck is "Full deck (78 cards)": `!shuf -i 0-77 -n 3`
+
+   Card order:
    - First line = Situation card
    - Second line = Action card
    - Third line = Outcome card
@@ -162,7 +168,10 @@ If user selected "Claude suggests":
 
    Drawing cards now..."
 
-   For digital mode, draw: `!shuf -i 0-21 -n 3`
+   For digital mode, draw:
+   - If deck is "Major Arcana only": `!shuf -i 0-21 -n 3`
+   - If deck is "Full deck (78 cards)": `!shuf -i 0-77 -n 3`
+
    For physical mode, see Physical Mode Card Entry section
 
 ### Custom Spread
@@ -197,7 +206,9 @@ If user selected "Custom":
 
    Drawing cards now..."
 
-   For digital mode, draw unique cards: `!shuf -i 0-21 -n [N]`
+   For digital mode, draw unique cards:
+   - If deck is "Major Arcana only": `!shuf -i 0-21 -n [N]`
+   - If deck is "Full deck (78 cards)": `!shuf -i 0-77 -n [N]`
    - Each line of output corresponds to a position in order
 
    For physical mode, see Physical Mode Card Entry section
@@ -399,12 +410,17 @@ This section describes how mode selection from wizard Question 3 determines the 
 
 **Digital Mode (user selected "Digital (Recommended)"):**
 
-Use existing shell-based random card selection:
+Use shell-based random card selection with range determined by deck choice from wizard:
 
-- **Single card:** `!shuf -i 0-21 -n 1`
-- **Multi-card:** `!shuf -i 0-21 -n [position_count]`
+**If deck is "Major Arcana only (22 cards)":**
+- Single card: `!shuf -i 0-21 -n 1`
+- Multi-card: `!shuf -i 0-21 -n [position_count]`
 
-Proceed directly to interpretation - no user interaction needed for card selection.
+**If deck is "Full deck (78 cards)":**
+- Single card: `!shuf -i 0-77 -n 1`
+- Multi-card: `!shuf -i 0-77 -n [position_count]`
+
+Proceed directly to card identification and file loading.
 
 **Physical Mode (user selected "Physical deck"):**
 
