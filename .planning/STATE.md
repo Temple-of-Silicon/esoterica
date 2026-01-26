@@ -11,21 +11,21 @@ See: .planning/PROJECT.md (updated 2026-01-25)
 
 Milestone: v1.3 Minor Arcana
 Phase: 18 - Wizard Enhancement — IN PROGRESS
-Plan: 1/3 complete (Deck Selection)
-Status: Plan 18-01 complete, ready for 18-02
-Last activity: 2026-01-26 — Completed 18-01-PLAN.md (Deck Selection)
+Plan: 2/3 complete (Card Index & Fuzzy Matching)
+Status: Plan 18-02 complete, ready for 18-03
+Last activity: 2026-01-26 — Completed 18-02-PLAN.md (Card Index & Fuzzy Matching)
 
-Progress: [██████████████░░░░░░] 69% — 2.33/3 phases complete
+Progress: [███████████████░░░░░] 72% — 2.67/3 phases complete
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 29 (5 v1.0 + 5 v1.1 + 12 v1.2 + 7 v1.3)
+- Total plans completed: 30 (5 v1.0 + 5 v1.1 + 12 v1.2 + 8 v1.3)
 - Average duration (v1.1): 2.4 min
 - Average duration (v1.2): 7.6 min
-- Average duration (v1.3): 2.1 min
+- Average duration (v1.3): 2.0 min
 - Total execution time (v1.2): ~84 min
-- Total execution time (v1.3): ~14.5 min
+- Total execution time (v1.3): ~16.7 min
 
 **By Phase:**
 
@@ -43,7 +43,7 @@ Progress: [██████████████░░░░░░] 69% —
 | Phase 14 (Launch Materials) | 3 | ~39 min | ~13 min |
 | Phase 16 (Architecture Refactor) | 2 | 5 min | 2.5 min |
 | Phase 17 (Minor Arcana Content) | 4/4 | ~12 min | ~3 min |
-| Phase 18 (Wizard Enhancement) | 1/3 | 1.5 min | 1.5 min |
+| Phase 18 (Wizard Enhancement) | 2/3 | ~3.7 min | ~1.9 min |
 
 ## v1.3 Phase Status
 
@@ -106,6 +106,11 @@ All decisions logged in PROJECT.md Key Decisions table.
 - Conditional shuf ranges applied across all spread types (Single, Three-Card, Claude Suggests, Custom)
 - Deck choice determines card pool range consistently across all spread/mode combinations
 
+**Phase 18-02 Decisions:**
+- Card numbering follows suit-based scheme (Wands 22-35, Cups 36-49, Swords 50-63, Pentacles 64-77)
+- Optional 'of' in Minor Arcana names (users naturally say 'three cups' not 'three of cups')
+- Court card abbreviations support natural shortcuts (Q, K, Kn, P) for physical deck users
+
 ### Previous Milestone Deliverables
 
 **v1.2 Shipped 2026-01-26:**
@@ -132,7 +137,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-26
-Stopped at: Completed 18-01-PLAN.md (Deck Selection wizard step)
+Stopped at: Completed 18-02-PLAN.md (Card Index & Fuzzy Matching)
 Resume file: None
 
 ## Next Steps
@@ -151,4 +156,4 @@ Resume file: None
 - [ ] Share landing page URL: jem-computer.github.io/esoterica
 
 ---
-*Last updated: 2026-01-26 — Completed 18-01-PLAN.md (Deck Selection wizard step)*
+*Last updated: 2026-01-26 — Completed 18-02-PLAN.md (Card Index & Fuzzy Matching)*
