@@ -8,7 +8,17 @@ A framework for Claude Code agents to use tarot (and eventually other esoteric t
 
 Agents can draw and interpret tarot cards as a perspective-shifting tool for problem-solving, planning, and self-mythologizing.
 
-## Current State (v1.2 Shipped)
+## Current Milestone: v1.3 Minor Arcana
+
+**Goal:** Complete the 78-card deck with 56 Minor Arcana cards at full interpretive depth.
+
+**Target features:**
+- 56 Minor Arcana cards (Wands, Cups, Swords, Pentacles)
+- Full depth for each card: themes, situations, shadows, symbols
+- Deck selection in wizard: Major Arcana only vs Full 78-card deck
+- Court cards (Page, Knight, Queen, King) with archetypal interpretations
+
+## Previous State (v1.2 Shipped)
 
 **Shipped:** 2026-01-26
 
@@ -62,16 +72,22 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 
 ### Active
 
-(None — define in next milestone)
+- [ ] 56 Minor Arcana cards with full depth (themes, situations, shadows, symbols)
+- [ ] Wands suit (Ace through King) — will, creativity, action
+- [ ] Cups suit (Ace through King) — emotions, relationships, intuition
+- [ ] Swords suit (Ace through King) — intellect, conflict, truth
+- [ ] Pentacles suit (Ace through King) — material, work, body
+- [ ] Deck selection in wizard (Major-only vs Full 78-card)
+- [ ] Court card interpretations (Page, Knight, Queen, King archetypes)
 
 ### Out of Scope
 
-- Minor Arcana (56 cards) — future expansion, v2 candidate
 - Runes, numerology, astrology — future esoteric tools
 - MCP server — skill pattern validated and working well
 - Custom user-defined reader personas — two voices sufficient
-- Reversed card meanings — start with upright only
+- Reversed card meanings — upright only for v1.3, revisit later
 - Voice selection in wizard — config-based works well
+- Save readings to file — deferred to v1.4
 
 ## Context
 
@@ -88,7 +104,7 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 
 - **Architecture**: Skill pattern (no MCP server needed)
 - **Platform**: Claude Code CLI — must work with current skill mechanisms
-- **Scope**: Tarot Major Arcana; framework allows future esoteric tools
+- **Scope**: Tarot (Major + Minor Arcana); framework allows future esoteric tools
 
 ## Key Decisions
 
@@ -111,12 +127,11 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 
 ## Pending Todos
 
-- [ ] Let users save readings to file
-- [ ] Minor Arcana expansion (56 cards)
+- [ ] Let users save readings to file (v1.4 candidate)
 - [ ] Argument parsing cleanup
-- [ ] Card data separation from SKILL.md
+- [ ] Card data separation from SKILL.md (consider for v1.3 given 78 cards)
 - [ ] Subagent exploration
 - [ ] GSD workflow integration
 
 ---
-*Last updated: 2026-01-26 after v1.2 milestone*
+*Last updated: 2026-01-25 after v1.3 milestone start*

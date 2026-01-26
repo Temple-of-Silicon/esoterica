@@ -2,20 +2,20 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-23)
+See: .planning/PROJECT.md (updated 2026-01-25)
 
 **Core value:** Agents can draw and interpret tarot cards as a perspective-shifting tool
-**Current focus:** v1.2 complete — ready for launch or v1.3
+**Current focus:** v1.3 Minor Arcana — defining requirements
 
 ## Current Position
 
-Milestone: v1.2 Brand & Marketing — SHIPPED
-Phase: All 15 phases complete
-Plan: All 23 plans complete
-Status: Ready for launch or next milestone
-Last activity: 2026-01-26 - v1.2 archived
+Milestone: v1.3 Minor Arcana
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-01-25 — Milestone v1.3 started
 
-Progress: [████████████████████] 100% — v1.0, v1.1, v1.2 shipped
+Progress: [░░░░░░░░░░░░░░░░░░░░] 0% — requirements phase
 
 ## Performance Metrics
 
