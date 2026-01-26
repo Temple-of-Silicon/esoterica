@@ -76,6 +76,12 @@ All decisions logged in PROJECT.md Key Decisions table.
 - Maintainer notes updated to reflect lazy loading architecture
 - Orchestration pattern: Index → Identify → Load → Interpret
 
+**Phase 17-01 Decisions:**
+- All 14 Wands cards express Fire element (will, action, creativity, passion)
+- Pip cards (Ace-10) follow journey progression narrative through numbered meanings
+- Court cards embed archetypal personality in Themes field (no separate sections)
+- Situations field contains concrete scenarios, not abstract keywords
+
 **Phase 17-02 Decisions:**
 - Water element expressed through emotion/relationship domain across all 14 Cups cards
 - Court cards use standard format with archetypal personality embedded in Themes
