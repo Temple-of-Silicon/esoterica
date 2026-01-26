@@ -1,5 +1,33 @@
 # Project Milestones: Esoterica
 
+## v1.2 Brand & Marketing (Shipped: 2026-01-26)
+
+**Delivered:** Public presence with positioning, landing page, marketing assets, and npm package for easy installation.
+
+**Phases completed:** 10-15 (13 plans total)
+
+**Key accomplishments:**
+
+- Tagline "Ancient patterns, new paths" and cosmic priestess voice guidelines
+- README with mystical-but-grounded documentation tone
+- Hero image (Joshua Tree eco-futurist aesthetic) and full brand guide
+- Landing page at docs/index.html with New Spirit + Geist Mono typography
+- LinkedIn posts, 6-slide carousel, 60-second demo video
+- npm package published as @templeofsilicon/esoterica
+
+**Stats:**
+
+- 97 files created/modified
+- 11,440 lines added
+- 6 phases, 13 plans, 16 requirements
+- 4 days from start to ship (2026-01-23 → 2026-01-26)
+
+**Git range:** `feat(10-01)` → `feat(15-01)`
+
+**What's next:** Launch (enable GitHub Pages, post to LinkedIn), then v1.3 features or new esoteric tools
+
+---
+
 ## v1.1 Wizard UI (Shipped: 2026-01-23)
 
 **Delivered:** Interactive wizard flow with spread selection, physical card entry mode, and position-aware multi-card interpretation.

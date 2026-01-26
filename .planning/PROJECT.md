@@ -8,18 +8,9 @@ A framework for Claude Code agents to use tarot (and eventually other esoteric t
 
 Agents can draw and interpret tarot cards as a perspective-shifting tool for problem-solving, planning, and self-mythologizing.
 
-## Current Milestone: v1.2 Brand & Marketing
+## Current State (v1.2 Shipped)
 
-**Goal:** Give Esoterica a public presence with clear positioning, documentation, and a landing page.
-
-**Target features:**
-- README with clear value proposition
-- One-line tagline/pitch
-- Landing page / website
-
-## Current State (v1.1 Shipped)
-
-**Shipped:** 2026-01-23
+**Shipped:** 2026-01-26
 
 **What's working:**
 - `/tarot` skill with interactive wizard (AskUserQuestion)
@@ -30,11 +21,16 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 - Physical mode with ritual opening, fuzzy card matching, duplicate prevention
 - Multi-card interpretation with woven narratives connecting cards across positions
 - Position-aware interpretation engine with card relationship patterns
+- npm package: `npx @templeofsilicon/esoterica` for easy installation
+- Landing page at jem-computer.github.io/esoterica (enable GitHub Pages)
+- Brand assets: hero image, social variants, favicon, brand guide
 
 **Tech stack:**
 - 842 lines in SKILL.md (single file, all-embedded)
 - Shell injection for randomness and config reading
 - AskUserQuestion for interactive wizard flow
+- Remotion for demo video generation
+- Replicate API for AI image generation (skills/generate-image/)
 
 ## Requirements
 
@@ -56,12 +52,17 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 - ✓ Physical mode: user enters cards they drew — v1.1
 - ✓ Multi-card interpretation with position-aware narratives — v1.1
 
+**v1.2:**
+- ✓ README with clear value proposition and installation guide — v1.2
+- ✓ Tagline "Ancient patterns, new paths" — v1.2
+- ✓ Landing page at docs/index.html — v1.2
+- ✓ Brand guide and visual language — v1.2
+- ✓ LinkedIn launch materials (posts, carousel, demo video) — v1.2
+- ✓ npm package @templeofsilicon/esoterica — v1.2
+
 ### Active
 
-**v1.2:**
-- [ ] README with clear value proposition and installation guide
-- [ ] One-line tagline that captures Justice (balance), High Priestess (mystery), Chariot (direction)
-- [ ] Landing page / website for public sharing
+(None — define in next milestone)
 
 ### Out of Scope
 
@@ -110,11 +111,12 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 
 ## Pending Todos
 
-- [ ] Add a v1 README to the repo
-- [ ] Write a snappy tagline for the project
-- [ ] Make an MVP landing page
 - [ ] Let users save readings to file
-- [ ] Brand positioning and marketing milestone
+- [ ] Minor Arcana expansion (56 cards)
+- [ ] Argument parsing cleanup
+- [ ] Card data separation from SKILL.md
+- [ ] Subagent exploration
+- [ ] GSD workflow integration
 
 ---
-*Last updated: 2026-01-23 after starting v1.2 milestone*
+*Last updated: 2026-01-26 after v1.2 milestone*

@@ -4,7 +4,7 @@
 
 - **v1.0 Tarot Skill** - Phases 1-5 (shipped 2026-01-22)
 - **v1.1 Wizard UI** - Phases 6-9 (shipped 2026-01-23)
-- **v1.2 Brand & Marketing** - Phases 10-15 (in progress)
+- **v1.2 Brand & Marketing** - Phases 10-15 (shipped 2026-01-26)
 
 ## Phases
 
@@ -35,124 +35,20 @@ See: `.planning/milestones/v1.1-ROADMAP.md` for full details.
 
 </details>
 
-### v1.2 Brand & Marketing (Extended)
+<details>
+<summary>v1.2 Brand & Marketing (Phases 10-15) - SHIPPED 2026-01-26</summary>
 
-**Milestone Goal:** Give Esoterica a public presence with clear positioning, documentation, and a landing page.
+See: `.planning/milestones/v1.2-ROADMAP.md` for full details.
 
-#### Phase 10: Positioning
+6 phases, 13 plans, 16 requirements delivered:
+- Phase 10: Positioning (tagline, voice guidelines)
+- Phase 11: Documentation (README)
+- Phase 12: Visual Language (hero image, brand guide)
+- Phase 13: Landing Page (docs/index.html)
+- Phase 14: Launch Materials (LinkedIn, carousel, demo video)
+- Phase 15: User Installation (npm package @templeofsilicon/esoterica)
 
-**Goal**: Esoterica has clear, compelling positioning that honors both serious practitioners and curious developers
-
-**Depends on**: Nothing (first phase of milestone)
-
-**Requirements**: POS-01, POS-02, POS-03
-
-**Success Criteria** (what must be TRUE):
-1. One-line tagline captures Justice (balance), High Priestess (mystery), and Chariot (direction)
-2. Positioning statement articulates how this is a serious tool, not a novelty
-3. Dual-audience framing written that welcomes both developers and practitioners
-
-**Plans**: 2 plans
-
-Plans:
-- [x] 10-01-PLAN.md — Generate tagline options and name alternatives for user selection
-- [x] 10-02-PLAN.md — Write positioning documents (statement, audience framing, voice guidelines)
-
-#### Phase 11: Documentation
-
-**Goal**: Developers can understand, install, and use Esoterica from the README
-
-**Depends on**: Phase 10 (uses positioning for framing)
-
-**Requirements**: DOC-01, DOC-02, DOC-03
-
-**Success Criteria** (what must be TRUE):
-1. README clearly explains what Esoterica is and why it exists
-2. Installation and usage examples guide new users through first reading
-3. Documentation voice reflects mystical-but-grounded tone (not dry technical writing)
-4. Terminal examples show wizard flow in action
-
-**Plans**: 1 plan
-
-Plans:
-- [x] 11-01-PLAN.md — Write README with Esoterica voice (tagline, installation, usage, philosophy)
-
-#### Phase 12: Visual Language
-
-**Goal**: Esoterica has distinctive visual identity (Joshua Tree style - tech in nature)
-
-**Depends on**: Phase 10 (uses positioning to inform visual direction)
-
-**Requirements**: VIS-01, VIS-02, VIS-03
-
-**Success Criteria** (what must be TRUE):
-1. Hero image generated via AI Design Machine reflects retro-futuristic tech in natural settings
-2. Visual language documented for consistency across materials
-3. AI Design Machine integration method established (API, bridge, or manual)
-
-**Plans**: 4 plans
-
-Plans:
-- [x] 12-01-PLAN.md — Create generate-image skill with Replicate API integration
-- [x] 12-02-PLAN.md — Generate hero image variations and select winner
-- [x] 12-03-PLAN.md — Generate social media assets and favicon
-- [x] 12-04-PLAN.md — Extract color palette and write brand guide
-
-#### Phase 13: Landing Page
-
-**Goal**: Public can discover and understand Esoterica via minimal web presence
-
-**Depends on**: Phase 10 (positioning), Phase 11 (content), Phase 12 (visuals)
-
-**Requirements**: LAND-01, LAND-03
-
-**Success Criteria** (what must be TRUE):
-1. Landing page live at public URL with clear explanation
-2. Visual design matches mystical-but-grounded brand tone
-3. Install command is prominent with copy-to-clipboard functionality
-
-**Plans**: 2 plans
-
-Plans:
-- [x] 13-01-PLAN.md — Create docs/ directory structure and copy brand assets
-- [x] 13-02-PLAN.md — Build complete landing page with HTML/CSS/JS
-
-#### Phase 14: Launch Materials
-
-**Goal**: Esoterica ready to announce publicly with polished marketing assets
-
-**Depends on**: Phase 13 (needs landing page and all prior materials)
-
-**Requirements**: LAUNCH-01, LAUNCH-02, LAUNCH-04
-
-**Success Criteria** (what must be TRUE):
-1. LinkedIn teaser and announcement posts written
-2. LinkedIn imagery generated from AI Design Machine
-3. Open graph images configured for clean link sharing
-4. Demo GIF or video shows wizard flow
-
-**Plans**: 3 plans
-
-Plans:
-- [x] 14-01-PLAN.md — Write LinkedIn posts and complete OG meta tags
-- [x] 14-02-PLAN.md — Create Remotion demo video project
-- [x] 14-03-PLAN.md — Generate LinkedIn carousel and verify all launch materials
-
-#### Phase 15: Set Up User Installation
-
-**Goal**: Users can install Esoterica easily via npx or global npm install
-
-**Depends on**: Phase 14 (launch materials complete)
-
-**Success Criteria** (what must be TRUE):
-1. `npx esoterica` works for one-time use
-2. `npm install -g esoterica` works for global installation
-3. Package published to npm registry
-
-**Plans**: 1 plan
-
-Plans:
-- [x] 15-01-PLAN.md - Create npm package configuration, installer script, and publish to registry
+</details>
 
 ## Progress
 
@@ -178,4 +74,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-26 - Phase 15 complete, v1.2 milestone complete*
+*Last updated: 2026-01-26 - v1.2 milestone archived*

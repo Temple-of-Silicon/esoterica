@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-01-23)
 
 **Core value:** Agents can draw and interpret tarot cards as a perspective-shifting tool
-**Current focus:** v1.2 Brand & Marketing - Phase 14 (Launch Materials)
+**Current focus:** v1.2 complete — ready for launch or v1.3
 
 ## Current Position
 
-Milestone: v1.2 Brand & Marketing (Extended)
-Phase: 15 of 15 (Set Up User Installation)
-Plan: 1 of 1 complete
-Status: Milestone complete
-Last activity: 2026-01-26 - Phase 15 complete, package published
+Milestone: v1.2 Brand & Marketing — SHIPPED
+Phase: All 15 phases complete
+Plan: All 23 plans complete
+Status: Ready for launch or next milestone
+Last activity: 2026-01-26 - v1.2 archived
 
-Progress: [████████████████████] 100% (15/15 phases complete)
+Progress: [████████████████████] 100% — v1.0, v1.1, v1.2 shipped
 
 ## Performance Metrics
 
@@ -206,7 +206,7 @@ Resume file: None
 
 ## Next Steps
 
-**v1.2 Brand & Marketing milestone COMPLETE** (15/15 phases, 23 plans total)
+**v1.2 Brand & Marketing — SHIPPED** (6 phases, 13 plans)
 
 ### Launch Checklist
 
@@ -221,6 +221,7 @@ Resume file: None
 
 | Asset | Location |
 |-------|----------|
+| npm package | `npx @templeofsilicon/esoterica` |
 | LinkedIn posts | `brand/launch/linkedin-posts.md` |
 | Carousel slides | `brand/launch/carousel/` (6 slides) |
 | Demo video | `demo/out/demo.mp4` |
@@ -230,7 +231,7 @@ Resume file: None
 
 ### Future Work
 
-See Pending Todos below for v1.3+ ideas.
+See PROJECT.md Pending Todos for v1.3+ ideas.
 
 ### Phase 15 Deliverables
 
@@ -241,4 +242,4 @@ See Pending Todos below for v1.3+ ideas.
 - Updated all marketing assets with new install command (README, landing page, LinkedIn, carousel, demo video)
 
 ---
-*Last updated: 2026-01-26 after Phase 15 completion - v1.2 milestone complete*
+*Last updated: 2026-01-26 — v1.2 milestone archived*
