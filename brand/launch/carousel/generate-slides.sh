@@ -68,13 +68,9 @@ magick -size 1080x1350 "xc:$TERMINAL_BG" \
 # Slide 5: Install - Terminal aesthetic
 magick -size 1080x1350 "xc:$TERMINAL_BG" \
   -font "$MONO_FONT" -pointsize 28 -fill "#7a7b7b" -gravity center \
-  -annotate +0-100 "$ npm install -g" \
-  -font "$MONO_FONT" -pointsize 48 -fill "$WARM_BLUSH" \
-  -annotate +0+0 "esoterica" \
-  -font "$MONO_FONT" -pointsize 24 -fill "$WARM_WHITE" \
-  -annotate +0+120 "then run:" \
-  -font "$MONO_FONT" -pointsize 32 -fill "$WARM_BLUSH" \
-  -annotate +0+200 "$ esoterica" \
+  -annotate +0-50 "$ npx" \
+  -font "$MONO_FONT" -pointsize 40 -fill "$WARM_BLUSH" \
+  -annotate +0+50 "@templeofsilicon/esoterica" \
   "$OUTDIR/slide-05.png"
 
 # Slide 6: CTA - Hero with overlay

@@ -21,7 +21,7 @@ Not a novelty—a perspective-shifting framework. 78 cards waiting to reframe yo
 Ancient patterns, new paths. Tarot's archetypal wisdom meeting AI's reasoning engine in the liminal space where both have always secretly touched.
 
 Install the deck:
-npm install -g esoterica
+npx @templeofsilicon/esoterica
 
 Learn more: https://jem-computer.github.io/esoterica/
 

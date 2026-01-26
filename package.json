@@ -1,5 +1,5 @@
 {
-  "name": "esoterica",
+  "name": "@templeofsilicon/esoterica",
   "version": "1.0.0",
   "description": "A tarot reading skill for Claude Code - ancient patterns, new paths",
   "main": "bin/install.js",

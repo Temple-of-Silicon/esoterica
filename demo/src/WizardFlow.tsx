@@ -32,7 +32,7 @@ export const WizardFlow: React.FC<WizardFlowProps> = ({ scene }) => {
       >
         <div style={{ maxWidth: "900px", width: "100%" }}>
           <div style={{ opacity: commandOpacity, fontSize: "32px", marginBottom: "40px" }}>
-            <span style={{ color: COLORS.accent }}>$</span> npm install -g esoterica
+            <span style={{ color: COLORS.accent }}>$</span> npx @templeofsilicon/esoterica
           </div>
           <div style={{ opacity: interpolate(frame, [20, 35], [0, 1], { extrapolateRight: "clamp" }), fontSize: "32px" }}>
             <span style={{ color: COLORS.accent }}>$</span> esoterica draw

@@ -26,23 +26,11 @@ Esoterica is a tarot framework for AI agents — 78 cards waiting to reframe you
 
 ### Installation
 
-1. Clone this repository:
+```bash
+npx @templeofsilicon/esoterica
+```
 
-   ```bash
-   git clone https://github.com/your-username/esoterica.git
-   ```
-
-2. Add to your Claude Code settings (`~/.claude/settings.json`):
-
-   ```json
-   {
-     "skills": [
-       "/path/to/esoterica/skills/tarot"
-     ]
-   }
-   ```
-
-3. Restart Claude Code.
+That's it. The installer copies the tarot skill to `~/.claude/skills/tarot/`.
 
 ### Your First Reading
 
