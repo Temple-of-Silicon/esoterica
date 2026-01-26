@@ -156,7 +156,7 @@ If user selected "Claude suggests":
    Shall I proceed with these positions, or would you like me to suggest different ones?"
 
 3. **Handle response:**
-   - If user approves: Show position preview and draw 3 unique cards with `!shuf -i 0-21 -n 3`
+   - If user approves: Proceed to step 4 to show position preview and draw cards
    - If user requests different positions: Generate new positions (return to step 1)
    - Do NOT fall back to custom input - keep generating until user approves
 
@@ -506,7 +506,7 @@ Use the Physical Mode Card Entry flow:
 **Both modes produce the same output:**
 
 After mode dispatch completes, you have:
-- Card number(s) (0-21)
+- Card number(s) (0-21 for Major Arcana only, 0-77 for Full deck)
 - Position name(s) (for multi-card spreads)
 - User's question/context
 
@@ -514,9 +514,9 @@ The interpretation flow (Reading Instructions section) is identical for both mod
 
 ## Reading Context
 
-<!-- Card draw is determined by spread selection - see Spread Selection Logic above -->
-<!-- Single card: !shuf -i 0-21 -n 1 -->
-<!-- Three-card spread: !shuf -i 0-21 -n 3 -->
+<!-- Card draw is determined by spread selection and deck choice - see Spread Selection Logic above -->
+<!-- Single card: !shuf -i 0-21 -n 1 (Major-only) or !shuf -i 0-77 -n 1 (Full deck) -->
+<!-- Three-card spread: !shuf -i 0-21 -n 3 (Major-only) or !shuf -i 0-77 -n 3 (Full deck) -->
 
 **Voice:** `!VOICE=$(grep -E '^voice=(mystic|grounded)$' .tarot 2>/dev/null | cut -d= -f2); if [ -z "$VOICE" ]; then VOICE=$(grep -E '^voice=(mystic|grounded)$' "$HOME/.claude/tarot/config" 2>/dev/null | cut -d= -f2); fi; if [ -n "$VOICE" ]; then echo "$VOICE"; else echo "grounded"; fi`
 
