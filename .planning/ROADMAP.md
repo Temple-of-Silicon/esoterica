@@ -4,7 +4,7 @@
 
 - **v1.0 Tarot Skill** - Phases 1-5 (shipped 2026-01-22)
 - **v1.1 Wizard UI** - Phases 6-9 (shipped 2026-01-23)
-- **v1.2 Brand & Marketing** - Phases 10-14 (shipped 2026-01-26)
+- **v1.2 Brand & Marketing** - Phases 10-15 (in progress)
 
 ## Phases
 
@@ -35,7 +35,7 @@ See: `.planning/milestones/v1.1-ROADMAP.md` for full details.
 
 </details>
 
-### v1.2 Brand & Marketing (In Progress)
+### v1.2 Brand & Marketing (Extended)
 
 **Milestone Goal:** Give Esoterica a public presence with clear positioning, documentation, and a landing page.
 
@@ -138,9 +138,25 @@ Plans:
 - [x] 14-02-PLAN.md — Create Remotion demo video project
 - [x] 14-03-PLAN.md — Generate LinkedIn carousel and verify all launch materials
 
+#### Phase 15: Set Up User Installation
+
+**Goal**: Users can install Esoterica easily via npx or global npm install
+
+**Depends on**: Phase 14 (launch materials complete)
+
+**Success Criteria** (what must be TRUE):
+1. `npx esoterica` works for one-time use
+2. `npm install -g esoterica` works for global installation
+3. Package published to npm registry
+
+**Plans**: 1 plan
+
+Plans:
+- [ ] 15-01-PLAN.md - Create npm package configuration, installer script, and publish to registry
+
 ## Progress
 
-**Execution Order:** 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 → 12 → 13 → 14
+**Execution Order:** 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 → 12 → 13 → 14 → 15
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -158,7 +174,8 @@ Plans:
 | 12. Visual Language | v1.2 | 4/4 | Complete | 2026-01-25 |
 | 13. Landing Page | v1.2 | 2/2 | Complete | 2026-01-25 |
 | 14. Launch Materials | v1.2 | 3/3 | Complete | 2026-01-26 |
+| 15. Set Up User Installation | v1.2 | 0/1 | Planned | - |
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-26 - v1.2 Brand & Marketing milestone complete*
+*Last updated: 2026-01-26 - Phase 15 added*
