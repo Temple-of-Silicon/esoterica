@@ -13,7 +13,7 @@ Milestone: v1.3 Minor Arcana — ARCHIVED
 Phase: Ready for v1.4
 Plan: Not started
 Status: Milestone complete and archived
-Last activity: 2026-01-26 — v1.3 shipped and archived
+Last activity: 2026-01-27 — Completed quick task 001: README accuracy update
 
 Progress: Ready for new milestone
 
@@ -134,6 +134,12 @@ All decisions logged in PROJECT.md Key Decisions table.
 
 None.
 
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 001 | Review README and update for current feature set | 2026-01-27 | 16113db | [001-review-readme-and-update-for-current-fea](./quick/001-review-readme-and-update-for-current-fea/) |
+
 ## Session Continuity
 
 Last session: 2026-01-26
@@ -154,4 +160,4 @@ Resume file: None
 - [ ] Share landing page URL: jem-computer.github.io/esoterica
 
 ---
-*Last updated: 2026-01-26 — v1.3 archived, ready for v1.4*
+*Last updated: 2026-01-27 — quick-001 completed*
