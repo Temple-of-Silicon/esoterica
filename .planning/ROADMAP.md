@@ -51,89 +51,17 @@ See: `.planning/milestones/v1.2-ROADMAP.md` for full details.
 
 </details>
 
-### v1.3 Minor Arcana (Phases 16-18)
+<details>
+<summary>v1.3 Minor Arcana (Phases 16-18) - SHIPPED 2026-01-26</summary>
 
-**Goal:** Complete the 78-card deck with 56 Minor Arcana cards at full interpretive depth.
+See: `.planning/milestones/v1.3-ROADMAP.md` for full details.
 
-#### Phase 16: Architecture Refactor
+3 phases, 8 plans, 14 requirements delivered:
+- Phase 16: Architecture Refactor (lazy loading, card separation)
+- Phase 17: Minor Arcana Content (56 cards across 4 suits)
+- Phase 18: Wizard Enhancement (deck selection, fuzzy matching)
 
-**Goal:** Card data lives in separate files, SKILL.md becomes lean orchestration layer
-
-**Dependencies:** None (foundation for v1.3)
-
-**Requirements:**
-- ARCH-01: Card data separated from SKILL.md into suit-based files
-- ARCH-02: SKILL.md contains wizard flow, interpretation logic, and card index only
-- ARCH-03: Card index includes name, suit, and keywords for all 78 cards
-- ARCH-04: Read tool fetches only drawn cards' full meanings after selection
-- ARCH-05: Five card data files: major-arcana.md, wands.md, cups.md, swords.md, pentacles.md
-
-**Success Criteria:**
-1. Agent can invoke `/tarot` and complete a reading using extracted major-arcana.md
-2. SKILL.md contains card index (name, suit, keywords) but not full card meanings
-3. Agent reads only the specific card file(s) needed after cards are drawn
-4. All 22 Major Arcana cards work identically to v1.2 behavior
-
-**Plans:** 2 plans
-
-Plans:
-- [x] 16-01-PLAN.md - Create card data files (major-arcana.md + suit placeholders)
-- [x] 16-02-PLAN.md - Refactor SKILL.md with card index and loading instructions
-
----
-
-#### Phase 17: Minor Arcana Content
-
-**Goal:** All 56 Minor Arcana cards exist with full interpretive depth
-
-**Dependencies:** Phase 16 (architecture must support separate card files)
-
-**Requirements:**
-- CARD-01: Wands suit - 14 cards with full depth
-- CARD-02: Cups suit - 14 cards with full depth
-- CARD-03: Swords suit - 14 cards with full depth
-- CARD-04: Pentacles suit - 14 cards with full depth
-- CARD-05: Each card has themes, situations, shadows, symbols
-- CARD-06: Court cards have archetypal personality interpretations
-
-**Success Criteria:**
-1. User can draw any of 56 Minor Arcana cards and receive full interpretation
-2. Each pip card (Ace-10) includes themes, situations where it applies, shadow aspects, and symbols
-3. Each court card (Page, Knight, Queen, King) includes personality archetype interpretation
-4. Suit elemental associations are consistent (Wands=fire/will, Cups=water/emotion, Swords=air/intellect, Pentacles=earth/material)
-
-**Plans:** 4 plans
-
-Plans:
-- [x] 17-01-PLAN.md — Complete Wands suit (14 cards)
-- [x] 17-02-PLAN.md — Complete Cups suit (14 cards)
-- [x] 17-03-PLAN.md — Complete Swords suit (14 cards)
-- [x] 17-04-PLAN.md — Complete Pentacles suit (14 cards)
-
----
-
-#### Phase 18: Wizard Enhancement
-
-**Goal:** Users can choose between Major-only and Full 78-card deck
-
-**Dependencies:** Phase 16 (architecture), Phase 17 (content must exist)
-
-**Requirements:**
-- WIZD-01: Deck selection step in wizard
-- WIZD-02: Deck choice affects card pool for random draw
-- WIZD-03: Physical mode supports all 78 cards with fuzzy matching
-
-**Success Criteria:**
-1. Wizard presents deck choice before spread selection (Major Arcana only / Full 78-card deck)
-2. Digital mode random draw pulls only from selected deck
-3. Physical mode fuzzy matching recognizes all 78 card names (e.g., "3 of cups", "three cups", "III Cups")
-4. Default deck selection preserves backwards compatibility (Major-only as default)
-
-**Plans:** 2 plans
-
-Plans:
-- [x] 18-01-PLAN.md — Add deck selection wizard step and conditional mode dispatch
-- [x] 18-02-PLAN.md — Expand card index to 78 cards and update fuzzy matching
+</details>
 
 ---
 
@@ -164,4 +92,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-26 - Phase 18 complete, v1.3 shipped*
+*Last updated: 2026-01-26 — v1.3 archived, ready for v1.4*

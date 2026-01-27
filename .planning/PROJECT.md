@@ -8,15 +8,28 @@ A framework for Claude Code agents to use tarot (and eventually other esoteric t
 
 Agents can draw and interpret tarot cards as a perspective-shifting tool for problem-solving, planning, and self-mythologizing.
 
-## Current Milestone: v1.3 Minor Arcana
+## Current State (v1.3 Shipped)
 
-**Goal:** Complete the 78-card deck with 56 Minor Arcana cards at full interpretive depth.
+**Shipped:** 2026-01-26
 
-**Target features:**
-- 56 Minor Arcana cards (Wands, Cups, Swords, Pentacles)
-- Full depth for each card: themes, situations, shadows, symbols
-- Deck selection in wizard: Major Arcana only vs Full 78-card deck
-- Court cards (Page, Knight, Queen, King) with archetypal interpretations
+**What's working:**
+- `/tarot` skill with interactive wizard (AskUserQuestion)
+- **78-card deck:** 22 Major Arcana + 56 Minor Arcana with full interpretive depth
+- **Deck selection:** Choose Major-only (22) or Full deck (78) in wizard
+- **Lazy loading:** Card data in separate files, loaded only after draw
+- Two voices: Mystic (cosmic priestess) and Grounded (pragmatic advisor)
+- Four spread types: Single card, Situation/Action/Outcome, LLM-suggested, Custom (1-5 positions)
+- Two reading modes: Digital (random shuf) and Physical (enter cards from real deck)
+- Physical mode with ritual opening, fuzzy card matching (supports "3 cups", "queen wands", "Q s")
+- Multi-card interpretation with woven narratives connecting cards across positions
+- npm package: `npx @templeofsilicon/esoterica` for easy installation
+- Landing page at jem-computer.github.io/esoterica
+
+**Tech stack:**
+- 860 lines in SKILL.md (orchestration + card index)
+- 719 lines in card data files (5 files: major-arcana + 4 suits)
+- Shell injection for randomness and config reading
+- AskUserQuestion for interactive wizard flow
 
 ## Previous State (v1.2 Shipped)
 
@@ -70,15 +83,20 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 - ✓ LinkedIn launch materials (posts, carousel, demo video) — v1.2
 - ✓ npm package @templeofsilicon/esoterica — v1.2
 
+**v1.3:**
+- ✓ 56 Minor Arcana cards with full depth — v1.3
+- ✓ Wands suit (Ace through King) — v1.3
+- ✓ Cups suit (Ace through King) — v1.3
+- ✓ Swords suit (Ace through King) — v1.3
+- ✓ Pentacles suit (Ace through King) — v1.3
+- ✓ Deck selection in wizard (Major-only vs Full 78-card) — v1.3
+- ✓ Court card interpretations (Page, Knight, Queen, King archetypes) — v1.3
+- ✓ Lazy loading architecture (card files separate from SKILL.md) — v1.3
+- ✓ Fuzzy matching for all 78 cards in physical mode — v1.3
+
 ### Active
 
-- [ ] 56 Minor Arcana cards with full depth (themes, situations, shadows, symbols)
-- [ ] Wands suit (Ace through King) — will, creativity, action
-- [ ] Cups suit (Ace through King) — emotions, relationships, intuition
-- [ ] Swords suit (Ace through King) — intellect, conflict, truth
-- [ ] Pentacles suit (Ace through King) — material, work, body
-- [ ] Deck selection in wizard (Major-only vs Full 78-card)
-- [ ] Court card interpretations (Page, Knight, Queen, King archetypes)
+(Define in v1.4)
 
 ### Out of Scope
 
@@ -124,14 +142,19 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 | Physical mode ritual (v1.1) | Ritual moment before card entry | ✓ Good — honors practice |
 | Woven narratives (v1.1) | Multi-card as one story, not separate readings | ✓ Good — cohesive interpretation |
 | Position-weaving (v1.1) | Positions as interpretive prompts in prose | ✓ Good — natural flow |
+| Lazy loading (v1.3) | Card data in separate files, loaded after draw | ✓ Good — context efficient |
+| Suit-based numbering (v1.3) | Wands 22-35, Cups 36-49, Swords 50-63, Pentacles 64-77 | ✓ Good — clear structure |
+| Major-only default (v1.3) | Backwards compatible deck selection | ✓ Good — preserves behavior |
+| Optional "of" (v1.3) | "three cups" = "three of cups" | ✓ Good — natural input |
 
 ## Pending Todos
 
 - [ ] Let users save readings to file (v1.4 candidate)
 - [ ] Argument parsing cleanup
-- [ ] Card data separation from SKILL.md (consider for v1.3 given 78 cards)
+- [x] Card data separation from SKILL.md — v1.3
 - [ ] Subagent exploration
 - [ ] GSD workflow integration
+- [ ] Reversed card meanings (v1.4 candidate)
 
 ---
-*Last updated: 2026-01-25 after v1.3 milestone start*
+*Last updated: 2026-01-26 after v1.3 milestone shipped*

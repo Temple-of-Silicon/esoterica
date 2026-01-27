@@ -1,5 +1,33 @@
 # Project Milestones: Esoterica
 
+## v1.3 Minor Arcana (Shipped: 2026-01-26)
+
+**Delivered:** Complete 78-card tarot deck with 56 Minor Arcana cards at full interpretive depth, deck selection in wizard, and fuzzy matching for physical mode.
+
+**Phases completed:** 16-18 (8 plans total)
+
+**Key accomplishments:**
+
+- Lazy loading architecture: Card data separated into 5 files (major-arcana + 4 suits)
+- 56 Minor Arcana cards with full depth (Themes/Situations/Shadows/Symbols)
+- Deck selection wizard step: Major Arcana only (22 cards) vs Full deck (78 cards)
+- 78-card index with suit-based numbering (Wands 22-35, Cups 36-49, Swords 50-63, Pentacles 64-77)
+- Fuzzy matching for all 78 cards: "3 cups", "three of cups", "III cups", "Q wands"
+- Backwards compatible: Major Arcana only remains default
+
+**Stats:**
+
+- 6 files created/modified
+- 1,579 lines of tarot content (860 SKILL.md + 719 card files)
+- 3 phases, 8 plans, 14 requirements
+- Same day execution (2026-01-26)
+
+**Git range:** `feat(16-01)` → `docs(v1.3)`
+
+**What's next:** v1.4 features (save readings, reversed meanings) or new esoteric tools
+
+---
+
 ## v1.2 Brand & Marketing (Shipped: 2026-01-26)
 
 **Delivered:** Public presence with positioning, landing page, marketing assets, and npm package for easy installation.
