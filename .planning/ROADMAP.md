@@ -85,7 +85,10 @@ See: `.planning/milestones/v1.3-ROADMAP.md` for full details.
   3. Video frames are pre-extracted WebP images rendered to canvas (not video element scrubbing)
   4. Source video is compressed from 25MB original to optimized WebP frame sequence
   5. Page loads without jank -- scroll handler uses requestAnimationFrame throttling
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 19-01-PLAN.md -- Extract and optimize WebP frame sequence from source video
+- [ ] 19-02-PLAN.md -- Build scroll scrubber component and integrate into hero section
 
 ### Phase 20: Mobile + Accessibility
 **Goal**: The scroll video works gracefully on mobile devices and respects accessibility preferences
@@ -160,11 +163,11 @@ Coverage: 6/6 requirements mapped.
 | 16. Architecture Refactor | v1.3 | 2/2 | Complete | 2026-01-26 |
 | 17. Minor Arcana Content | v1.3 | 4/4 | Complete | 2026-01-26 |
 | 18. Wizard Enhancement | v1.3 | 2/2 | Complete | 2026-01-26 |
-| 19. Scroll Video | v1.4 | 0/TBD | Not started | - |
+| 19. Scroll Video | v1.4 | 0/2 | Not started | - |
 | 20. Mobile + Accessibility | v1.4 | 0/TBD | Not started | - |
 | 21. Gateway Illustrations | v1.4 | 0/TBD | Not started | - |
 | 22. Footer + Polish | v1.4 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-28 -- v1.4 Website Upgrade roadmap added (Phases 19-22)*
+*Last updated: 2026-01-28 -- Phase 19 planned (2 plans, 2 waves)*
