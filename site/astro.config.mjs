@@ -3,7 +3,6 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: 'https://jem-computer.github.io',
   base: '/esoterica',
-  outDir: '../docs',
   build: {
     assets: '_assets'
   },

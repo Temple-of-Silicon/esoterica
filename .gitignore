@@ -8,6 +8,7 @@ node_modules/
 # Build outputs
 dist/
 build/
+site/.astro/
 
 # Brand assets - archive locally, commit winners only
 brand/hero/archive/*.png
