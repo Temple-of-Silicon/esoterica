@@ -153,7 +153,7 @@ Resume file: None
 
 ### v1.2 Launch Checklist (Still Active)
 
-- [ ] Enable GitHub Pages (Settings → Pages → main → /docs)
+- [ ] Enable GitHub Pages (Settings → Pages → Source: GitHub Actions)
 - [ ] Test OG tags at https://metatags.io/
 - [ ] Post LinkedIn teaser (brand/launch/linkedin-posts.md)
 - [ ] Wait 1-3 days
