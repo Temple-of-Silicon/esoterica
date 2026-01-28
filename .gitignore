@@ -10,9 +10,6 @@ dist/
 build/
 site/.astro/
 
-# Video build artifacts - compressed from source, stored in CDN/LFS later
-site/public/video/
-
 # Brand assets - archive locally, commit winners only
 brand/hero/archive/*.png
 !brand/hero/archive/.gitkeep
