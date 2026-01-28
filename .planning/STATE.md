@@ -5,22 +5,22 @@
 See: .planning/PROJECT.md (updated 2026-01-28)
 
 **Core value:** Agents can draw and interpret tarot cards as a perspective-shifting tool
-**Current focus:** v1.4 Website Upgrade -- Phase 19 (Scroll Video)
+**Current focus:** v1.4 Website Upgrade -- Phase 20 (Mobile + Accessibility)
 
 ## Current Position
 
 Milestone: v1.4 Website Upgrade
-Phase: 19 of 22 (Scroll Video)
-Plan: 01 of 02
-Status: In progress
-Last activity: 2026-01-28 -- Completed 19-01-PLAN.md (video compression)
+Phase: 20 of 22 (Mobile + Accessibility)
+Plan: --
+Status: Ready to plan
+Last activity: 2026-01-28 -- Completed Phase 19 (Scroll Video)
 
-Progress: [==================..] 86% (18/22 phases complete; 31 plans shipped)
+Progress: [===================.] 90% (19/22 phases complete; 32 plans shipped)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 31 (5 v1.0 + 5 v1.1 + 12 v1.2 + 8 v1.3 + 1 v1.4)
+- Total plans completed: 32 (5 v1.0 + 5 v1.1 + 12 v1.2 + 8 v1.3 + 2 v1.4)
 - Average duration (v1.1): 2.4 min
 - Average duration (v1.2): 7.6 min
 - Average duration (v1.3): 2.0 min
@@ -42,6 +42,7 @@ Progress: [==================..] 86% (18/22 phases complete; 31 plans shipped)
 | Phase 16 (Architecture Refactor) | 2 | 5 min | 2.5 min |
 | Phase 17 (Minor Arcana Content) | 4 | ~12 min | ~3 min |
 | Phase 18 (Wizard Enhancement) | 2 | ~3.7 min | ~1.9 min |
+| Phase 19 (Scroll Video) | 2 | ~10 min | ~5 min |
 
 ## Accumulated Context
 
@@ -57,10 +58,12 @@ All decisions logged in PROJECT.md Key Decisions table.
 - Phase 21 (illustrations) independent of video phases -- could parallelize
 - Source video: /Users/jem/Downloads/weavy-Kling First & Last Frame-2026-01-28 at 11.59.12.mp4
 
-**19-01 Video Compression:**
+**Phase 19 Scroll Video:**
 - CRF 28 yields 1.8MB from 25MB source (93% reduction)
 - h264 Main profile, Level 4.0, faststart, no audio
-- Video directory gitignored as build artifact
+- Video committed to repo (1.8MB, small enough for git — no CI pipeline for generation)
+- 300vh hero with sticky inner container, scroll maps to video.currentTime
+- BASE_URL trailing slash bug found and fixed
 
 ### Pending Todos
 
@@ -78,12 +81,12 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-28
-Stopped at: Completed 19-01-PLAN.md (video compression)
+Stopped at: Phase 19 complete -- ready to plan Phase 20
 Resume file: None
 
 ## Next Steps
 
-1. Execute Plan 02 of Phase 19 (scroll scrubber component)
+1. Plan Phase 20 (Mobile + Accessibility)
 
 ---
-*Last updated: 2026-01-28 -- Completed 19-01 video compression*
+*Last updated: 2026-01-28 -- Phase 19 complete*

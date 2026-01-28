@@ -68,7 +68,7 @@ See: `.planning/milestones/v1.3-ROADMAP.md` for full details.
 
 **Milestone Goal:** Transform the landing page from static hero image to an immersive scroll-driven video experience with Gateway Process illustrations and proper site footer.
 
-- [ ] **Phase 19: Scroll Video** - Canvas-based scroll-scrubbed hero video from frame sequence
+- [x] **Phase 19: Scroll Video** - Scroll-driven video hero with `<video>` element currentTime mapping
 - [ ] **Phase 20: Mobile + Accessibility** - Mobile fallback, reduced-motion support, scroll hint
 - [ ] **Phase 21: Gateway Illustrations** - Illustration prompts, integration, hybrid layout
 - [ ] **Phase 22: Footer + Polish** - Site footer, loading states, Lighthouse audit
@@ -82,13 +82,13 @@ See: `.planning/milestones/v1.3-ROADMAP.md` for full details.
 **Success Criteria** (what must be TRUE):
   1. Scrolling the hero section plays the video forward; scrolling back plays it in reverse
   2. First frame displays immediately as poster state before any scrolling
-  3. Video frames are pre-extracted WebP images rendered to canvas (not video element scrubbing)
-  4. Source video is compressed from 25MB original to optimized WebP frame sequence
+  3. Video is a `<video>` element with currentTime driven by scroll position
+  4. Source video is compressed from 25MB to under 5MB
   5. Page loads without jank -- scroll handler uses requestAnimationFrame throttling
 **Plans:** 2 plans
 Plans:
-- [ ] 19-01-PLAN.md -- Extract and optimize WebP frame sequence from source video
-- [ ] 19-02-PLAN.md -- Build scroll scrubber component and integrate into hero section
+- [x] 19-01-PLAN.md -- Compress source video with ffmpeg for web delivery
+- [x] 19-02-PLAN.md -- Build scroll-driven video hero component and integrate
 
 ### Phase 20: Mobile + Accessibility
 **Goal**: The scroll video works gracefully on mobile devices and respects accessibility preferences
@@ -128,8 +128,8 @@ Plans:
 
 | Requirement | Description | Phase | Status |
 |-------------|-------------|-------|--------|
-| WEB-01 | Scroll-scrubbed hero video | Phase 19, extended by Phase 20 | Pending |
-| WEB-02 | Compress and integrate AI-generated hero video | Phase 19 | Pending |
+| WEB-01 | Scroll-scrubbed hero video | Phase 19, extended by Phase 20 | Complete |
+| WEB-02 | Compress and integrate AI-generated hero video | Phase 19 | Complete |
 | WEB-03 | Gateway Process-style illustrations | Phase 21 | Pending |
 | WEB-04 | Illustration prompt generation for Nano Banana Pro | Phase 21 | Pending |
 | WEB-05 | Page layout for illustrations | Phase 21 | Pending |
@@ -163,11 +163,11 @@ Coverage: 6/6 requirements mapped.
 | 16. Architecture Refactor | v1.3 | 2/2 | Complete | 2026-01-26 |
 | 17. Minor Arcana Content | v1.3 | 4/4 | Complete | 2026-01-26 |
 | 18. Wizard Enhancement | v1.3 | 2/2 | Complete | 2026-01-26 |
-| 19. Scroll Video | v1.4 | 0/2 | Not started | - |
+| 19. Scroll Video | v1.4 | 2/2 | Complete | 2026-01-28 |
 | 20. Mobile + Accessibility | v1.4 | 0/TBD | Not started | - |
 | 21. Gateway Illustrations | v1.4 | 0/TBD | Not started | - |
 | 22. Footer + Polish | v1.4 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-28 -- Phase 19 planned (2 plans, 2 waves)*
+*Last updated: 2026-01-28 -- Phase 19 complete (scroll-driven video hero)*
