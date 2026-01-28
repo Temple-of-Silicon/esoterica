@@ -114,7 +114,10 @@ Plans:
   2. Illustrations appear on the landing page interspersed with prose and/or in a 3-column grid
   3. Illustrations are theme-aware (adapt to dark/light mode via CSS custom properties)
   4. Illustrations fade in on scroll using Intersection Observer
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 21-01-PLAN.md -- Generate three Gateway Process-style line art illustrations via Nano Banana Pro
+- [ ] 21-02-PLAN.md -- Integrate illustrations into page with CSS breakout, theme filter, scroll reveal
 
 ### Phase 22: Footer + Polish
 **Goal**: The site has a complete footer and passes quality benchmarks
@@ -168,7 +171,7 @@ Coverage: 6/6 requirements mapped.
 | 18. Wizard Enhancement | v1.3 | 2/2 | Complete | 2026-01-26 |
 | 19. Scroll Video | v1.4 | 2/2 | Complete | 2026-01-28 |
 | 20. Mobile + Accessibility | v1.4 | 2/2 | Complete | 2026-01-28 |
-| 21. Gateway Illustrations | v1.4 | 0/TBD | Not started | - |
+| 21. Gateway Illustrations | v1.4 | 0/2 | Not started | - |
 | 22. Footer + Polish | v1.4 | 0/TBD | Not started | - |
 
 ---
