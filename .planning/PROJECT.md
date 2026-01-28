@@ -96,22 +96,22 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 
 ### Active
 
-**v1.4 — Website Upgrade:**
-- [ ] Scroll-scrubbed hero video (Apple-style, playback tied to scroll position)
-- [ ] Compress and integrate AI-generated hero video
-- [ ] Gateway Process-style illustrations for landing page
-- [ ] Illustration prompt generation for Nano Banana Pro
-- [ ] Page layout for illustrations (interspersed with prose or 3-col grid)
-- [ ] Footer with copyright and links
+**v1.4 -- Website Upgrade:**
+- [ ] WEB-01: Scroll-scrubbed hero video (Apple-style, playback tied to scroll position) -- Phase 19
+- [ ] WEB-02: Compress and integrate AI-generated hero video -- Phase 19
+- [ ] WEB-03: Gateway Process-style illustrations for landing page -- Phase 21
+- [ ] WEB-04: Illustration prompt generation for Nano Banana Pro -- Phase 21
+- [ ] WEB-05: Page layout for illustrations (interspersed with prose or 3-col grid) -- Phase 21
+- [ ] WEB-06: Footer with copyright and links -- Phase 22
 
 ### Out of Scope
 
-- Runes, numerology, astrology — future esoteric tools
-- MCP server — skill pattern validated and working well
-- Custom user-defined reader personas — two voices sufficient
-- Reversed card meanings — upright only for v1.3, revisit later
-- Voice selection in wizard — config-based works well
-- Save readings to file — deferred to v1.4
+- Runes, numerology, astrology -- future esoteric tools
+- MCP server -- skill pattern validated and working well
+- Custom user-defined reader personas -- two voices sufficient
+- Reversed card meanings -- upright only for v1.3, revisit later
+- Voice selection in wizard -- config-based works well
+- Save readings to file -- deferred to v1.4
 
 ## Context
 
@@ -127,40 +127,41 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 ## Constraints
 
 - **Architecture**: Skill pattern (no MCP server needed)
-- **Platform**: Claude Code CLI — must work with current skill mechanisms
+- **Platform**: Claude Code CLI -- must work with current skill mechanisms
 - **Scope**: Tarot (Major + Minor Arcana); framework allows future esoteric tools
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Skill pattern over MCP | No external data/APIs needed; simpler architecture | ✓ Good — single file, portable |
-| Major Arcana only | 22 cards is tractable; full 78 adds complexity without core value | ✓ Good — rich enough |
-| Two voices (Mystic/Grounded) | Accommodates different user preferences | ✓ Good — covers spectrum |
-| Global config for voice | Set once, less friction per invocation | ✓ Good — three-tier precedence |
-| Embedded card data | All card knowledge in SKILL.md, no external files | ✓ Good — portable |
-| Voice as lens not persona | Both voices interpret same cards, just frame differently | ✓ Good — maintains competence |
-| Grounded as default | Less alienating for skeptics | ✓ Good — welcoming entry |
-| Interactive wizard (v1.1) | AskUserQuestion replaces inline args | ✓ Good — better UX |
-| Main context execution (v1.1) | Required for AskUserQuestion | ✓ Good — enables interactivity |
-| Situation/Action/Outcome (v1.1) | Chosen over Past/Present/Future for three-card | ✓ Good — more actionable |
-| Position preview (v1.1) | Show positions before drawing cards | ✓ Good — user confidence |
-| Physical mode ritual (v1.1) | Ritual moment before card entry | ✓ Good — honors practice |
-| Woven narratives (v1.1) | Multi-card as one story, not separate readings | ✓ Good — cohesive interpretation |
-| Position-weaving (v1.1) | Positions as interpretive prompts in prose | ✓ Good — natural flow |
-| Lazy loading (v1.3) | Card data in separate files, loaded after draw | ✓ Good — context efficient |
-| Suit-based numbering (v1.3) | Wands 22-35, Cups 36-49, Swords 50-63, Pentacles 64-77 | ✓ Good — clear structure |
-| Major-only default (v1.3) | Backwards compatible deck selection | ✓ Good — preserves behavior |
-| Optional "of" (v1.3) | "three cups" = "three of cups" | ✓ Good — natural input |
+| Skill pattern over MCP | No external data/APIs needed; simpler architecture | ✓ Good -- single file, portable |
+| Major Arcana only | 22 cards is tractable; full 78 adds complexity without core value | ✓ Good -- rich enough |
+| Two voices (Mystic/Grounded) | Accommodates different user preferences | ✓ Good -- covers spectrum |
+| Global config for voice | Set once, less friction per invocation | ✓ Good -- three-tier precedence |
+| Embedded card data | All card knowledge in SKILL.md, no external files | ✓ Good -- portable |
+| Voice as lens not persona | Both voices interpret same cards, just frame differently | ✓ Good -- maintains competence |
+| Grounded as default | Less alienating for skeptics | ✓ Good -- welcoming entry |
+| Interactive wizard (v1.1) | AskUserQuestion replaces inline args | ✓ Good -- better UX |
+| Main context execution (v1.1) | Required for AskUserQuestion | ✓ Good -- enables interactivity |
+| Situation/Action/Outcome (v1.1) | Chosen over Past/Present/Future for three-card | ✓ Good -- more actionable |
+| Position preview (v1.1) | Show positions before drawing cards | ✓ Good -- user confidence |
+| Physical mode ritual (v1.1) | Ritual moment before card entry | ✓ Good -- honors practice |
+| Woven narratives (v1.1) | Multi-card as one story, not separate readings | ✓ Good -- cohesive interpretation |
+| Position-weaving (v1.1) | Positions as interpretive prompts in prose | ✓ Good -- natural flow |
+| Lazy loading (v1.3) | Card data in separate files, loaded after draw | ✓ Good -- context efficient |
+| Suit-based numbering (v1.3) | Wands 22-35, Cups 36-49, Swords 50-63, Pentacles 64-77 | ✓ Good -- clear structure |
+| Major-only default (v1.3) | Backwards compatible deck selection | ✓ Good -- preserves behavior |
+| Optional "of" (v1.3) | "three cups" = "three of cups" | ✓ Good -- natural input |
+| Canvas + WebP frames (v1.4) | Eliminates video.currentTime seek lag; zero runtime deps | Pending |
 
 ## Pending Todos
 
 - [ ] Let users save readings to file (v1.4 candidate)
 - [ ] Argument parsing cleanup
-- [x] Card data separation from SKILL.md — v1.3
+- [x] Card data separation from SKILL.md -- v1.3
 - [ ] Subagent exploration
 - [ ] GSD workflow integration
 - [ ] Reversed card meanings (v1.4 candidate)
 
 ---
-*Last updated: 2026-01-28 after v1.4 milestone started*
+*Last updated: 2026-01-28 -- v1.4 roadmap created*

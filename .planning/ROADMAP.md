@@ -6,6 +6,7 @@
 - **v1.1 Wizard UI** - Phases 6-9 (shipped 2026-01-23)
 - **v1.2 Brand & Marketing** - Phases 10-15 (shipped 2026-01-26)
 - **v1.3 Minor Arcana** - Phases 16-18 (shipped 2026-01-26)
+- **v1.4 Website Upgrade** - Phases 19-22 (in progress)
 
 ## Phases
 
@@ -63,11 +64,81 @@ See: `.planning/milestones/v1.3-ROADMAP.md` for full details.
 
 </details>
 
+### v1.4 Website Upgrade
+
+**Milestone Goal:** Transform the landing page from static hero image to an immersive scroll-driven video experience with Gateway Process illustrations and proper site footer.
+
+- [ ] **Phase 19: Scroll Video** - Canvas-based scroll-scrubbed hero video from frame sequence
+- [ ] **Phase 20: Mobile + Accessibility** - Mobile fallback, reduced-motion support, scroll hint
+- [ ] **Phase 21: Gateway Illustrations** - Illustration prompts, integration, hybrid layout
+- [ ] **Phase 22: Footer + Polish** - Site footer, loading states, Lighthouse audit
+
+## Phase Details
+
+### Phase 19: Scroll Video
+**Goal**: Visitors experience Apple-style scroll-driven video playback tied to scroll position
+**Depends on**: Phase 18 (existing Astro site from quick-002 migration)
+**Requirements**: WEB-01, WEB-02
+**Success Criteria** (what must be TRUE):
+  1. Scrolling the hero section plays the video forward; scrolling back plays it in reverse
+  2. First frame displays immediately as poster state before any scrolling
+  3. Video frames are pre-extracted WebP images rendered to canvas (not video element scrubbing)
+  4. Source video is compressed from 25MB original to optimized WebP frame sequence
+  5. Page loads without jank -- scroll handler uses requestAnimationFrame throttling
+**Plans**: TBD
+
+### Phase 20: Mobile + Accessibility
+**Goal**: The scroll video works gracefully on mobile devices and respects accessibility preferences
+**Depends on**: Phase 19
+**Requirements**: (extends WEB-01 -- mobile and a11y dimensions)
+**Success Criteria** (what must be TRUE):
+  1. Mobile visitors see a static poster or reduced frame set instead of full 240-frame sequence
+  2. Users with `prefers-reduced-motion` enabled see a static frame with no scroll animation
+  3. A scroll hint chevron communicates that the hero section is interactive
+  4. Text overlay fades in sync with scroll progress
+  5. Canvas resizes correctly when viewport dimensions change
+**Plans**: TBD
+
+### Phase 21: Gateway Illustrations
+**Goal**: The landing page features Gateway Process-style illustrations that explain Esoterica's concepts
+**Depends on**: Phase 18 (independent of video phases; can run after 19-20 or in parallel)
+**Requirements**: WEB-03, WEB-04, WEB-05
+**Success Criteria** (what must be TRUE):
+  1. Illustration prompts are generated and ready for Nano Banana Pro image creation
+  2. Illustrations appear on the landing page interspersed with prose and/or in a 3-column grid
+  3. Illustrations are theme-aware (adapt to dark/light mode via CSS custom properties)
+  4. Illustrations fade in on scroll using Intersection Observer
+**Plans**: TBD
+
+### Phase 22: Footer + Polish
+**Goal**: The site has a complete footer and passes quality benchmarks
+**Depends on**: Phases 19, 20, 21
+**Requirements**: WEB-06
+**Success Criteria** (what must be TRUE):
+  1. Footer displays "(c) 02026-, Temple of Silicon" linking to templeofsilicon.com and GitHub icon linking to the repo
+  2. Loading states show poster frame while video frames load
+  3. Site scores 90+ on Lighthouse performance audit
+  4. Site renders correctly in Chrome, Safari, Firefox, and Edge
+**Plans**: TBD
+
+## Requirement Coverage
+
+| Requirement | Description | Phase | Status |
+|-------------|-------------|-------|--------|
+| WEB-01 | Scroll-scrubbed hero video | Phase 19, extended by Phase 20 | Pending |
+| WEB-02 | Compress and integrate AI-generated hero video | Phase 19 | Pending |
+| WEB-03 | Gateway Process-style illustrations | Phase 21 | Pending |
+| WEB-04 | Illustration prompt generation for Nano Banana Pro | Phase 21 | Pending |
+| WEB-05 | Page layout for illustrations | Phase 21 | Pending |
+| WEB-06 | Footer with copyright and links | Phase 22 | Pending |
+
+Coverage: 6/6 requirements mapped.
+
 ---
 
 ## Progress
 
-**Execution Order:** 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14 -> 15 -> 16 -> 17 -> 18
+**Execution Order:** 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14 -> 15 -> 16 -> 17 -> 18 -> 19 -> 20 -> 21 -> 22
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -89,7 +160,11 @@ See: `.planning/milestones/v1.3-ROADMAP.md` for full details.
 | 16. Architecture Refactor | v1.3 | 2/2 | Complete | 2026-01-26 |
 | 17. Minor Arcana Content | v1.3 | 4/4 | Complete | 2026-01-26 |
 | 18. Wizard Enhancement | v1.3 | 2/2 | Complete | 2026-01-26 |
+| 19. Scroll Video | v1.4 | 0/TBD | Not started | - |
+| 20. Mobile + Accessibility | v1.4 | 0/TBD | Not started | - |
+| 21. Gateway Illustrations | v1.4 | 0/TBD | Not started | - |
+| 22. Footer + Polish | v1.4 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-26 — v1.3 archived, ready for v1.4*
+*Last updated: 2026-01-28 -- v1.4 Website Upgrade roadmap added (Phases 19-22)*
