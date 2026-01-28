@@ -100,7 +100,10 @@ Plans:
   3. A scroll hint chevron communicates that the hero section is interactive
   4. Text overlay fades in sync with scroll progress
   5. Canvas resizes correctly when viewport dimensions change
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 20-01-PLAN.md -- Reduced-motion support, poster extraction, viewport resize handling
+- [ ] 20-02-PLAN.md -- Scroll hint element with delayed appearance and scroll fade
 
 ### Phase 21: Gateway Illustrations
 **Goal**: The landing page features Gateway Process-style illustrations that explain Esoterica's concepts
@@ -164,7 +167,7 @@ Coverage: 6/6 requirements mapped.
 | 17. Minor Arcana Content | v1.3 | 4/4 | Complete | 2026-01-26 |
 | 18. Wizard Enhancement | v1.3 | 2/2 | Complete | 2026-01-26 |
 | 19. Scroll Video | v1.4 | 2/2 | Complete | 2026-01-28 |
-| 20. Mobile + Accessibility | v1.4 | 0/TBD | Not started | - |
+| 20. Mobile + Accessibility | v1.4 | 0/2 | Planned | - |
 | 21. Gateway Illustrations | v1.4 | 0/TBD | Not started | - |
 | 22. Footer + Polish | v1.4 | 0/TBD | Not started | - |
 
