@@ -1,332 +1,817 @@
-# Domain Pitfalls: Claude Code Skills + Tarot AI Tools
+# Domain Pitfalls: Scroll-Driven Video on Landing Pages
 
-**Project:** Esoterica
-**Domain:** Claude Code skill development + AI-powered tarot interpretation
-**Researched:** 2026-01-21
-**Confidence:** MEDIUM (based on training data + project context; unable to verify with external sources)
+**Milestone:** Adding scroll-driven hero video to Astro static site
+**Domain:** Apple-style scroll-driven video animation
+**Researched:** 2026-01-28
+**Confidence:** HIGH (verified with official docs, WebSearch 2026, MDN)
+
+## Executive Summary
+
+Scroll-driven video is deceptively complex. What looks like "scrub video on scroll" hides critical pitfalls around iOS autoplay policies, video encoding for seekability, mobile performance, and accessibility. Most implementations fail on mobile first, then discover performance issues on desktop.
+
+**Key insight:** Success depends more on video preparation (encoding with dense keyframes) than JavaScript cleverness. The video must be encoded specifically for scrubbing, not streaming.
+
+---
 
 ## Critical Pitfalls
 
-Mistakes that cause rewrites, major architectural issues, or fundamental product failure.
+Mistakes that cause rewrites, broken mobile experiences, or fundamental feature failure.
 
-### Pitfall 1: Treating Skills as Stateful Services
+### Pitfall 1: Missing Required iOS Autoplay Attributes
 
-**What goes wrong:** Skills are prompt expansions, not persistent services. Storing state in the skill itself leads to confusion about where data lives and whose responsibility initialization is.
+**What goes wrong:** Video doesn't play on iOS Safari. User sees black rectangle or poster frame, no animation on scroll.
 
-**Why it happens:** Developers with MCP server or web service background expect persistent connection lifecycle. Skills are invoked fresh each time.
+**Why it happens:** iOS has strict autoplay policies since iOS 10 (2016) that block videos with audio or missing attributes. Developers test on desktop Chrome first, ship, then discover iOS is completely broken.
 
 **Consequences:**
-- State disappears between invocations
-- Configuration set during skill execution doesn't persist
-- User expects global config to work but it's re-read every invocation
-- Subagent spawning becomes confused about context ownership
+- 40-50% of users (iOS/Safari) see broken hero section
+- Video tag exists but does nothing on scroll
+- User assumes site is broken, bounces
+- Silent failure - no console errors
+- Emergency hotfix required post-launch
 
 **Prevention:**
-- Store persistent config in `~/.claude/settings.json` or project-level config files
-- Skills should read from config files, not maintain internal state
-- Document clearly: "skill = prompt expansion + file reads, not a daemon"
-- Use subagents (via Task tool) for stateful interpretation sessions
+
+Videos MUST have ALL three attributes to autoplay on iOS:
+
+```html
+<video
+  muted
+  playsinline
+  autoplay
+  src="hero.mp4">
+</video>
+```
+
+- **`muted`**: Required. Safari blocks autoplay of videos with audio tracks unless muted
+- **`playsinline`**: Required on iPhone. Without this, video enters fullscreen mode on playback
+- **`autoplay`**: Actually starts the video (iOS respects this when combined with muted)
+
+**Additional iOS restrictions:**
+- Videos only play when visible in viewport (automatically pause when scrolled out)
+- Video must have no audio track OR be muted
+- If video gains audio track or becomes un-muted without user gesture, playback pauses immediately
 
 **Detection:**
-- User reports "settings don't stick between readings"
-- Configuration changes require re-invocation of setup commands
-- Debugging reveals skill re-initializing state on every call
+- Test on actual iPhone (iOS Simulator may not catch all issues)
+- Check Safari Web Inspector for autoplay policy violations
+- Video element exists in DOM but `paused` property is `true`
+- Warning signs during development: "I haven't tested on iOS yet"
 
-**Which phase:** Phase 1 (Core architecture). Get config persistence right from the start or everything built on top will be fragile.
+**Which phase:** Phase 1 (Video setup). Set these attributes from the first commit. Non-negotiable for iOS support.
+
+**Sources:**
+- [WebKit Blog: New video Policies for iOS](https://webkit.org/blog/6784/new-video-policies-for-ios/)
+- [Cloudinary: Video Autoplay in HTML](https://cloudinary.com/guides/video-effects/video-autoplay-in-html)
 
 ---
 
-### Pitfall 2: Over-Engineering "Randomness" in Deterministic Systems
+### Pitfall 2: Video Encoded for Streaming, Not Scrubbing
 
-**What goes wrong:** AI models are fundamentally deterministic (or stochastic with temperature). Trying to make card draws feel "random" and "magical" leads to over-complicated seeding logic, timestamp dependencies, and inconsistent UX.
+**What goes wrong:** Scroll-driven video is janky, laggy, or shows wrong frames. Scrubbing by setting `video.currentTime` results in slow seeks and stuttering.
 
-**Why it happens:**
-- Developers want to honor the "mystical" aspect of tarot
-- Fear that deterministic draws feel "fake"
-- Overthinking the role of randomness in divination vs. problem-solving
+**Why it happens:** Videos are encoded with keyframes every 10 seconds (default MP4 settings) for streaming efficiency. When you seek to arbitrary times via `currentTime`, the decoder must:
+1. Find previous keyframe (up to 10 seconds back)
+2. Decode all intermediate frames
+3. Display target frame
+
+This takes 100-500ms on mobile, causing visible lag during scrolling.
+
+**Why standard encoding fails:**
+- **Default H.264 encoding:** Keyframe every 250 frames (~10 seconds at 25fps)
+- **Streaming optimization:** Fewer keyframes = smaller file size
+- **Scrubbing penalty:** Seeking requires decoding from previous keyframe
 
 **Consequences:**
-- Complex random seed generation logic that breaks across platforms
-- Timestamp-based draws that give same card if invoked too quickly
-- User confusion about whether "randomness" is truly random or LLM-influenced
-- Testing becomes impossible (can't reproduce card draws)
+- Janky scroll animation (frame updates lag behind scroll position)
+- Worse on Firefox (needs keyframe every 2 frames for smoothness)
+- Unusable on mid-range mobile devices (frame drops, stuttering)
+- Video appears to "jump" or "lag" when scrubbing
+- High CPU usage during scroll
 
 **Prevention:**
-- Use simple, reproducible randomness: `bash shuf` or `Math.random()` seeded by timestamp
-- Alternatively: embrace "intuitive selection" where LLM picks based on context (more honest, actually useful)
-- Document the approach clearly: "Random draw" vs "Contextual draw"
-- Make it testable: seed should be controllable for testing
-- Remember: value is in interpretation, not draw mechanism
+
+**Encode video with high keyframe frequency using FFmpeg:**
+
+```bash
+ffmpeg -i input.mp4 \
+  -c:v libx264 \
+  -profile:v high \
+  -crf 23 \
+  -g 30 \
+  -keyint_min 30 \
+  -sc_threshold 0 \
+  -an \
+  -movflags +faststart \
+  output.mp4
+```
+
+**Critical flags explained:**
+- **`-g 30`**: Group of Pictures = 30 frames (keyframe every 30 frames / 1 second at 30fps)
+- **`-keyint_min 30`**: Minimum keyframe interval (forces consistency)
+- **`-sc_threshold 0`**: Disable scene change detection (prevents unexpected keyframes)
+- **`-an`**: Remove audio stream (not needed, saves bandwidth)
+- **`-movflags +faststart`**: Move metadata to beginning for faster web playback
+- **`-crf 23`**: Constant Rate Factor for quality (18-28 range, lower = better quality)
+
+**For ultra-smooth scrubbing (every frame is a keyframe):**
+
+```bash
+ffmpeg -i input.mp4 \
+  -c:v libx264 \
+  -profile:v high \
+  -crf 23 \
+  -g 1 \
+  -an \
+  -movflags +faststart \
+  output.mp4
+```
+
+Warning: `-g 1` creates MUCH larger files (3-5x size increase). Only use if file size is acceptable.
+
+**Browser-specific requirements:**
+- Chrome/Safari: Keyframe every 5 frames is acceptable
+- Firefox: Needs keyframe every 2 frames to avoid jank
+- Mobile: Err toward more keyframes (every 1-2 frames)
 
 **Detection:**
-- Bug reports: "I keep getting the same card"
-- User confusion: "Is this truly random or is Claude choosing?"
-- Tests that can't reproduce specific card draws
-- Platform-specific randomness failures
+- Scrubbing feels laggy or stuttery
+- Frame updates don't match scroll position precisely
+- Performance worse on Firefox
+- High CPU usage during scroll (decoder working hard)
+- Use `ffprobe` to check keyframe interval:
 
-**Which phase:** Phase 2 (Card draw mechanism). Decide early whether you're doing true random vs. contextual selection. Don't try to fake it.
+```bash
+ffprobe -select_streams v -show_frames input.mp4 | grep key_frame
+```
+
+**Which phase:** Phase 1 (Video preparation). Re-encode source video BEFORE implementing scroll logic. Can't fix janky seeks with better JavaScript.
+
+**Sources:**
+- [Mux: Optimize Video for Web with FFmpeg](https://www.mux.com/articles/optimize-video-for-web-playback-with-ffmpeg)
+- [Scroll-to-Scrub Videos Medium Article](https://medium.com/@chrislhow/scroll-to-scrub-videos-4664c29b4404)
+- [Abhishek Ghosh: Playing with Video Scrubbing Animations](https://www.ghosh.dev/posts/playing-with-video-scrubbing-animations-on-the-web/)
 
 ---
 
-### Pitfall 3: Confusing Reader Voice with LLM Persona
+### Pitfall 3: GitHub Pages File Size Exceeded
 
-**What goes wrong:** Implementing "Mystic" and "Grounded" voices by trying to change the LLM's base persona or system prompt, rather than as interpretive frameworks applied to the same card.
+**What goes wrong:** Video push fails or site stops deploying. GitHub rejects the commit with "file exceeds 100 MB" error.
 
 **Why it happens:**
-- Misunderstanding of how Claude's persona works (system vs. interpretive framing)
-- Thinking "voice" means "different AI personality"
-- Over-engineering tone control through prompt engineering
+- GitHub Pages has 1 GB site limit (soft)
+- Individual files must be under 100 MB (hard limit)
+- Files over 50 MB trigger warnings
+- 10-second AI-generated video easily exceeds 100 MB unoptimized
+- Adding dense keyframes (Pitfall 2 solution) increases file size 2-5x
+
+**Math that reveals the trap:**
+- 10-second video at 1080p, 30fps, high keyframe density
+- Uncompressed: ~3 GB
+- Standard H.264 (keyframe every 5 seconds): 15-30 MB
+- Scrubbing-optimized H.264 (keyframe every 1 second): 50-80 MB
+- Every-frame-keyframe H.264: 150-250 MB ← **EXCEEDS LIMIT**
 
 **Consequences:**
-- Voice switching breaks continuity in conversations
-- Mystic voice becomes parody (too witchy, unreadable)
-- Grounded voice becomes sterile (loses archetypal richness)
-- User can't switch voices mid-session without jarring experience
-- Subagent spawning confusion (which agent type for which voice?)
+- Can't push video to GitHub
+- Must use Git LFS (adds complexity)
+- Or must host video externally (CDN costs, deployment complexity)
+- Or must aggressively compress (quality suffers)
+- Launch blocked by infrastructure issue
 
 **Prevention:**
-- **Voice = interpretive lens, not persona**: Same card data, different framing
-- Mystic: evocative metaphor, symbolic language, emotional resonance
-- Grounded: practical application, archetypal patterns, actionable insights
-- Both voices come from the same tarot-reader subagent with voice parameter
-- Voice config stored globally, passed as parameter to subagent
-- Keep both voices literate and useful (avoid caricature)
+
+**Target file size: Under 10 MB for header videos**
+
+1. **Resolution optimization:**
+   - Desktop: 1920x1080 max
+   - Mobile-first: 1280x720 is sufficient
+   - Consider 2 versions: desktop (1080p) + mobile (720p)
+
+2. **Compression optimization:**
+
+```bash
+# Aggressive compression for <10 MB target
+ffmpeg -i input.mp4 \
+  -c:v libx264 \
+  -profile:v high \
+  -crf 28 \
+  -g 30 \
+  -preset slow \
+  -vf scale=1280:720 \
+  -an \
+  -movflags +faststart \
+  output.mp4
+```
+
+**Trade-off calibration:**
+- `-crf 18`: Visually lossless, large file
+- `-crf 23`: High quality (recommended starting point)
+- `-crf 28`: Medium quality, smaller file
+- `-crf 32`: Noticeable compression, very small
+
+3. **Alternative: Use WebM (better compression, good browser support):**
+
+```bash
+ffmpeg -i input.mp4 \
+  -c:v libvpx-vp9 \
+  -crf 30 \
+  -b:v 0 \
+  -vf scale=1280:720 \
+  -an \
+  output.webm
+```
+
+WebM with VP9 achieves 30-40% smaller files than H.264 at same quality.
+
+4. **Fallback strategy: External hosting**
+   - GitHub Pages for HTML/CSS/JS
+   - Cloudflare R2 / Bunny CDN / Backblaze B2 for video (cheap, fast)
+   - Free tier sufficient for landing page traffic
+
+**File size testing:**
+```bash
+# Check file size before commit
+ls -lh output.mp4
+# Target: under 10 MB for smooth GitHub Pages experience
+```
 
 **Detection:**
-- Users find Mystic voice "cringe" or "unreadable"
-- Grounded voice feels like "ChatGPT explaining things"
-- Voice switching causes context loss
-- Developer struggles to maintain consistent voice across interpretations
+- File size check before commit
+- GitHub push fails with "file too large" error
+- Warning during `git add`: "large files detected"
+- Site build fails in GitHub Actions
 
-**Which phase:** Phase 3 (Reader voices). This is where most AI tarot tools fail. Voice is interpretive framework, not chatbot personality.
+**Which phase:** Phase 1 (Video preparation). Check file size BEFORE implementing scroll logic. Prevents late-stage scrambling.
+
+**Sources:**
+- [GitHub Docs: GitHub Pages Limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits)
+- [web.dev: Video Performance](https://web.dev/learn/performance/video-performance)
 
 ---
 
-### Pitfall 4: Building Tarot Encyclopedia Instead of Perspective Tool
+### Pitfall 4: Scroll Jank from Expensive JavaScript
 
-**What goes wrong:** Focusing on comprehensive card meanings, historical accuracy, and traditional interpretations rather than problem-solving utility.
+**What goes wrong:** Page scrolling feels janky, stuttery, or unresponsive. Scroll events fire but video updates lag behind, creating rubber-banding effect.
 
 **Why it happens:**
-- Developers research tarot, find rich historical tradition, want to honor it
-- Feature creep: "We should include all the symbolism!"
-- Loss of sight on core value prop: perspective-shifting for agents/users
+- Scroll event listener fires 60+ times per second
+- Each scroll event triggers:
+  1. Scroll position calculation
+  2. Video currentTime update
+  3. Possible layout recalculation
+  4. Possible style recalculation
+- On main thread, blocking rendering
+
+**Scroll event characteristics:**
+- Fires irregularly (not synced with frame rendering)
+- Can fire multiple times between frames
+- Runs on main thread (competes with rendering)
+- On high-refresh displays (120Hz), fires 120+ times/sec
 
 **Consequences:**
-- Interpretations become walls of text (22 meanings × 2 voices = 44 essays)
-- User overwhelmed by information, not helped by insight
-- Development time spent on tarot scholarship rather than UX
-- Tool becomes reference material, not reasoning aid
-- Agents don't use it because it's not actionable
+- Janky scroll experience (users notice immediately)
+- Worse on mobile (less CPU overhead budget)
+- Bad Core Web Vitals (First Input Delay, Interaction to Next Paint)
+- Users think site is broken or low-quality
+- Defeats purpose of "smooth Apple-style animation"
 
 **Prevention:**
-- **Core value: perspective shift, not education**
-- Each card interpretation should answer: "How does this lens reframe the problem?"
-- Keep interpretations focused (2-3 paragraphs max)
-- Link to deeper meanings, don't embed them
-- Test with real use cases: "Does this help me think differently?"
-- Defer comprehensive meanings to Phase 2+ (ship actionable MVP first)
+
+**Strategy 1: Throttle/debounce scroll events (NOT RECOMMENDED - still janky)**
+
+```javascript
+// DON'T: Throttling helps but doesn't solve root cause
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      updateVideoTime();
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+```
+
+**Strategy 2: CSS Scroll-Driven Animations (RECOMMENDED - hardware accelerated)**
+
+As of 2026, scroll-driven animations are widely supported (Safari 26+, Chrome 115+, Firefox 132+):
+
+```css
+@supports (animation-timeline: scroll()) {
+  video {
+    animation: scrub-video linear;
+    animation-timeline: scroll();
+    animation-range: entry 0% exit 100%;
+  }
+}
+
+@keyframes scrub-video {
+  from {
+    /* Browser handles video scrubbing natively */
+  }
+  to {
+    /* Much smoother than JavaScript */
+  }
+}
+```
+
+**Benefits:**
+- Runs on compositor thread (not main thread)
+- No scroll event listeners needed
+- Hardware accelerated
+- Synced with scroll position at hardware level
+- No jank
+
+**Limitation:** CSS scroll-driven animations can't directly control video.currentTime yet. Hybrid approach:
+
+```javascript
+// Use Intersection Observer (efficient) to detect scroll range
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // Calculate video time based on scroll position
+      const scrollFraction = calculateScrollFraction();
+      video.currentTime = video.duration * scrollFraction;
+    }
+  });
+}, { threshold: buildThresholdArray() }); // e.g., [0, 0.1, 0.2, ..., 1.0]
+
+function buildThresholdArray() {
+  // Create 100 threshold points for smooth updates
+  return Array.from({ length: 101 }, (_, i) => i / 100);
+}
+
+observer.observe(videoContainer);
+```
+
+**Strategy 3: requestVideoFrameCallback (if available, smoother than Intersection Observer)**
+
+```javascript
+if ('requestVideoFrameCallback' in HTMLVideoElement.prototype) {
+  function updateVideoFrame() {
+    const scrollFraction = calculateScrollFraction();
+    video.currentTime = video.duration * scrollFraction;
+    video.requestVideoFrameCallback(updateVideoFrame);
+  }
+  video.requestVideoFrameCallback(updateVideoFrame);
+} else {
+  // Fallback to Intersection Observer
+}
+```
+
+**Performance checklist:**
+- [ ] No direct scroll event listeners (use Intersection Observer)
+- [ ] Video.currentTime updates at most once per frame
+- [ ] Use `will-change: transform` on animated elements sparingly
+- [ ] Test on 60Hz and 120Hz displays
+- [ ] Measure with Chrome DevTools Performance panel
 
 **Detection:**
-- Card interpretations exceed one screen
-- User feedback: "Too much to read"
-- Agents don't invoke `/tarot` in real usage
-- Development velocity slows due to content creation
-- Discussions about "accuracy" dominate over "usefulness"
+- Chrome DevTools Performance panel shows long script tasks during scroll
+- Lighthouse flags scroll performance issues
+- Visual jank visible to naked eye
+- High CPU usage during scrolling
+- Frame drops in Performance monitor
 
-**Which phase:** Phase 3-4 (Card meanings & interpretation). Start minimal, expand based on usage.
+**Which phase:** Phase 2 (Scroll implementation). Use Intersection Observer or CSS scroll-driven animations from the start. Avoid raw scroll events.
+
+**Sources:**
+- [MDN: Optimizing Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas)
+- [Medium: CSS Scroll-Driven Animations](https://medium.com/@petercoolen/css-scroll-driven-animations-aa9aa198f430)
+- [CSS-Tricks: Apple Product Page Scroll Animations](https://css-tricks.com/lets-make-one-of-those-fancy-scrolling-animations-used-on-apple-product-pages/)
 
 ---
 
-### Pitfall 5: Global Config Without Project Overrides
+### Pitfall 5: Ignoring Accessibility (prefers-reduced-motion)
 
-**What goes wrong:** Implementing global config (`~/.claude/settings.json`) without allowing project-level overrides leads to inflexibility and user frustration.
+**What goes wrong:** Users with vestibular disorders or motion sensitivity experience dizziness, nausea, or headaches from scroll-driven animations. Site becomes unusable for accessibility needs.
 
 **Why it happens:**
-- PROJECT.md specifies "global config" as requirement
-- Developer implements only global config to meet spec
-- Doesn't consider multi-project or collaborative workflows
+- Developers focus on "wow factor" of animation
+- Don't test with `prefers-reduced-motion` enabled
+- Assume animation is "just visual polish" (it's not - it's a disability concern)
+- April 2026 ADA Title II deadline makes this legally required
+
+**Who is affected:**
+- 70+ million people with vestibular disorders
+- Users with motion sensitivity
+- Users with cognitive disabilities (animation distracts)
+- Users who explicitly set "reduce motion" in OS settings
 
 **Consequences:**
-- User can't have different voice preferences for different projects
-- Teams can't set project defaults (everyone needs to configure individually)
-- Testing requires changing global config (pollutes user settings)
-- No way to specify project-specific card deck expansions in future
+- Physical discomfort for users (dizziness, nausea, headaches)
+- Site violates WCAG 2.3.3 (Animation from Interactions)
+- Legal liability (ADA compliance required by April 2026)
+- Users forced to leave site immediately
+- Reputational damage ("your site made me sick")
 
 **Prevention:**
-- Config hierarchy: project settings override global settings
-- Global: `~/.claude/settings.json` or `~/.esoterica/config.json`
-- Project: `.esoterica.json` in project root
-- Merge strategy: project values override global, both available
-- Document clearly: "Global sets defaults, project customizes"
+
+**Respect prefers-reduced-motion:**
+
+```css
+/* Default: animated video */
+video {
+  /* scroll-driven animation styles */
+}
+
+/* Reduced motion: static or simple fade */
+@media (prefers-reduced-motion: reduce) {
+  video {
+    animation: none !important;
+    /* Show static poster or simple fade-in */
+  }
+}
+```
+
+**JavaScript detection:**
+
+```javascript
+const prefersReducedMotion = window.matchMedia(
+  '(prefers-reduced-motion: reduce)'
+).matches;
+
+if (prefersReducedMotion) {
+  // Show static hero image instead of video
+  // Or: simple fade-in without scroll-driven animation
+  video.style.display = 'none';
+  staticHeroImage.style.display = 'block';
+} else {
+  // Full scroll-driven video experience
+  initializeScrollDrivenVideo();
+}
+```
+
+**Accessible alternatives:**
+1. **Static hero image** (simplest, most accessible)
+2. **Simple fade-in** (slight animation, well-tolerated)
+3. **Play video on button click** (user-initiated)
+
+**Screen reader considerations:**
+- Video needs alt text or aria-label
+- Describe what video shows: `aria-label="Hero animation showing product features"`
+- Don't rely on video to convey critical information
+- Provide text equivalent of visual content
+
+**Testing:**
+- Enable "Reduce Motion" in OS settings:
+  - macOS: Settings > Accessibility > Display > Reduce motion
+  - iOS: Settings > Accessibility > Motion > Reduce Motion
+  - Android 9+: Settings > Accessibility > Remove animations
+- Test with screen reader (VoiceOver, NVDA, JAWS)
+- Verify video doesn't block or obscure critical content
 
 **Detection:**
-- User complaints: "I want Mystic voice for personal projects, Grounded for work"
-- Testing pain: have to remember to reset global config after tests
-- Collaboration issues: team can't share consistent configuration
+- Manual testing with reduced motion enabled
+- Automated accessibility audits (axe, Lighthouse)
+- User complaints about motion sickness
+- ADA compliance audit flags animation issues
 
-**Which phase:** Phase 1 (Configuration architecture). Build override mechanism from start.
+**Which phase:** Phase 2 (Scroll implementation). Implement reduced-motion check alongside scroll animation. Non-negotiable for accessibility.
+
+**Sources:**
+- [CSS-Tricks: prefers-reduced-motion](https://css-tricks.com/almanac/rules/m/media/prefers-reduced-motion/)
+- [MDN: prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion)
+- [A11y 101: Reduced Motion](https://a11y-101.com/development/reduced-motion)
+- [W3C: Animation from Interactions](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html)
 
 ---
 
 ## Moderate Pitfalls
 
-Mistakes that cause delays, technical debt, or UX friction but are fixable.
+Mistakes that cause delays, technical debt, or suboptimal UX but are fixable.
 
-### Pitfall 6: Hardcoding Card Data in Code
+### Pitfall 6: Wrong Video Preload Strategy
 
-**What goes wrong:** Embedding Major Arcana card definitions, meanings, and symbolism directly in TypeScript/JavaScript code rather than external data files.
+**What goes wrong:** Video either downloads too early (wasting bandwidth on users who never scroll) or too late (stutter on first scroll).
 
 **Why it happens:**
-- Faster initial development (no file parsing needed)
-- Seems simpler than data file management
-- "It's only 22 cards, not a database"
+- Developer doesn't consider preload attribute
+- Defaults to `preload="auto"` (downloads entire video immediately)
+- Or defaults to `preload="none"` (doesn't download until play, causing stutter)
 
 **Consequences:**
-- Can't update card meanings without code changes
-- Version control diffs polluted with content changes
-- Community contributions harder (content + code in same PR)
-- Future deck expansions (Minor Arcana, custom decks) require code changes
-- No way for users to customize interpretations
+- `preload="auto"`: Wastes bandwidth, slow initial page load
+- `preload="none"`: Video stutters when user first scrolls
+- `preload="metadata"`: Middle ground but may still cause first-scroll stutter
+- Mobile data usage concerns (users on cellular pay for unused video)
 
 **Prevention:**
-- Card data in JSON or YAML: `.esoterica/decks/major-arcana.json`
-- Code reads and parses data files
-- Separation of content from logic
-- Easy path to future: user-defined decks, content updates
-- Contributors can improve content without touching code
+
+**Recommended: `preload="metadata"` + Intersection Observer lazy load**
+
+```html
+<video
+  muted
+  playsinline
+  preload="metadata"
+  poster="hero-poster.jpg"
+  src="hero.mp4">
+</video>
+```
+
+```javascript
+// Lazy load full video when viewport approaches hero section
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      video.preload = 'auto'; // Start downloading
+      observer.unobserve(video); // Only load once
+    }
+  });
+}, {
+  rootMargin: '200px' // Start loading 200px before video enters viewport
+});
+
+observer.observe(videoContainer);
+```
+
+**Mobile-specific optimization:**
+
+```javascript
+// Check connection type before preloading
+if ('connection' in navigator) {
+  const connection = navigator.connection;
+  if (connection.effectiveType === '4g') {
+    video.preload = 'auto'; // Fast connection, safe to preload
+  } else {
+    video.preload = 'metadata'; // Slower connection, wait for user
+  }
+}
+```
+
+**Preload attribute comparison:**
+
+| Value | Behavior | Use Case |
+|-------|----------|----------|
+| `none` | Nothing downloaded until play() | Save bandwidth, expect stutter |
+| `metadata` | Only duration/dimensions loaded | Default recommendation |
+| `auto` | Full video downloaded | Only if video is primary content |
 
 **Detection:**
-- Card meaning updates require TypeScript changes
-- Git history shows content and code mixed
-- Can't add a card without rebuilding
+- Network tab shows video downloading on page load (before scroll)
+- First scroll stutters (video not loaded yet)
+- Mobile users complain about data usage
+- Lighthouse flags large initial payload
 
-**Which phase:** Phase 2 (Deck implementation). Start with data files, avoid refactor later.
+**Which phase:** Phase 2 (Scroll implementation). Set preload strategy early to balance performance and UX.
+
+**Sources:**
+- [web.dev: Fast Playback with Preload](https://web.dev/articles/fast-playback-with-preload)
+- [MDN: HTMLMediaElement.preload](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/preload)
+- [Clubmate.fi: Video Preload Attribute](https://clubmate.fi/what-does-the-preload-attribute-in-the-video-element-do)
 
 ---
 
-### Pitfall 7: No Interpretation Context Tracking
+### Pitfall 7: No Fallback for Unsupported Browsers
 
-**What goes wrong:** Card interpretations don't reference what question/problem prompted the reading, leading to generic or disconnected insights.
+**What goes wrong:** Older browsers or browsers without JavaScript show empty hero section or broken video controls.
 
 **Why it happens:**
-- Subagent spawned with just card name, not context
-- Skill doesn't capture or pass the problem statement
-- Focus on card meanings rather than situated interpretation
+- Assumes all users have modern browsers
+- Doesn't provide `<source>` fallbacks for different formats
+- No poster image for browsers that disable autoplay
+- No fallback content inside `<video>` tag
 
 **Consequences:**
-- Interpretations feel generic (could apply to anything)
-- User has to manually connect card to their problem
-- Tool becomes fortune-telling rather than problem-solving
-- Agents don't get actionable perspective shift
+- Older browsers (IE11, old Safari) show nothing
+- Users with JavaScript disabled see blank space
+- Degraded experience instead of graceful degradation
 
 **Prevention:**
-- Skill captures context: "What problem are you exploring?"
-- Pass context to subagent: `{card: "The Tower", context: "choosing database architecture"}`
-- Interpretation addresses specific problem through card lens
-- Quick draw can skip context, deep reading requires it
-- Context stored in reading for later reflection
+
+**Multiple format fallbacks:**
+
+```html
+<video
+  muted
+  playsinline
+  preload="metadata"
+  poster="hero-poster.jpg">
+  <source src="hero.webm" type="video/webm">
+  <source src="hero.mp4" type="video/mp4">
+
+  <!-- Fallback for no video support -->
+  <img src="hero-fallback.jpg" alt="Hero section showing product">
+  <p>Your browser doesn't support video. <a href="hero.mp4">Download video</a></p>
+</video>
+```
+
+**Feature detection:**
+
+```javascript
+const supportsVideo = !!document.createElement('video').canPlayType;
+
+if (!supportsVideo) {
+  // Show static image instead
+  videoContainer.innerHTML = '<img src="hero-fallback.jpg" alt="Hero">';
+}
+
+// Check for requestVideoFrameCallback support
+if (!('requestVideoFrameCallback' in HTMLVideoElement.prototype)) {
+  // Fall back to Intersection Observer approach
+  useIntersectionObserverFallback();
+}
+```
+
+**Progressive enhancement layers:**
+1. **Base layer**: Static hero image (always works)
+2. **Video layer**: Auto-playing muted video (works on modern browsers)
+3. **Scroll animation layer**: Scroll-driven scrubbing (works if JS enabled)
 
 **Detection:**
-- User feedback: "The reading doesn't relate to my problem"
-- Interpretations sound like tarot book excerpts
-- Users stop using deep reading mode (not worth the verbosity)
+- Test in older browsers (Safari 14, Firefox ESR)
+- Test with JavaScript disabled
+- Check fallback content actually displays
 
-**Which phase:** Phase 3-4 (Interpretation engine). Context is what makes readings useful.
+**Which phase:** Phase 2 (Scroll implementation). Add fallbacks as you build scroll logic.
 
 ---
 
-### Pitfall 8: Subagent Spawning Overhead for Simple Draws
+### Pitfall 8: canvas drawImage() Performance on Mobile
 
-**What goes wrong:** Every card draw spawns a subagent, even for quick one-card insights, creating unnecessary overhead and slower UX.
+**What goes wrong:** If using canvas-based approach (drawing video frames to canvas for effects), performance is terrible on mobile.
 
 **Why it happens:**
-- Architecture decision: "subagent handles interpretation"
-- Applied uniformly to all reading modes
-- Didn't consider latency differences
+- `drawImage()` is expensive when extracting video frames
+- Mobile GPUs less powerful than desktop
+- Canvas operations may not be hardware accelerated on all mobile browsers
+- Resizing video frames to fit canvas adds overhead
 
 **Consequences:**
-- Quick draw feels slow (subagent spawn + LLM call)
-- Users avoid the feature due to latency
-- Increased cost (every draw = full subagent context)
-- Battery drain on extended tarot usage
+- Scroll animation stutters on mobile
+- High CPU/battery usage
+- Dropped frames
+- Site feels "janky" compared to native video scrubbing
 
 **Prevention:**
-- Two paths:
-  - **Quick draw:** Skill expands with inline interpretation (no subagent)
-  - **Deep reading:** Spawn subagent for rich, contextual interpretation
-- Quick draw uses templated insights (fast, lower cost)
-- Deep reading uses full interpretive power (slow, higher value)
-- User chooses mode explicitly or via flags
+
+**If using canvas is necessary:**
+
+1. **Use hardware acceleration:**
+
+```javascript
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d', {
+  alpha: false, // Disable alpha channel if not needed
+  desynchronized: true // Allow canvas to be out of sync with DOM
+});
+```
+
+2. **Round coordinates to avoid sub-pixel rendering:**
+
+```javascript
+ctx.drawImage(
+  video,
+  Math.floor(x),
+  Math.floor(y),
+  Math.floor(width),
+  Math.floor(height)
+);
+```
+
+3. **Use requestAnimationFrame instead of setInterval:**
+
+```javascript
+function updateCanvas() {
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  requestAnimationFrame(updateCanvas);
+}
+requestAnimationFrame(updateCanvas);
+```
+
+4. **Consider if canvas is actually needed:**
+   - For simple scrubbing: native `<video>` element is faster
+   - For filters/effects: consider CSS filters instead
+   - Only use canvas if absolutely necessary
+
+**Recommendation:** Avoid canvas unless you need effects that can't be done with video + CSS. Native video scrubbing is hardware-accelerated and much faster.
 
 **Detection:**
-- Performance profiling shows subagent spawn as bottleneck
-- User feedback: "Quick draw should be quicker"
-- Cost analysis shows many short subagent sessions
+- Performance profiling shows drawImage() taking >16ms per frame
+- Mobile testing reveals jank
+- High CPU usage on mobile devices
 
-**Which phase:** Phase 4 (Reading modes). Optimize for the 80% case (quick draws).
+**Which phase:** Phase 2 (Scroll implementation). Choose native video over canvas unless effects require it.
+
+**Sources:**
+- [MDN: Optimizing Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas)
+- [HTML5 Doctor: Video + Canvas](http://html5doctor.com/video-canvas-magic/)
 
 ---
 
-### Pitfall 9: No Reading History or Journaling
+### Pitfall 9: Not Testing on Real Mobile Devices
 
-**What goes wrong:** Each reading is ephemeral. No way to review past readings, track patterns, or build narrative over time.
+**What goes wrong:** Implementation works perfectly on desktop and mobile emulators, but fails on actual iOS/Android devices.
 
 **Why it happens:**
-- MVP focus on single-reading functionality
-- Didn't consider longitudinal value
-- Storage/persistence seems like complexity
+- Developer relies on Chrome DevTools device emulation
+- iOS Simulator doesn't perfectly match real device behavior
+- Mobile browser autoplay policies stricter than emulated
+- Touch scroll behavior differs from emulated scroll
 
 **Consequences:**
-- User can't remember what card they drew yesterday
-- No pattern recognition ("I keep drawing Cups cards during planning phases")
-- Missed opportunity for agent self-mythologizing
-- Can't reference past readings in current context
+- Launch reveals iOS completely broken
+- Video doesn't autoplay on real devices
+- Scroll performance worse than emulator suggested
+- Touch scroll events fire differently than expected
+- Emergency fixes post-launch
 
 **Prevention:**
-- Optional reading log: `~/.esoterica/readings.jsonl`
-- Each reading: `{timestamp, card, context, mode, voice, interpretation}`
-- Skill can show recent readings: `/tarot history`
-- Future: pattern analysis, thematic tracking
-- Make it opt-in (privacy consideration)
+
+**Test on real devices:**
+- Minimum: iPhone (Safari), Android phone (Chrome)
+- Ideal: iPhone (Safari), Android (Chrome), Android (Firefox), iPad
+- Use BrowserStack or similar for device lab access
+
+**Testing checklist:**
+- [ ] Video autoplays on iOS Safari (muted, playsinline, autoplay)
+- [ ] Video autoplays on Android Chrome
+- [ ] Scroll-driven scrubbing works on touch devices
+- [ ] Performance acceptable on mid-range devices (not just flagship)
+- [ ] Battery usage reasonable during extended scrolling
+- [ ] prefers-reduced-motion respected on iOS/Android
+- [ ] Network conditions: Test on throttled 3G/4G
+
+**Remote debugging:**
+- iOS Safari: Safari Developer Menu > Connect to iPhone
+- Android Chrome: chrome://inspect on desktop
+- Firefox Android: about:debugging
 
 **Detection:**
-- User requests: "What card did I draw last week?"
-- Missed narrative opportunities in agent work logs
-- No data for future ML/pattern features
+- Real device testing reveals issues emulator missed
+- User bug reports from mobile users
+- Analytics show high mobile bounce rate
 
-**Which phase:** Phase 5+ (Enhancement). Not critical for MVP, high value for engagement.
+**Which phase:** Phase 3 (Testing). Test on real devices before considering feature complete.
 
 ---
 
-### Pitfall 10: Ignoring the Skeptic User
+### Pitfall 10: Video Encoding Profile Compatibility
 
-**What goes wrong:** UX and documentation assume user believes in/values tarot, alienating pragmatic engineers who see it as "woo."
+**What goes wrong:** Video encoded with High Profile H.264 doesn't play on some older mobile devices or browsers.
 
 **Why it happens:**
-- Designer/developer is tarot enthusiast
-- Focusing on mystical language and framing
-- Forgetting that value prop is "perspective tool," not divination
+- High Profile has better compression but requires more CPU to decode
+- Older devices don't support High Profile hardware decoding
+- Fallback to software decoding is slow and battery-draining
 
 **Consequences:**
-- Potential users dismiss tool as unserious
-- Engineers don't try it because it feels like cosplay
-- Tool doesn't spread beyond niche audience
-- Misses core insight: tarot as structured reframing technique
+- Video plays on desktop but not on older iOS/Android devices
+- Excessive battery drain on devices that software-decode
+- Silent failure: video element exists but shows black screen
 
 **Prevention:**
-- Documentation leads with pragmatic value: "structured perspective shifts"
-- Grounded voice is the default (Mystic is opt-in for those who want it)
-- Explain mechanism: "archetypal lenses force lateral thinking"
-- Compare to other ideation techniques (SCAMPER, Six Thinking Hats)
-- Don't oversell mysticism; undersell it and let results speak
+
+**Use H.264 Constrained Baseline Profile for maximum compatibility:**
+
+```bash
+ffmpeg -i input.mp4 \
+  -c:v libx264 \
+  -profile:v baseline \
+  -level 3.0 \
+  -crf 23 \
+  -g 30 \
+  -an \
+  -movflags +faststart \
+  output.mp4
+```
+
+**Profile comparison:**
+
+| Profile | Compression | Compatibility | Use Case |
+|---------|-------------|---------------|----------|
+| Baseline | Low | Maximum (all devices) | Legacy support |
+| Constrained Baseline | Low | High (WebRTC standard) | Web compatibility |
+| Main | Medium | High (most devices) | Balanced |
+| High | High | Modern devices only | Desktop-first |
+
+**For 2026 web projects:**
+- Constrained Baseline: Maximum compatibility (recommended for landing pages)
+- High Profile: Better compression if you know audience has modern devices
+
+**Provide multiple sources for progressive enhancement:**
+
+```html
+<video muted playsinline preload="metadata">
+  <source src="hero-baseline.mp4" type="video/mp4; codecs=avc1.42E01E">
+  <source src="hero-high.mp4" type="video/mp4; codecs=avc1.640028">
+  <source src="hero.webm" type="video/webm; codecs=vp9">
+</video>
+```
 
 **Detection:**
-- Adoption metrics show low usage outside tarot enthusiasts
-- User feedback: "This feels silly"
-- Tool framed in demo videos with excessive mystical language
-- Pragmatic engineers don't share it with teams
+- Test on older devices (iPhone 8, older Android)
+- Check browser console for codec errors
+- Video element shows black screen but no errors
 
-**Which phase:** Phase 1 (Positioning & documentation). Get framing right from announcement.
+**Which phase:** Phase 1 (Video preparation). Choose profile when encoding, before implementation.
+
+**Sources:**
+- [MDN: Web Video Codec Guide](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Video_codecs)
+- [MDN: WebRTC Codecs](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/WebRTC_codecs)
 
 ---
 
@@ -334,153 +819,239 @@ Mistakes that cause delays, technical debt, or UX friction but are fixable.
 
 Mistakes that cause annoyance but are easily fixable.
 
-### Pitfall 11: Inconsistent Card Naming
+### Pitfall 11: Missing Poster Image
 
-**What goes wrong:** Some cards referenced by number ("Card 0"), some by name ("The Fool"), some by both, leading to confusion.
+**What goes wrong:** Blank space or first frame shows before video loads, creating awkward visual experience.
 
-**Why it happens:** Different parts of system use different identifiers.
+**Why it happens:** Developer forgets to set `poster` attribute on video element.
 
 **Consequences:**
-- User confusion about which card is which
-- Code has multiple card resolution paths
-- Documentation inconsistent
+- Flash of blank content on page load
+- First frame may not be visually appealing
+- Looks unpolished
 
 **Prevention:**
-- Canonical identifier: card name ("The Fool")
-- Number is metadata, not primary key
-- Accept both in input, normalize internally
-- Display always shows name (optionally with number)
 
-**Detection:**
-- Bug reports about card identification
-- Code shows multiple lookup methods
+```html
+<video
+  muted
+  playsinline
+  preload="metadata"
+  poster="hero-poster.jpg"
+  src="hero.mp4">
+</video>
+```
 
-**Which phase:** Phase 2 (Deck implementation). Establish naming convention early.
+**Poster image guidelines:**
+- Export frame from video that represents content
+- Optimize as JPG or WebP (10-50 KB)
+- Same aspect ratio as video
+- Visually appealing starting frame
+
+**Which phase:** Phase 1 (Video setup). Export poster frame when preparing video.
 
 ---
 
-### Pitfall 12: No Skill Discoverability
+### Pitfall 12: No Loading State
 
-**What goes wrong:** Users don't know `/tarot` exists or what it does without external documentation.
+**What goes wrong:** Video appears to be broken while loading. User doesn't know if content is loading or failed.
 
-**Why it happens:** Claude Code skills aren't auto-discovered; user must know command.
+**Why it happens:** No UI feedback for video loading state.
 
 **Consequences:**
-- Low adoption even if installed
-- User doesn't know about quick draw vs. deep reading modes
-- Features go unused
+- User confusion during slow network
+- Appears broken rather than loading
 
 **Prevention:**
-- Clear skill help: `/tarot help` shows options
-- Skill description in marketplace listing
-- README with examples
-- Skill suggests itself in relevant contexts (agent pattern recognition)
 
-**Detection:**
-- Installation numbers vs. usage numbers show large gap
-- Support questions: "How do I use this?"
+```javascript
+video.addEventListener('loadstart', () => {
+  showLoadingSpinner();
+});
 
-**Which phase:** Phase 5+ (Polish). Important for distribution, not MVP.
+video.addEventListener('canplay', () => {
+  hideLoadingSpinner();
+});
+
+video.addEventListener('error', () => {
+  showErrorMessage('Video failed to load');
+});
+```
+
+**Which phase:** Phase 3 (Polish). Add loading states after core functionality works.
 
 ---
 
-### Pitfall 13: Overloading `/tarot` Command Syntax
+### Pitfall 13: No Analytics on Video Performance
 
-**What goes wrong:** Complex command syntax like `/tarot draw --mode=deep --voice=mystic --context="..."` creates friction.
+**What goes wrong:** Can't measure if video is actually loading/playing for users. No data on real-world performance.
 
-**Why it happens:** Trying to expose all options via command flags.
-
-**Consequences:**
-- User has to remember flags
-- Typos in flag names cause errors
-- Verbose commands disrupt flow
-
-**Prevention:**
-- Simple default: `/tarot` (uses global config, quick draw)
-- Interactive prompting for context if needed
-- Advanced options via subcommands: `/tarot deep` or `/tarot quick`
-- Config handles voice preference (don't pass every time)
-
-**Detection:**
-- User errors in command syntax
-- Documentation needs extensive syntax examples
-- Users stick to simplest command, ignore advanced features
-
-**Which phase:** Phase 4 (Reading modes). Keep interface minimal.
-
----
-
-### Pitfall 14: Not Handling Repeated Cards Gracefully
-
-**What goes wrong:** User draws same card multiple times in short period. System treats each as independent, misses opportunity for deeper meaning.
-
-**Why it happens:** Random draws are independent events; no cross-draw awareness.
+**Why it happens:** Forgot to add event tracking for video metrics.
 
 **Consequences:**
-- User notices repetition, wonders if system is broken
-- Missed interpretive opportunity ("This theme persists")
-- Feels like bug even if working as designed
+- Can't detect failure rates
+- Don't know % of users who see video vs. poster
+- Can't optimize based on real data
 
 **Prevention:**
-- Reading history tracks recent cards (last 10 draws)
-- Interpretation notes if card drawn recently: "You drew this yesterday..."
-- Option: "Avoid recent cards" mode for variety seekers
-- Option: "Lean into repetition" mode for pattern seekers
 
-**Detection:**
-- User reports: "Same card three times in a row"
-- Support questions: "Is the shuffle working?"
+```javascript
+// Track video milestones
+video.addEventListener('loadeddata', () => {
+  analytics.track('video_loaded', { duration: video.duration });
+});
 
-**Which phase:** Phase 5+ (Enhancement). Needs history feature first.
+video.addEventListener('play', () => {
+  analytics.track('video_played');
+});
+
+video.addEventListener('error', (e) => {
+  analytics.track('video_error', {
+    code: video.error.code,
+    message: video.error.message
+  });
+});
+
+// Track scroll interaction
+let scrollInteracted = false;
+window.addEventListener('scroll', () => {
+  if (!scrollInteracted && videoInViewport()) {
+    analytics.track('scroll_video_interacted');
+    scrollInteracted = true;
+  }
+}, { once: true });
+```
+
+**Key metrics:**
+- Video load success rate
+- Time to first frame
+- Scroll interaction rate
+- Error codes and frequency
+- Device/browser breakdown
+
+**Which phase:** Phase 3 (Testing). Add analytics before launch to measure real-world performance.
 
 ---
 
 ## Phase-Specific Warnings
 
-| Phase Topic | Likely Pitfall | Mitigation |
-|-------------|---------------|------------|
-| Configuration architecture | Global-only config (Pitfall 5) | Build override mechanism from start |
-| Skill implementation | Treating skill as stateful (Pitfall 1) | Document clearly: skills are prompt expansions |
-| Deck structure | Hardcoded card data (Pitfall 6) | Use JSON/YAML data files from beginning |
-| Card draw mechanism | Over-engineering randomness (Pitfall 2) | Pick simple approach: bash shuf or contextual selection |
-| Reader voices | Voice as LLM persona (Pitfall 3) | Voice = interpretive lens, not personality |
-| Interpretation depth | Encyclopedia vs. tool (Pitfall 4) | Test with "Does this help me think differently?" |
-| Reading modes | Subagent overhead for quick draws (Pitfall 8) | Inline interpretation for quick, subagent for deep |
-| Context handling | Generic interpretations (Pitfall 7) | Pass problem context to interpretation engine |
-| Positioning | Alienating skeptics (Pitfall 10) | Lead with pragmatic value, Grounded as default |
+| Phase | Topic | Critical Pitfall | Prevention |
+|-------|-------|-----------------|------------|
+| Phase 1 | Video preparation | Streaming-optimized encoding (Pitfall 2) | Re-encode with `-g 30` for scrubbing |
+| Phase 1 | Video preparation | File size exceeds GitHub limit (Pitfall 3) | Target <10 MB, test file size |
+| Phase 1 | Video setup | Missing iOS attributes (Pitfall 1) | Add muted, playsinline, autoplay |
+| Phase 2 | Scroll implementation | Scroll event jank (Pitfall 4) | Use Intersection Observer, not scroll events |
+| Phase 2 | Scroll implementation | Ignoring reduced motion (Pitfall 5) | Respect prefers-reduced-motion from start |
+| Phase 2 | Scroll implementation | Wrong preload strategy (Pitfall 6) | Use preload="metadata" + lazy load |
+| Phase 3 | Testing | No real device testing (Pitfall 9) | Test on actual iPhone/Android before launch |
+| Phase 3 | Polish | No loading states (Pitfall 12) | Add loadstart/canplay/error handlers |
+| Phase 3 | Launch prep | No analytics (Pitfall 13) | Track video load/play/error events |
 
 ---
 
-## Research Confidence Assessment
+## Quick Reference: Pre-Launch Checklist
 
-| Domain | Confidence | Notes |
-|--------|------------|-------|
-| Claude Code skills architecture | LOW | Based on training data; unable to verify with official docs due to tool restrictions |
-| MCP vs. skill patterns | LOW | Inferred from project context; official MCP docs inaccessible |
-| AI tarot implementation | MEDIUM | Based on analysis of AI-assisted divination tools in training data |
-| Subagent patterns | LOW | Based on project context; Claude Code subagent docs unavailable |
-| Configuration patterns | MEDIUM | Standard patterns across tools; file-based config well-understood |
-| UX pitfalls for tarot tools | HIGH | Analysis of historical failures in AI divination, grounded in UX principles |
+Before deploying scroll-driven video to production:
 
-## Verification Needed
+### Video File
+- [ ] Re-encoded with keyframe every 30 frames (`-g 30`)
+- [ ] Audio track removed (`-an`)
+- [ ] FastStart enabled (`-movflags +faststart`)
+- [ ] File size under 10 MB (or hosted on CDN)
+- [ ] Poster image created and optimized
+- [ ] Tested in VLC or browser to verify smooth scrubbing
 
-These pitfalls are based on synthesis of:
-- Training data about Claude Code ecosystem (6+ months stale)
-- Project context from PROJECT.md
-- General patterns in agent/skill architecture
-- Analysis of AI-powered divination tools
+### HTML/Attributes
+- [ ] `muted` attribute present
+- [ ] `playsinline` attribute present (iOS requirement)
+- [ ] `autoplay` attribute present
+- [ ] `preload="metadata"` set
+- [ ] `poster` attribute with optimized image
+- [ ] Multiple `<source>` elements for fallback
 
-**Recommended validation:**
-- Verify Claude Code skill lifecycle (stateful vs. stateless)
-- Confirm subagent spawning patterns and cost
-- Check current best practices for global vs. project config
-- Validate against any existing Claude Code skill examples in ecosystem
+### JavaScript/Implementation
+- [ ] No direct scroll event listeners (use Intersection Observer)
+- [ ] Intersection Observer or requestVideoFrameCallback for scroll
+- [ ] Respects `prefers-reduced-motion`
+- [ ] Feature detection for requestVideoFrameCallback
+- [ ] Loading states (loadstart, canplay, error)
+- [ ] Analytics events tracked
+
+### Testing
+- [ ] Tested on real iPhone (Safari)
+- [ ] Tested on real Android (Chrome)
+- [ ] Tested with "Reduce Motion" enabled
+- [ ] Tested with slow network (throttled 3G)
+- [ ] Tested with JavaScript disabled (graceful degradation)
+- [ ] Lighthouse audit passed (performance, accessibility)
+- [ ] No console errors on iOS/Android
+
+### Accessibility
+- [ ] prefers-reduced-motion respected
+- [ ] aria-label or alt text on video
+- [ ] Video doesn't block critical content
+- [ ] Fallback content provided
+- [ ] Tested with screen reader
+
+---
+
+## Confidence Assessment
+
+| Area | Confidence | Sources |
+|------|------------|---------|
+| iOS autoplay policies | HIGH | Official WebKit blog, verified 2026 |
+| Video encoding for scrubbing | HIGH | FFmpeg docs, developer articles 2026 |
+| GitHub Pages limits | HIGH | Official GitHub documentation 2026 |
+| Scroll performance | HIGH | MDN, web.dev, CSS-Tricks verified 2026 |
+| Accessibility (prefers-reduced-motion) | HIGH | MDN, W3C WCAG, A11y resources 2026 |
+| Mobile browser differences | MEDIUM | WebSearch 2026, some gaps in iOS-specific details |
+| Canvas performance | MEDIUM | MDN verified, mobile-specific details from articles |
+| requestVideoFrameCallback support | HIGH | MDN verified, caniuse data October 2024 baseline |
+
+---
 
 ## Sources
 
-- Training data on Claude Code agent architecture (January 2025 knowledge cutoff)
-- PROJECT.md context for Esoterica framework
-- General software architecture patterns (config management, data separation)
-- UX analysis of AI-assisted divination tools (training data)
+### iOS Autoplay Policies
+- [WebKit Blog: New video Policies for iOS](https://webkit.org/blog/6784/new-video-policies-for-ios/)
+- [Cloudinary: Video Autoplay in HTML](https://cloudinary.com/guides/video-effects/video-autoplay-in-html)
+- [Bitmovin: Autoplay Policies Safari 14 & Chrome 64](https://bitmovin.com/autoplay-policies-safari-14-chrome-64/)
 
-**Note:** Unable to access external verification sources (WebSearch, WebFetch, Context7 all restricted). Confidence levels marked accordingly. Recommend validating against current official documentation before trusting these pitfalls for critical architectural decisions.
+### Video Encoding & Optimization
+- [Mux: Optimize Video for Web Playback with FFmpeg](https://www.mux.com/articles/optimize-video-for-web-playback-with-ffmpeg)
+- [web.dev: Video Performance](https://web.dev/learn/performance/video-performance)
+- [MDN: Multimedia Video](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Performance/video)
+- [Smashing Magazine: Optimizing Video for Size and Quality](https://www.smashingmagazine.com/2021/02/optimizing-video-size-quality/)
+
+### Scroll-Driven Video Implementation
+- [CSS-Tricks: Apple Product Page Scroll Animations](https://css-tricks.com/lets-make-one-of-those-fancy-scrolling-animations-used-on-apple-product-pages/)
+- [Medium: Scroll to Scrub Videos](https://medium.com/@chrislhow/scroll-to-scrub-videos-4664c29b4404)
+- [Abhishek Ghosh: Playing with Video Scrubbing Animations](https://www.ghosh.dev/posts/playing-with-video-scrubbing-animations-on-the-web/)
+
+### Performance & Scroll Jank
+- [MDN: Optimizing Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas)
+- [Medium: CSS Scroll-Driven Animations](https://medium.com/@petercoolen/css-scroll-driven-animations-aa9aa198f430)
+- [Apple Developer: UI Animation Hitches and the Render Loop](https://developer.apple.com/videos/play/tech-talks/10855/)
+
+### GitHub Pages
+- [GitHub Docs: GitHub Pages Limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits)
+
+### Accessibility
+- [CSS-Tricks: prefers-reduced-motion](https://css-tricks.com/almanac/rules/m/media/prefers-reduced-motion/)
+- [MDN: prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion)
+- [A11y 101: Reduced Motion](https://a11y-101.com/development/reduced-motion)
+- [W3C WCAG: Animation from Interactions](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html)
+
+### Browser APIs
+- [MDN: requestVideoFrameCallback](https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement/requestVideoFrameCallback)
+- [Can I Use: requestVideoFrameCallback](https://caniuse.com/?search=requestVideoFrameCallback)
+- [MDN: Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver)
+
+### Video Preloading
+- [web.dev: Fast Playback with Preload](https://web.dev/articles/fast-playback-with-preload)
+- [MDN: HTMLMediaElement.preload](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/preload)
+- [Clubmate.fi: Video Preload Attribute](https://clubmate.fi/what-does-the-preload-attribute-in-the-video-element-do)
+
+### Codec Compatibility
+- [MDN: Web Video Codec Guide](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Video_codecs)
+- [MDN: WebRTC Codecs](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/WebRTC_codecs)

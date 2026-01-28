@@ -1,368 +1,587 @@
-# Technology Stack: Claude Code Skills & Subagents
+# Technology Stack: Scroll-Driven Video Enhancement
 
-**Project:** Esoterica (Claude Code esoteric tools framework)
-**Researched:** 2026-01-21
-**Confidence:** MEDIUM (based on Claude Code agent runtime analysis and project context)
+**Project:** Esoterica Landing Page
+**Milestone:** Scroll-driven hero video, Gateway Process illustrations, footer
+**Researched:** 2026-01-28
+**Confidence:** HIGH
 
-## Overview
+## Executive Summary
 
-Claude Code uses a **skill + subagent architecture** where skills are prompt expansions that can spawn specialized subagents for complex tasks. Skills are lightweight command interfaces, while subagents are full agent instances with their own system prompts and tool access.
+For Apple-style scroll-driven video on a static Astro site, **canvas with image sequences outperforms video elements** by eliminating seek delays (250-500ms per frame). The recommended approach: extract video frames to WebP sequence, preload critical frames, lazy-load remainder, and use Intersection Observer + requestAnimationFrame for scroll synchronization. No external libraries needed - vanilla JavaScript handles this efficiently.
 
-## Core Architecture
+## Recommended Stack Additions
 
-### Skills (Command Interface)
+### Video Processing (Build-time)
 
-**What:** Prompt expansions invoked via `/command` syntax
-**Purpose:** User-facing entry points for functionality
-**Confidence:** MEDIUM (verified from project context, not from official documentation)
+| Tool | Version | Purpose | Why |
+|------|---------|---------|-----|
+| ffmpeg | 7.x+ | Frame extraction and compression | Industry standard, precise frame extraction, excellent WebP output quality |
 
-| Aspect | Implementation | Why |
-|--------|---------------|-----|
-| Invocation | `/command-name` syntax | Natural CLI-style interface |
-| Location | Project `.claude/` directory or global `~/.claude/` | Project-specific or global availability |
-| Format | Markdown with role definitions | Consistent with Claude's prompt format |
-| Registration | Auto-discovered by Claude Code | Zero-config skill loading |
+**Installation:**
+```bash
+# macOS
+brew install ffmpeg
+
+# Ubuntu/Debian
+sudo apt-get install ffmpeg
+```
+
+### Runtime (Client-side)
+
+| Technology | Version | Purpose | Why |
+|------------|---------|---------|-----|
+| Vanilla JavaScript | ES2020+ | Scroll synchronization | No framework needed, maximum performance, already using vanilla JS |
+| Canvas API | Native | Frame rendering | Smooth rendering, 60fps capable, no video seek delays |
+| Intersection Observer | Native | Viewport detection | Universal browser support (since 2019), efficient viewport tracking |
+| requestAnimationFrame | Native | Scroll smoothing | Syncs with browser paint cycle, prevents jank |
+
+### Assets Format
+
+| Asset Type | Format | Why |
+|------------|--------|-----|
+| Image sequence | WebP | 26% smaller than PNG, 25-34% smaller than JPEG, native browser support |
+| Fallback (optional) | MP4 h.264 | Universal compatibility for browsers without canvas support |
+
+## NO Additional npm Packages Needed
+
+**Do NOT add:**
+- ❌ GSAP ScrollTrigger (48KB) - Overkill for single scroll video, adds unnecessary weight
+- ❌ scrolly-video library - Adds abstraction layer, native APIs sufficient
+- ❌ Video processing libraries - ffmpeg handles all needs at build time
+
+**Why native-only approach:**
+- Site currently has zero runtime dependencies beyond Astro framework
+- Intersection Observer + requestAnimationFrame provide all needed functionality
+- Canvas API is well-optimized in modern browsers
+- Adds zero bundle size
+
+## Integration with Existing Astro Stack
+
+### Current Stack (Validated)
+- Astro 5.0 static site generator
+- Sharp 0.33.0 for image optimization
+- Builds to `docs/` directory for GitHub Pages
+- Site: `jem-computer.github.io/esoterica`
+
+### How Video Enhancement Integrates
+
+**Build Process:**
+1. Source video (25MB h.264) placed in `public/video/` directory
+2. Build script extracts frames using ffmpeg
+3. Frames optimized to WebP sequence in `public/frames/`
+4. Astro copies static assets to `docs/` during build
+
+**Runtime Process:**
+1. HTML canvas element in hero section
+2. Vanilla JS preloads first 10-15 frames (above-fold)
+3. Lazy-loads remaining frames as user scrolls
+4. Intersection Observer detects when video section enters viewport
+5. requestAnimationFrame syncs canvas drawing to scroll position
 
 **File Structure:**
 ```
-.claude/
-  skills/
-    tarot.md              # Skill definition
-  settings.local.json     # Project configuration
+site/
+├── public/
+│   ├── video/
+│   │   └── hero-source.mp4 (25MB, not deployed)
+│   └── frames/
+│       ├── frame-0001.webp
+│       ├── frame-0002.webp
+│       └── ... (240 frames for 10s @ 24fps)
+├── src/
+│   ├── components/
+│   │   └── ScrollVideo.astro
+│   └── scripts/
+│       └── scroll-video.js (vanilla JS)
+└── scripts/
+    └── extract-frames.sh (ffmpeg wrapper)
 ```
 
-**Skill Definition Pattern:**
-```markdown
-# /tarot - Tarot Reading Skill
+## Video Processing Pipeline
 
-Invokes a tarot reading for perspective-shifting on problems.
+### Step 1: Frame Extraction
 
-## Invocation
-- User types: `/tarot [quick|deep] [question]`
-- Claude types: `/tarot` to invoke for itself
-
-## Behavior
-1. Parse invocation mode (quick/deep)
-2. Spawn tarot-reader subagent via Task tool
-3. Pass context and mode to subagent
-4. Return subagent's interpretation to caller
-
-## Parameters
-- mode: quick (card + brief) or deep (full interpretation)
-- question: optional context for reading
+**Command:**
+```bash
+ffmpeg -i hero-source.mp4 -vf fps=24 -q:v 1 frame-%04d.jpg
 ```
 
-### Subagents (Specialized Agents)
+**Why this approach:**
+- `fps=24`: Maintain source frame rate (smooth scrubbing)
+- `-q:v 1`: Highest JPEG quality for intermediate frames
+- `%04d`: Zero-padded numbering (frame-0001, frame-0002...)
 
-**What:** Full Claude instances with specialized system prompts
-**Purpose:** Complex, multi-step reasoning with dedicated role
-**Confidence:** HIGH (verified from my own system prompt structure)
+### Step 2: WebP Conversion
 
-| Aspect | Implementation | Why |
-|--------|---------------|-----|
-| Spawning | Task tool with agent type | Allows parallel agent execution |
-| System Prompt | Markdown role definition | Comprehensive behavior specification |
-| Tool Access | Same tool set as parent | Agents can read, write, execute |
-| Return Format | Structured output blocks | Parseable by orchestrator |
-
-**Spawning Pattern:**
-```markdown
-Spawn subagent via Task tool:
-- agent_type: "tarot-reader"
-- task_description: "Interpret [card] for [context]"
-- include_context: [relevant files/data]
+**Command:**
+```bash
+for file in frame-*.jpg; do
+  ffmpeg -i "$file" -quality 80 -resize 1920x1080 "${file%.jpg}.webp"
+done
 ```
 
-**Agent Definition Pattern:**
-```markdown
-<role>
-You are a tarot-reader subagent. You interpret tarot cards
-as perspective-shifting tools for problem-solving.
+**Why this approach:**
+- `quality 80`: Optimal balance (imperceptible quality loss, 25-34% smaller than JPEG)
+- `resize 1920x1080`: Desktop-appropriate resolution (1928x1072 source close enough)
+- WebP animated format (`img2webp`) NOT used - individual frames allow selective loading
 
-You are spawned by:
-- `/tarot` skill (user or Claude invoked)
+**Expected output:**
+- 240 frames (10s × 24fps)
+- ~50-80KB per WebP frame
+- Total sequence: ~12-19MB (vs 25MB source video)
+- First 15 frames: ~750KB-1.2MB (preload budget)
 
-Your job: Draw card, interpret symbolism, relate to context.
-</role>
+### Step 3: Mobile-Optimized Variant (Optional but Recommended)
 
-<execution_flow>
-1. Receive context from spawner
-2. Draw card (via randomness mechanism)
-3. Interpret through archetypal lens
-4. Return structured reading
-</execution_flow>
-
-<structured_returns>
-## READING COMPLETE
-**Card:** [name]
-**Archetype:** [brief description]
-**Interpretation:** [application to context]
-</structured_returns>
+**Command:**
+```bash
+for file in frame-*.jpg; do
+  ffmpeg -i "$file" -quality 75 -resize 960x540 "mobile-${file%.jpg}.webp"
+done
 ```
 
-## Configuration System
+**Why:**
+- 960x540 appropriate for mobile screens
+- ~20-30KB per frame
+- Total mobile sequence: ~5-7MB
+- Serve via media query or user agent detection
 
-**Location:** `.claude/settings.local.json` (project) or `~/.claude/settings.json` (global)
-**Format:** JSON
-**Confidence:** HIGH (verified from existing project file)
+## Scroll Synchronization Implementation
 
-| Scope | File | Use Case |
-|-------|------|----------|
-| Project | `.claude/settings.local.json` | Project-specific config |
-| Global | `~/.claude/settings.json` | User preferences across projects |
-| Skill-specific | `.claude/config/skill-name.json` | Skill settings (e.g., reader voice) |
+### Approach: Canvas + Image Sequence
 
-**Configuration Pattern:**
-```json
-{
-  "permissions": {
-    "allow": [
-      "Bash(git add:*)",
-      "Bash(git commit:*)"
-    ]
-  },
-  "esoterica": {
-    "reader_voice": "mystic",
-    "default_mode": "quick"
+**Why NOT video.currentTime approach:**
+- Video seek has 250-500ms latency per frame
+- Requires keyframe=1 encoding (bloats file size or reduces quality)
+- Backward scrubbing unreliable
+- Frame drops on mobile devices
+
+**Why Canvas + Image Sequence:**
+- Zero latency frame switching
+- Precise scroll-to-frame mapping
+- Reliable backward/forward scrubbing
+- Consistent performance across devices
+
+### Technical Architecture
+
+**1. Preload Critical Frames**
+```javascript
+// Preload first 15 frames (above-fold, ~1MB budget)
+const preloadFrames = Array.from({length: 15}, (_, i) => {
+  const img = new Image();
+  img.src = `/esoterica/frames/frame-${String(i+1).padStart(4, '0')}.webp`;
+  return img;
+});
+```
+
+**2. Lazy Load Remaining Frames**
+```javascript
+// Load on demand as user scrolls
+const lazyLoadFrame = (index) => {
+  if (!frameCache[index]) {
+    frameCache[index] = new Image();
+    frameCache[index].src = `/esoterica/frames/frame-${String(index+1).padStart(4, '0')}.webp`;
   }
+  return frameCache[index];
+};
+```
+
+**3. Intersection Observer Setup**
+```javascript
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // Start scroll sync
+      window.addEventListener('scroll', handleScroll, {passive: true});
+    } else {
+      // Pause when off-screen
+      window.removeEventListener('scroll', handleScroll);
+    }
+  });
+}, {threshold: 0.1});
+
+observer.observe(canvasElement);
+```
+
+**4. Scroll-to-Frame Mapping**
+```javascript
+let ticking = false;
+
+const handleScroll = () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const scrollTop = window.scrollY;
+      const scrollHeight = videoSection.offsetHeight;
+      const progress = Math.min(Math.max(scrollTop / scrollHeight, 0), 1);
+
+      const frameIndex = Math.floor(progress * (totalFrames - 1));
+      const frame = lazyLoadFrame(frameIndex);
+
+      if (frame.complete) {
+        ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+      }
+
+      ticking = false;
+    });
+    ticking = true;
+  }
+};
+```
+
+**Why this implementation:**
+- `passive: true`: Allows browser to optimize scroll performance
+- requestAnimationFrame: Syncs drawing with browser paint cycle (60fps max)
+- Ticking flag: Prevents multiple rAF calls per frame
+- Intersection Observer: Only processes scroll when video visible
+
+## Mobile Performance Considerations
+
+### Responsive Loading Strategy
+
+**Approach:**
+```javascript
+const isMobile = window.matchMedia('(max-width: 768px)').matches;
+const framePrefix = isMobile ? 'mobile-frame-' : 'frame-';
+const totalFrames = 240; // Same count, different resolution
+```
+
+**Why:**
+- Serve 960x540 to mobile, 1920x1080 to desktop
+- Reduces mobile bandwidth by ~60%
+- Maintains same frame count (consistent scroll experience)
+
+### Preload Budget Optimization
+
+**Desktop:** Preload 15 frames (~1MB)
+**Mobile:** Preload 10 frames (~300KB)
+
+**Why:**
+- Mobile networks slower, smaller preload critical
+- Smaller screen needs fewer pixels loaded immediately
+- Lazy loading covers the rest efficiently
+
+### Intersection Observer Threshold
+
+**Desktop:** `threshold: 0.1` (trigger when 10% visible)
+**Mobile:** `threshold: 0.2` (trigger when 20% visible)
+
+**Why:**
+- Mobile viewport smaller, 20% gives more load time
+- Reduces likelihood of janky first frames
+
+## GitHub Pages Asset Hosting
+
+### Recommendations
+
+**DO:**
+- ✅ Host image sequence in repository (12-19MB acceptable for static assets)
+- ✅ Commit extracted frames to `site/public/frames/`
+- ✅ Include frames in Astro build output (`docs/` directory)
+- ✅ Leverage GitHub's CDN for frame delivery
+
+**DO NOT:**
+- ❌ Commit source 25MB video to repository
+- ❌ Use GitHub Issues for video hosting (workaround, not reliable)
+- ❌ Exceed 1GB repository size limit (12-19MB frames well within)
+
+**Why this approach works:**
+- GitHub Pages soft limit: 100GB bandwidth/month
+- 240 frames × ~70KB = ~17MB per full sequence view
+- ~5,880 full video views per month before soft limit
+- Realistic traffic: <1,000 views/month = well within limits
+
+**Alternative if traffic exceeds GitHub limits:**
+- Cloudflare Pages (unlimited bandwidth, same static hosting)
+- Cloudinary (optimized image delivery, has free tier)
+- Not needed for typical landing page traffic
+
+## Compression Settings Deep Dive
+
+### ffmpeg H.264 Settings (Fallback Video)
+
+**If you need MP4 fallback:**
+```bash
+ffmpeg -i hero-source.mp4 \
+  -c:v libx264 \
+  -crf 23 \
+  -preset medium \
+  -movflags +faststart \
+  -an \
+  -vf scale=1920:1080 \
+  hero-optimized.mp4
+```
+
+**Settings explained:**
+- `libx264`: H.264 codec (universal browser support)
+- `crf 23`: Constant Rate Factor (sweet spot for web, 18-28 range)
+- `preset medium`: Balance of encoding speed and compression
+- `movflags +faststart`: Moves metadata to file start (enables streaming playback)
+- `-an`: Removes audio track (videos should autoplay silently)
+- `scale=1920:1080`: Web-appropriate resolution
+
+**Expected result:** 3-5MB MP4 (vs 25MB source)
+
+### WebP Quality Settings by Use Case
+
+| Use Case | Quality | File Size (per frame) | Total Sequence | Visual Quality |
+|----------|---------|----------------------|----------------|----------------|
+| Desktop standard | 80 | ~70KB | ~17MB | Imperceptible loss |
+| Desktop high-quality | 90 | ~120KB | ~29MB | Near-lossless |
+| Mobile standard | 75 | ~30KB | ~7MB | Appropriate for small screens |
+| Mobile low-bandwidth | 65 | ~20KB | ~5MB | Minor artifacts, acceptable |
+
+**Recommendation:** Start with quality 80 for desktop, 75 for mobile. Test on actual devices.
+
+### Why NOT VP9/WebM or AVIF
+
+**VP9/WebM:**
+- Excellent compression (30% better than H.264)
+- 2-pass encoding slow for 240 individual frames
+- WebP simpler for static frame extraction
+
+**AVIF:**
+- Best compression (50% smaller than JPEG)
+- Encoding extremely slow (not practical for 240 frames)
+- Browser support still maturing (Safari 16.4+, not universal)
+- WebP offers better speed-to-compression trade-off
+
+## Illustration Integration (Secondary Feature)
+
+### Gateway Process-Style Illustrations
+
+**Format recommendation:**
+- SVG for geometric/abstract illustrations (scalable, small file size)
+- WebP for raster/photographic illustrations (quality + compression)
+
+**Integration:**
+```astro
+---
+import { Image } from 'astro:assets';
+import illustration from '../assets/gateway-process-1.webp';
+---
+
+<Image
+  src={illustration}
+  alt="Gateway Process illustration"
+  loading="lazy"
+  widths={[400, 800, 1200]}
+  sizes="(max-width: 768px) 100vw, 50vw"
+/>
+```
+
+**Why:**
+- Astro Image component handles optimization automatically
+- Sharp (already installed) generates responsive variants
+- `loading="lazy"`: Defers off-screen images
+- `sizes`: Browser selects appropriate resolution
+
+**No additional stack changes needed** - existing Astro + Sharp setup handles this perfectly.
+
+## Alternative Approaches Considered
+
+### Rejected: Video Element with currentTime
+
+**Why rejected:**
+- 250-500ms seek latency per frame (source: [Behind the scenes of an award-winning web page](https://medium.com/swissquote-engineering/behind-the-scene-of-an-award-winning-web-page-c93b5349ec4a))
+- Requires keyframe=1 encoding (bloats file or reduces quality)
+- Unreliable backward scrubbing
+- Frame drops on mid-range devices
+- Not used by Apple or high-end product pages
+
+### Rejected: GSAP ScrollTrigger
+
+**Why rejected:**
+- 48KB library for single feature
+- Adds dependency to zero-dependency site
+- Native Intersection Observer + rAF achieve same result
+- GSAP best for complex multi-timeline animations (not needed here)
+
+**When GSAP makes sense:**
+- Multiple coordinated scroll animations
+- Timeline sequencing
+- Advanced easing functions
+- This project: single video scrub, native APIs sufficient
+
+### Rejected: WebCodecs API
+
+**Why rejected:**
+- Cutting-edge API (limited browser support)
+- Complexity overhead (frame decoding, memory management)
+- Better performance than video.currentTime, but canvas+images simpler
+- Requires video codec knowledge
+
+**When WebCodecs makes sense:**
+- Very large frame counts (1000+ frames)
+- Real-time video manipulation
+- Advanced use cases beyond simple scroll scrub
+
+### Rejected: Animated WebP Single File
+
+**Why rejected:**
+- img2webp creates single animated file from sequence
+- Cannot selectively load frames (all-or-nothing download)
+- No control over which frame displays (relies on playback)
+- Preloading strategy impossible
+
+**When animated WebP makes sense:**
+- Small looping animations (GIF replacement)
+- Autoplay animations
+- Not scroll-driven content
+
+## Implementation Checklist
+
+- [ ] Install ffmpeg on build machine
+- [ ] Create `site/scripts/extract-frames.sh` script
+- [ ] Extract frames from source video (240 WebP files)
+- [ ] Create mobile-optimized frame set (optional but recommended)
+- [ ] Add frames to `site/public/frames/` directory
+- [ ] Create `ScrollVideo.astro` component with canvas element
+- [ ] Create `scroll-video.js` with Intersection Observer + rAF
+- [ ] Implement preload for first 10-15 frames
+- [ ] Implement lazy loading for remaining frames
+- [ ] Test on mobile devices (iOS Safari, Android Chrome)
+- [ ] Verify frame scrubbing smoothness
+- [ ] Check GitHub Pages bandwidth usage
+- [ ] Add fallback for non-canvas browsers (static poster image)
+
+## Browser Compatibility
+
+| Feature | Chrome | Safari | Firefox | Edge | Notes |
+|---------|--------|--------|---------|------|-------|
+| Canvas API | 4+ | 3.1+ | 3.6+ | 12+ | Universal support |
+| Intersection Observer | 51+ | 12.1+ | 55+ | 15+ | [Baseline since 2019](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) |
+| requestAnimationFrame | 24+ | 6.1+ | 23+ | 10+ | Universal support |
+| WebP | 32+ | 14+ | 65+ | 18+ | [97%+ global support](https://caniuse.com/webp) |
+| Passive listeners | 51+ | 10+ | 49+ | 79+ | Falls back gracefully |
+
+**Minimum browser support:** All modern browsers from 2019+
+
+**Fallback strategy:**
+```javascript
+if (!('IntersectionObserver' in window)) {
+  // Show static poster image
+  canvasElement.style.display = 'none';
+  posterImage.style.display = 'block';
 }
 ```
 
-**Reading Configuration:**
-Skills read config via file system:
-1. Check `.claude/settings.local.json` (project override)
-2. Fall back to `~/.claude/settings.json` (global default)
-3. Merge configurations (project takes precedence)
+## Performance Benchmarks
 
-## Data Flow
+**Expected performance (real-world):**
 
-### Skill Invocation Flow
+| Metric | Desktop | Mobile | Notes |
+|--------|---------|--------|-------|
+| Initial load (preload) | ~1MB (15 frames) | ~300KB (10 frames) | First contentful paint |
+| Full sequence load | ~17MB (240 frames) | ~7MB (240 frames) | Lazy-loaded progressively |
+| Frame switching latency | <16ms (60fps) | <33ms (30fps) | Canvas draw time |
+| Scroll smoothness | 60fps | 30-60fps | Device-dependent |
+| Memory usage | ~50-80MB | ~20-30MB | Decoded image cache |
 
-```
-User/Claude
-  ↓ types `/tarot deep "stuck on architecture"`
-Skill prompt expansion
-  ↓ parses invocation
-Spawn subagent via Task tool
-  ↓ agent_type: "tarot-reader"
-Subagent executes
-  ↓ draws card, interprets
-Structured return
-  ↓ READING COMPLETE block
-Skill formats output
-  ↓ presents to user/Claude
-```
+**Optimization notes:**
+- Canvas operates at 60fps on modern desktops
+- Mobile may throttle to 30fps (still smooth)
+- requestAnimationFrame prevents overdraw
+- Passive scroll listeners enable compositor-side scrolling
 
-### Configuration Flow
+## Cost Analysis
 
-```
-Skill invoked
-  ↓
-Read .claude/settings.local.json
-  ↓ if exists, use project config
-  ↓ if not, fall back
-Read ~/.claude/settings.json
-  ↓ global defaults
-Apply configuration
-  ↓ reader_voice, mode preferences
-Pass to subagent
-```
+**Build-time cost:**
+- ffmpeg frame extraction: ~30 seconds (one-time)
+- WebP conversion: ~2 minutes for 240 frames (one-time)
+- Mobile variant: +2 minutes (one-time, optional)
 
-## Technology Decisions
+**Runtime cost:**
+- Initial page load: +1MB (desktop) / +300KB (mobile)
+- Full interaction: +17MB (desktop) / +7MB (mobile)
+- CPU usage: Minimal (canvas draws are hardware-accelerated)
+- Memory: Moderate (~50MB peak on desktop)
 
-### Language: Markdown (System Prompts)
+**Developer experience:**
+- No new frameworks to learn
+- Vanilla JavaScript (maintainable, clear)
+- ffmpeg scripts (standard, well-documented)
+- Astro integration (no build changes needed)
 
-**Why:** Claude's native prompt format
-**Alternative considered:** JSON/YAML structured config
-**Decision rationale:** Markdown allows rich role definitions with examples, philosophy, execution flows. More expressive than structured data.
+## Monitoring & Validation
 
-**Confidence:** HIGH
+**Key metrics to track:**
+- Largest Contentful Paint (LCP) - should remain <2.5s
+- First Input Delay (FID) - scroll responsiveness
+- Cumulative Layout Shift (CLS) - canvas sizing stable
+- GitHub Pages bandwidth usage - monitor in repo settings
 
-### Randomness: Bash Commands
+**Validation tests:**
+- Lighthouse performance audit (target: 90+ score)
+- WebPageTest on 3G connection (mobile experience)
+- Cross-browser testing (Chrome, Safari, Firefox, Edge)
+- Device testing (iPhone, Android, desktop)
 
-**Why:** Simple, available, zero dependencies
-**Implementation:** `shuf -n 1` for card selection
-**Alternative considered:** JavaScript/Node.js randomness
-**Decision rationale:** Bash is universally available in Claude Code environment, no need for runtime dependencies.
+## Sources & References
 
-**Confidence:** MEDIUM (bash availability verified from permissions, shuf assumed standard)
+### Technical Documentation
+- [Intersection Observer API - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+- [Canvas API - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+- [WebP Format - Google Developers](https://developers.google.com/speed/webp)
 
-### Agent Communication: Task Tool
+### Implementation Patterns
+- [Scroll Effects on Videos with JavaScript](https://blog.openreplay.com/scroll-effects-on-videos-with-javascript/)
+- [Scroll-Driven Image Sequence Animation](https://dev.to/pipscript/creating-a-png-sequence-animation-using-react-and-scss-k71)
+- [Behind the scenes of an award-winning web page](https://medium.com/swissquote-engineering/behind-the-scene-of-an-award-winning-web-page-c93b5349ec4a)
 
-**Why:** Built-in Claude Code mechanism for spawning agents
-**Parameters:**
-- `agent_type`: References agent definition file
-- `task_description`: Natural language task
-- `include_context`: Data/files to pass
-- `run_in_background`: For async tasks
+### Video Compression
+- [Creating web optimized video with ffmpeg - Pixel Point](https://pixelpoint.io/blog/web-optimized-video-ffmpeg/)
+- [How to Extract Images from a Video Using FFmpeg - Bannerbear](https://www.bannerbear.com/blog/how-to-extract-images-from-a-video-using-ffmpeg/)
+- [Use FFmpeg to extract frames from video - Shotstack](https://shotstack.io/learn/ffmpeg-extract-frames/)
 
-**Confidence:** MEDIUM (inferred from system prompt patterns)
+### Performance Optimization
+- [Handling Scroll Events Efficiently with Passive Listeners](https://medium.com/@AlexanderObregon/handling-scroll-events-efficiently-with-passive-listeners-in-javascript-bd7d463a5871)
+- [Lazy loading - MDN Performance Guide](https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Lazy_loading)
+- [Mobile Video Optimization Guide](https://motioncue.com/mobile-video-optimization/)
 
-### Storage: File System
+### Hosting Considerations
+- [GitHub Pages Best Practices - Kinsta](https://kinsta.com/blog/github-pages/)
+- [How to embed videos in GitHub pages without growing repository](https://www.cazzulino.com/github-pages-embed-video.html)
 
-**Why:** Simple, portable, version-controllable
-**Structure:**
-```
-.claude/
-  skills/
-    tarot.md                    # Skill definition
-  agents/
-    tarot-reader.md             # Subagent role definition
-  config/
-    tarot.json                  # Skill-specific settings
-  data/
-    major-arcana.json           # Card data
-```
+## Confidence Assessment
 
-**Alternative considered:** Embedded data in skill file
-**Decision rationale:** Separation allows easier updates to data without touching logic.
+| Area | Confidence | Justification |
+|------|------------|--------------|
+| Canvas approach | HIGH | Multiple authoritative sources confirm superior performance vs video element |
+| WebP format | HIGH | Official Google documentation, browser support data from caniuse.com |
+| ffmpeg commands | HIGH | Official ffmpeg documentation, verified community tutorials |
+| Native APIs | HIGH | MDN documentation, Baseline features since 2019 |
+| GitHub Pages hosting | MEDIUM | Calculated from documented limits, but traffic assumptions need validation |
+| Mobile performance | MEDIUM | Based on general best practices, actual device testing required |
 
-**Confidence:** MEDIUM (file structure pattern inferred)
+## Next Steps for Implementation
 
-## Installation
+1. **Prototype first** - Test frame extraction and canvas rendering with 24 frames (1 second) before processing full 10-second video
+2. **Measure actual file sizes** - Quality settings may need adjustment based on content characteristics
+3. **Device test early** - Validate performance on target devices (iPhone, Android) before committing to full sequence
+4. **Monitor bandwidth** - Track GitHub Pages usage in first month to validate hosting assumptions
+5. **Consider CDN later** - If traffic exceeds 5,000 views/month, evaluate Cloudflare Pages or dedicated image CDN
 
-### For Skill Developers
+## Summary: What Gets Added
 
-```bash
-# Project-local installation
-cd your-project
-mkdir -p .claude/skills .claude/agents .claude/config .claude/data
+**Build dependencies:**
+- ffmpeg (system install, not npm)
 
-# Copy skill files
-cp tarot.md .claude/skills/
-cp tarot-reader.md .claude/agents/
-cp tarot-config.json .claude/config/
-cp major-arcana.json .claude/data/
+**Runtime dependencies:**
+- None (zero new npm packages)
 
-# Skills are auto-discovered on next Claude Code invocation
-```
+**New files:**
+- `site/scripts/extract-frames.sh` (build script)
+- `site/src/components/ScrollVideo.astro` (component)
+- `site/src/scripts/scroll-video.js` (vanilla JS)
+- `site/public/frames/` (240 WebP files, ~17MB)
 
-### For Global Installation
+**Total added weight:**
+- Initial load: +1MB (preloaded frames)
+- Full experience: +17MB (lazy-loaded)
+- Bundle size: +0KB (vanilla JS, no libraries)
 
-```bash
-# Global installation (available across all projects)
-mkdir -p ~/.claude/skills ~/.claude/agents ~/.claude/config ~/.claude/data
-
-# Copy skill files
-cp tarot.md ~/.claude/skills/
-cp tarot-reader.md ~/.claude/agents/
-cp tarot-config.json ~/.claude/config/
-cp major-arcana.json ~/.claude/data/
-```
-
-## Dependencies
-
-**Runtime:** None
-- Claude Code provides all necessary tools (Task, Read, Write, Bash)
-- No npm packages required
-- No external APIs or services
-
-**Development:** None
-- Skills are markdown files
-- Configuration is JSON
-- No build step required
-
-## Key Patterns
-
-### Pattern 1: Skill as Thin Wrapper
-
-**What:** Skill file is minimal, delegates to subagent
-**When:** Complex multi-step reasoning required
-**Why:** Keeps skill simple, allows specialized agent with full tool access
-
-```markdown
-# Skill: tarot.md (minimal)
-Parse invocation → Spawn agent → Return result
-
-# Agent: tarot-reader.md (comprehensive)
-Full role definition, execution flow, interpretation logic
-```
-
-### Pattern 2: Configuration Cascade
-
-**What:** Project settings override global settings
-**When:** User wants project-specific preferences
-**Why:** Allows global defaults with per-project customization
-
-```
-Check .claude/settings.local.json (project)
-  ↓ if not found
-Check ~/.claude/settings.json (global)
-  ↓ if not found
-Use hardcoded defaults
-```
-
-### Pattern 3: Structured Returns
-
-**What:** Subagents return markdown blocks with specific format
-**When:** Orchestrator needs parseable output
-**Why:** Allows skill to extract and format results reliably
-
-```markdown
-## READING COMPLETE
-**Card:** The Tower
-**Interpretation:** [text]
-```
-
-## Anti-Patterns to Avoid
-
-### Anti-Pattern 1: Skill Contains All Logic
-
-**What:** Putting interpretation logic in skill file
-**Why bad:** Skills lack tool access, can't read data files or execute randomness
-**Instead:** Skill spawns subagent with tool access
-
-### Anti-Pattern 2: Global Mutable State
-
-**What:** Writing to shared global state files
-**Why bad:** Race conditions with parallel agent invocations
-**Instead:** Read-only data files, per-invocation state only
-
-### Anti-Pattern 3: External Dependencies
-
-**What:** Requiring npm packages or external APIs
-**Why bad:** Complicates installation, breaks portability
-**Instead:** Use built-in tools (Bash, file system)
-
-## Verification Needs
-
-**LOW confidence areas requiring validation:**
-
-1. **Skill auto-discovery mechanism** - Assumed `.claude/skills/` is scanned, not verified
-2. **Agent type resolution** - Assumed agent_type parameter maps to `.claude/agents/{type}.md`
-3. **Configuration merge behavior** - Assumed project overrides global, not verified
-4. **Task tool parameters** - Inferred from system prompt patterns, not official docs
-
-**Recommended validation:**
-- Examine Claude Code source or official documentation
-- Test skill registration and invocation
-- Verify configuration precedence
-- Confirm Task tool parameter schema
-
-## Sources
-
-**PRIMARY (HIGH confidence):**
-- Analyzed this agent's own system prompt structure
-- Examined project context from PROJECT.md
-- Reviewed existing `.claude/settings.local.json` configuration
-
-**SECONDARY (MEDIUM confidence):**
-- Inferred patterns from agent role definitions
-- Extrapolated from Claude Code workflow descriptions
-
-**UNVERIFIED (LOW confidence):**
-- Skill file location and discovery mechanism
-- Agent type parameter mapping
-- Configuration cascade behavior
-- Task tool complete parameter schema
-
-## Next Steps for Full Verification
-
-1. **Official Documentation** - Locate Claude Code SDK or skills documentation
-2. **Example Skills** - Find existing skill implementations in the wild
-3. **Test Implementation** - Build minimal skill to verify patterns
-4. **Community Resources** - Check Claude Code forums or repositories for patterns
-
----
-
-*Research complete. Ready for roadmap creation with noted confidence levels and verification needs.*
+**Development effort:**
+- Frame extraction setup: 1-2 hours
+- Component implementation: 2-4 hours
+- Testing and refinement: 2-4 hours
+- Total: 1 day for experienced developer

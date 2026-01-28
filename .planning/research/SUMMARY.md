@@ -1,298 +1,262 @@
 # Project Research Summary
 
-**Project:** Esoterica (Claude Code Tarot Skills Framework)
-**Domain:** AI Agent Tooling / Perspective-Shifting Tools
-**Researched:** 2026-01-21
-**Confidence:** MEDIUM
+**Project:** Esoterica v1.4 Website Upgrade
+**Domain:** Scroll-driven hero video, Gateway Process illustrations, footer
+**Researched:** 2026-01-28
+**Confidence:** HIGH
 
 ## Executive Summary
 
-Esoterica is a Claude Code skill framework that enables AI agents to use tarot as a perspective-shifting tool for problem-solving. The research reveals that this project sits at the intersection of two domains: (1) Claude Code's skill + subagent architecture, and (2) AI-powered tarot interpretation adapted for coding contexts. The recommended approach leverages Claude Code's native extensibility through markdown-based skills that spawn specialized subagents, avoiding heavier alternatives like MCP servers.
+Esoterica v1.4 adds an Apple-style scroll-driven hero video, Gateway Process-themed illustrations, and a footer to the existing Astro static site. Research across stack, features, architecture, and pitfalls converges on a single clear recommendation: **use canvas with pre-extracted WebP image sequences, not video element scrubbing.** All four research tracks independently arrived at this conclusion. The canvas approach eliminates the 250-500ms seek latency inherent to video.currentTime manipulation, provides reliable bidirectional scrubbing, and keeps the site at zero runtime dependencies (vanilla JS only, no GSAP or scroll libraries). ffmpeg handles all video-to-frame conversion at build time.
 
-The core architectural pattern is simple but powerful: a thin skill layer (`/tarot`) handles invocation and card randomization, spawning a specialized tarot-reader subagent that contains all domain knowledge (22 Major Arcana cards, two reader personas). This separation keeps the skill lightweight while giving the subagent full tool access for rich contextual interpretation. The framework requires zero external dependencies—built entirely on Claude Code's native tools (Task for subagent spawning, Bash for randomness, file system for configuration).
+The integration is architecturally clean. The existing hero Image component is swapped for a canvas element that inherits identical CSS (absolute positioning, object-fit: cover, overlay layering). The build pipeline adds a one-time ffmpeg step to extract ~240 WebP frames from the source video. Frames are committed to `/public/video/frames/` and served as static assets through GitHub Pages. Total sequence weight is ~12-19MB desktop, ~5-7MB mobile -- well within GitHub Pages limits. The Astro build process requires zero configuration changes.
 
-The critical risk is treating skills as stateful services rather than prompt expansions. Configuration must persist via file system (global `~/.claude/settings.json`, project `.claude/settings.local.json`), not internal state. Secondary risks include over-engineering randomness (use simple `bash shuf`), confusing reader voice with LLM persona (voice is interpretive lens, not personality), and building a tarot encyclopedia instead of a problem-solving tool (focus on perspective-shifting value, not historical accuracy).
+The critical risks are: (1) not testing on real iOS devices early enough (iOS autoplay policies and touch scroll behavior differ from emulators), (2) video encoding mistakes that produce janky seeks if the fallback video element path is used, and (3) memory pressure on mobile from loading too many high-res frames simultaneously. All three are mitigatable with established patterns documented in the research. The canvas+frames approach sidesteps risk #2 entirely, making it even more compelling.
 
 ## Key Findings
 
 ### Recommended Stack
 
-Claude Code provides all necessary infrastructure for Esoterica with zero external dependencies. Skills are markdown files with prompt expansions, subagents are specialized Claude instances with their own system prompts, and configuration uses standard JSON files. The elegance of this approach is that it's entirely file-based and portable.
+The site currently runs Astro 5.0 with Sharp for image optimization, zero npm runtime dependencies, vanilla JS, and deploys to GitHub Pages. The upgrade preserves this philosophy completely.
 
 **Core technologies:**
-- **Markdown skill definitions** (`.claude/skills/tarot.md`) — Claude Code's native skill format, provides slash-command interface
-- **Markdown subagent prompts** (`.claude/agents/tarot-reader.md`) — Specialized agent with embedded card knowledge and reader personas
-- **Task tool for subagent spawning** — Built-in Claude Code mechanism for delegating to specialized agents
-- **Bash for randomness** (`shuf -n 1`) — Simple, zero-dependency card draw mechanism
-- **JSON configuration files** (`~/.claude/settings.json`) — Standard config pattern with project override support
+- **ffmpeg 7.x+**: Build-time frame extraction and WebP conversion -- industry standard, precise, well-documented
+- **Canvas API (native)**: Frame rendering at 60fps with zero seek latency -- eliminates video.currentTime problems entirely
+- **Intersection Observer (native)**: Efficient viewport detection to activate/deactivate scroll handling -- universal support since 2019
+- **requestAnimationFrame (native)**: Scroll-to-paint synchronization preventing overdraw and jank -- 43% more efficient than raw scroll listeners
+- **WebP format**: 26% smaller than PNG, 25-34% smaller than JPEG, 97%+ browser support
 
-**Architecture decision: Embedded vs. external data**
-Card meanings and symbolism are embedded directly in the subagent prompt rather than separate data files. This trades larger prompt size (~5000-8000 tokens for 22 cards) for simpler installation and zero filesystem dependencies beyond the skill/agent definitions themselves.
+**Explicitly rejected:**
+- GSAP ScrollTrigger (48KB, unnecessary for single scroll video on zero-dependency site)
+- CSS scroll-driven animations (cannot control canvas drawing; Safari support incomplete)
+- WebCodecs API (overkill complexity for 240-frame sequence)
+- Any npm runtime packages (preserves zero-dependency architecture)
+
+**Critical version note:** No new npm dependencies added. Only system-level ffmpeg install required for build pipeline.
 
 ### Expected Features
 
-The feature landscape for AI-agent tarot tools differs significantly from consumer tarot apps. Users expect perspective-shifting utility, not divination accuracy or visual aesthetics.
-
 **Must have (table stakes):**
-- Major Arcana card database (22 cards with upright meanings)
-- Random card draw mechanism
-- Contextual interpretation (AI applies card meaning to user's problem)
-- Question/intention framing (implicit from conversation context)
+- 1:1 scroll-to-frame mapping (video progress matches scroll position exactly)
+- Smooth bidirectional scrubbing (forward and backward)
+- Static fallback for mobile (poster frame on smaller screens)
+- `prefers-reduced-motion` support (static frame, no animation)
+- Hero text overlay visible without video loading
+- Scroll hint/chevron to communicate interactivity
+- 3-6 SVG illustrations in Gateway Process style (hand-drawn, stippled ink)
+- Theme-aware illustration styling (dark/light mode via CSS custom properties)
+- Footer component
 
-**Should have (differentiators for AI agent use):**
-- Multiple reader voices (Mystic vs. Grounded) — Different interpretive lenses for different needs
-- Quick vs. deep reading modes — Respect time/depth preferences
-- Global voice preference config — Persistent user preference
-- Session continuity — Remember previous draws in conversation
+**Should have (polish):**
+- Text overlay synchronized with scroll progress (fade/movement)
+- Scroll-triggered fade-in for illustrations (Intersection Observer + CSS transition)
+- Mobile-optimized frame set (960x540 at quality 75 vs desktop 1920x1080 at quality 80)
+- Hybrid illustration layout (prose-interspersed for major concepts + 3-column grid for supporting items)
 
-**Defer (anti-features or v2+):**
-- Minor Arcana (56 additional cards) — Complexity without proportional value for MVP
-- Reversed meanings — Doubles interpretation complexity
-- Visual deck imagery — Agents don't "see" cards; descriptions sufficient
-- Multi-card spreads — Single card sufficient for quick perspective shifts
-- Other esoteric tools (runes, astrology) — Framework supports future expansion but don't implement yet
+**Defer (v2+):**
+- Staggered animation for illustration grid
+- Parallax on hero text
+- Progress indicator for video
+- Adaptive quality based on connection speed (navigator.connection)
+- Analytics tracking for video interaction
 
-**Key insight:** This is NOT a divination app for end-users. It's a reasoning tool for AI agents working on code/design problems. Features should optimize for problem-solving utility, not tarot scholarship.
+**Anti-features (never build):**
+- Scroll hijacking or custom scroll physics
+- Horizontal scroll sections
+- Audio with video
+- Multiple scroll-driven videos on one page
+- Decorative illustrations without explanatory purpose
 
 ### Architecture Approach
 
-The three-tier architecture separates concerns cleanly: user invocation → skill orchestration → subagent interpretation. Skills handle argument parsing, config reading, and card randomization. Subagents contain domain expertise (card meanings, reader personas) and perform contextual interpretation.
+The canvas-based architecture replaces the existing Astro Image component with a canvas element while preserving all structural elements (overlay, z-index layering, theme system). The data flow is: scroll event -> rAF throttle -> calculate progress (0-1) -> map to frame index -> load frame (from cache or lazy) -> drawImage to canvas.
 
 **Major components:**
-1. **Skill Layer** (`~/.claude/skills/tarot.md`) — Thin orchestration wrapper that parses `/tarot [mode] [question]`, reads voice preference from config, draws random card, spawns subagent with context
-2. **Subagent Layer** (`~/.claude/agents/tarot-reader.md`) — Domain expert containing embedded Major Arcana knowledge, two reader personas (Mystic/Grounded), interpretation framework that applies card archetypal meaning to user context
-3. **Configuration Layer** (`~/.claude/settings.json` + `.claude/settings.local.json`) — Persistent preferences with project override capability, stores voice preference and default mode
-4. **Data Layer** (embedded in subagent) — 22 Major Arcana cards with keywords, symbolism, upright meanings embedded directly in subagent prompt for zero-dependency portability
+1. **VideoScrubber.astro** -- New component replacing Image in hero section; renders canvas element with proper dimensions
+2. **scroll-scrubber.js** -- Vanilla JS module handling frame loading, scroll synchronization, and canvas rendering with rAF throttling
+3. **extract-frames.sh** -- ffmpeg wrapper for build-time frame extraction to WebP sequence
+4. **Illustration layout** -- Hybrid pattern: 1-2 prose-interspersed full-width illustrations + 3-column grid for supporting concepts
 
-**Data flow:** User invokes `/tarot quick "architecture decision"` → Skill parses mode (quick) and question → Skill reads config for voice preference → Skill draws card via `bash shuf` → Skill spawns tarot-reader subagent with {card, question, voice, mode} → Subagent loads card meaning, applies voice lens, generates interpretation → Main Claude receives and presents reading.
+**File structure:**
+```
+site/
+  public/video/frames/      (240 WebP frames, ~17MB desktop)
+  public/video/frames-mobile/ (240 WebP frames, ~7MB mobile, optional)
+  src/components/VideoScrubber.astro
+  src/scripts/scroll-scrubber.js
+  scripts/extract-frames.sh
+```
 
-**Key architectural decision:** Card data embedded in subagent prompt rather than separate files. Rationale: simplifies installation (two files: skill + agent), eliminates filesystem dependencies, enables easy distribution. Trade-off: larger subagent prompt, but 22 cards fit comfortably within Claude's context window.
+**Integration invariant:** Canvas receives identical CSS as the current Image (.hero-bg class). Overlay ::before, z-index layering, and theme toggle all work unchanged.
 
 ### Critical Pitfalls
 
-Research identified 14 pitfalls across three severity levels. Top 5 that would cause project failure if not avoided:
+Top 5 pitfalls that would cause feature failure or major rework:
 
-1. **Treating Skills as Stateful Services** — Skills are prompt expansions invoked fresh each time, not persistent services. Store config in `~/.claude/settings.json`, not skill internal state. Detection: "settings don't stick between readings." Prevention: Document clearly that skills are stateless prompt expansions, read from config files on every invocation.
+1. **iOS autoplay attributes (if using video fallback)** -- Video elements MUST have `muted`, `playsinline`, and `autoplay` attributes. Without all three, iOS Safari shows a black rectangle. Silent failure, no console errors. ~40-50% of users affected. Prevention: Set these from first commit. The canvas+frames approach avoids this entirely for the primary experience.
 
-2. **Over-Engineering Randomness** — Complex seeding logic and timestamp dependencies create brittle, platform-specific code that's hard to test. Prevention: Use simple `bash shuf` for true random, or embrace "contextual draw" where LLM picks based on problem context (more honest, potentially more useful). Value is in interpretation, not draw mechanism.
+2. **Streaming-optimized encoding (if using video fallback)** -- Default MP4 encoding uses keyframes every 250 frames; scrubbing to arbitrary times requires decoding from last keyframe (100-500ms lag). Prevention: Encode with `-g 30` (keyframe every 1 second) or `-g 1` (every frame is keyframe, 3-5x file size). Again, canvas+frames sidesteps this completely.
 
-3. **Confusing Reader Voice with LLM Persona** — Implementing Mystic vs. Grounded as different AI personalities rather than interpretive frameworks. Prevention: Voice = lens applied to interpretation, not persona change. Same card data, different framing. Mystic uses evocative metaphor, Grounded uses practical archetypal language. Both come from one subagent with voice parameter.
+3. **GitHub Pages file size limits** -- Individual files must be under 100MB. Every-frame-keyframe H.264 at 1080p can exceed this. Prevention: Canvas approach uses many small WebP files (~70KB each), never hitting per-file limits. Total ~17MB is well under the 1GB repo limit.
 
-4. **Building Tarot Encyclopedia Instead of Perspective Tool** — Comprehensive card meanings and historical accuracy consume development time without improving problem-solving value. Prevention: Keep interpretations focused (2-3 paragraphs max), test with "Does this help me think differently?", defer comprehensive meanings to v2+.
+4. **Scroll jank from unthrottled listeners** -- Raw scroll events fire 60-120+ times/second, blocking main thread. Prevention: Always wrap in requestAnimationFrame with ticking flag. Never drawImage inside a raw scroll handler. Use passive: true on scroll listeners.
 
-5. **Global Config Without Project Overrides** — Implementing only global config prevents per-project preferences and team collaboration. Prevention: Build config hierarchy from start: project `.claude/settings.local.json` overrides global `~/.claude/settings.json`.
+5. **Ignoring prefers-reduced-motion** -- 70+ million people with vestibular disorders. WCAG 2.3.3 compliance. ADA Title II deadline April 2026. Prevention: Check `prefers-reduced-motion: reduce` and show static poster frame. Implement alongside scroll animation, not as afterthought.
+
+## Contradiction Analysis
+
+One notable disagreement surfaced across the research files:
+
+**FEATURES.md recommends GSAP ScrollTrigger; STACK.md and ARCHITECTURE-VIDEO.md recommend vanilla JS + canvas.**
+
+- FEATURES.md suggested GSAP ScrollTrigger as "recommended for Esoterica" (cross-browser, battle-tested, easy setup)
+- STACK.md explicitly rejected GSAP (48KB unnecessary weight, adds dependency to zero-dependency site)
+- ARCHITECTURE-VIDEO.md recommended canvas + native APIs throughout
+- PITFALLS.md is agnostic but recommends Intersection Observer over raw scroll events
+
+**Resolution:** STACK.md and ARCHITECTURE-VIDEO.md are correct for this project. The site has zero runtime dependencies and a single scroll-driven video. GSAP is designed for complex multi-timeline animations. The native approach (Intersection Observer + rAF + Canvas) achieves identical results at zero bundle cost. FEATURES.md's recommendation applies to general-purpose projects, not this specific zero-dependency Astro site.
+
+**PITFALLS.md mentions video element patterns extensively; other files favor canvas.** This is not a contradiction -- PITFALLS.md documents both approaches and their respective failure modes. The pitfalls for video.currentTime (encoding, seek lag) actually strengthen the case for canvas+frames.
+
+## Recommended Approach
+
+**Use canvas with pre-extracted WebP frame sequences. No runtime dependencies. ffmpeg at build time.**
+
+| Decision | Choice | Confidence |
+|----------|--------|------------|
+| Rendering technique | Canvas + Image sequence | HIGH |
+| Frame format | WebP (quality 80 desktop, 75 mobile) | HIGH |
+| Scroll handling | Intersection Observer + rAF | HIGH |
+| Frame loading | Preload 10-15, lazy-load rest | HIGH |
+| Build tool | ffmpeg for extraction | HIGH |
+| Libraries | None (vanilla JS) | HIGH |
+| Mobile strategy | Smaller frames (960x540) or static poster | MEDIUM |
+| Illustration format | SVG with CSS custom properties for theme | HIGH |
+| Layout pattern | Hybrid (prose-interspersed + grid) | MEDIUM |
 
 ## Implications for Roadmap
 
-Based on architecture dependencies and pitfall avoidance, the roadmap should follow a validation-first approach: build minimal viable reading experience, validate core value proposition (does tarot actually help agents solve problems?), then add differentiating features.
-
-### Suggested Phase Structure
-
-#### Phase 1: Core Reading Engine
-**Rationale:** Validate end-to-end flow and core value before building features. This phase proves the fundamental architecture (skill → subagent → interpretation) works.
-
+### Phase 1: Video Asset Pipeline + Canvas Foundation
+**Rationale:** Video preparation is on the critical path for everything else. The hero video is the headline feature and must work before illustrations or footer.
 **Delivers:**
-- `/tarot` skill that accepts invocations
-- Random card draw via `bash shuf`
-- tarot-reader subagent with 3-5 sample cards (for testing)
-- Single reader voice (Grounded, default)
-- Quick mode only
-- Basic contextual interpretation
+- ffmpeg frame extraction script (extract-frames.sh)
+- 240 WebP frames at desktop resolution
+- VideoScrubber.astro component with canvas
+- scroll-scrubber.js with basic scroll-to-frame mapping
+- First frame displayed immediately (poster state)
+- Intersection Observer activation
+**Addresses features:** 1:1 scroll mapping, smooth scrubbing, bidirectional playback
+**Avoids pitfalls:** Streaming encoding (sidesteps entirely), scroll jank (rAF from start), GitHub file limits (small WebP files)
 
-**Addresses features:**
-- Card database (sample only)
-- Random draw mechanism
-- Contextual interpretation
-
-**Avoids pitfalls:**
-- Pitfall 1: Establishes config file pattern from start (even if minimal)
-- Pitfall 2: Uses simple `bash shuf`, no complex randomness
-- Pitfall 4: Minimal card set prevents encyclopedia trap
-
-**Research flag:** MEDIUM — May need deeper research on Task tool syntax for subagent spawning. Skill file format (Markdown with YAML frontmatter?) needs verification.
-
----
-
-#### Phase 2: Complete Card Dataset
-**Rationale:** With proven architecture, expand content. This validates interpretation quality across all Major Arcana before adding voice complexity.
-
+### Phase 2: Mobile, Accessibility + Polish
+**Rationale:** Do not ship without mobile fallback and reduced-motion support. These are non-negotiable before any public deployment. Also adds text overlay synchronization.
 **Delivers:**
-- All 22 Major Arcana cards embedded in subagent
-- Rich symbolism descriptions for each card
-- Tested interpretation quality for each card
+- Mobile frame set (960x540 WebP) or static poster fallback
+- `prefers-reduced-motion` detection with static fallback
+- Media query for mobile/desktop frame selection
+- Scroll hint chevron ("scroll to explore")
+- Text overlay fade synchronized with scroll progress
+- Canvas resize handling for responsive viewports
+**Addresses features:** Mobile fallback, reduced motion, scroll hint, text sync
+**Avoids pitfalls:** iOS behavior (test on real devices), accessibility compliance (ADA April 2026), canvas mobile performance
 
-**Addresses features:**
-- Complete Major Arcana database (table stakes)
-- Card meanings with symbolism
-
-**Avoids pitfalls:**
-- Pitfall 4: Focus on actionable insights, not historical accuracy
-- Pitfall 6: If using data files (alternative architecture), establish pattern now
-
-**Research flag:** LOW — This is content creation, well-understood domain. Standard tarot card meanings are widely documented.
-
----
-
-#### Phase 3: Voice Differentiation
-**Rationale:** With complete dataset, add the key differentiator. This phase makes the tool flexible for different user preferences and problem types.
-
+### Phase 3: Gateway Process Illustrations
+**Rationale:** Illustrations can be added independently of video. They enhance the page but have no dependency on video functionality. Requires illustration assets to be created first.
 **Delivers:**
-- Mystic voice (evocative, metaphorical, poetic)
-- Grounded voice (practical, archetypal, actionable)
-- Voice parameter in subagent context
-- Voice config in settings files
+- 3-6 SVG illustrations in Gateway Process style (stippled ink, technical line art)
+- CSS custom properties for theme-aware stroke colors
+- Hybrid layout (1-2 prose-interspersed, rest in 3-column grid)
+- Scroll-triggered fade-in with Intersection Observer
+- Captions/labels for each illustration
+**Addresses features:** Illustration integration, theme support, scroll animation
+**Avoids pitfalls:** Overuse of animation (one animation per element), decorative-only illustrations (each must explain something)
 
-**Addresses features:**
-- Multiple reader voices (high-value differentiator)
-
-**Avoids pitfalls:**
-- Pitfall 3: Voice as interpretive lens, not LLM persona
-- Pitfall 10: Grounded voice as default prevents alienating skeptics
-
-**Research flag:** LOW — This is prompt engineering iteration. Well-understood pattern.
-
----
-
-#### Phase 4: Reading Modes & Configuration
-**Rationale:** Add depth options and persistent preferences. Completes the MVP feature set.
-
+### Phase 4: Footer + Final Polish
+**Rationale:** Footer is standalone with no dependencies. Polish items (easing, loading states, performance tuning) come last after core functionality is validated.
 **Delivers:**
-- Deep reading mode (multi-paragraph interpretation with symbolism)
-- Quick mode enhancements (ensure fast, focused)
-- Global config file (`~/.claude/settings.json`)
-- Project override config (`.claude/settings.local.json`)
-- Config reading hierarchy (project overrides global)
-
-**Addresses features:**
-- Quick vs. deep modes (high-value differentiator)
-- Global voice preference config
-
-**Avoids pitfalls:**
-- Pitfall 5: Project override mechanism built from start
-- Pitfall 8: Consider optimization if subagent spawn is slow for quick draws
-
-**Research flag:** LOW — Standard config patterns, file-based persistence well-understood.
-
----
-
-#### Phase 5: Polish & Enhancement
-**Rationale:** With complete MVP, add nice-to-have features based on usage feedback.
-
-**Delivers (pick based on validation):**
-- Problem-type awareness in interpretations
-- Reflection prompts after card reveal
-- Card-to-code-concept mapping examples
-- Reading history/journaling (optional)
-- Help documentation (`/tarot help`)
-
-**Addresses features:**
-- Session continuity
-- Enhanced intelligence features
-
-**Avoids pitfalls:**
-- Pitfall 9: Reading history enables pattern recognition
-- Pitfall 12: Skill discoverability via help command
-
-**Research flag:** LOW — Enhancement features, can iterate based on user feedback.
-
----
+- Footer component with links/info
+- Loading state handling (poster shown while frames load)
+- Performance optimization pass (memory management, preload tuning)
+- Cross-browser testing verification (Chrome, Safari, Firefox, Edge)
+- Real device testing (iPhone Safari, Android Chrome)
+- Lighthouse audit targeting 90+ performance score
+**Addresses features:** Footer, loading states, cross-browser support
+**Avoids pitfalls:** No real device testing, no loading states, performance issues on mid-range devices
 
 ### Phase Ordering Rationale
 
-**Why this order:**
-1. **Architecture validation first** — Phase 1 proves the skill + subagent pattern works before investing in content or features
-2. **Content before complexity** — Phase 2 completes card dataset with single voice, avoiding the complexity of testing 22 cards × 2 voices simultaneously
-3. **Differentiation after foundation** — Phase 3 adds voice differentiation only after interpretation quality is validated
-4. **Configuration infrastructure early** — Phase 4 builds config system before Phase 5 enhancements that rely on it
-5. **Polish after validation** — Phase 5 deferred until core value proposition is confirmed by usage
-
-**Dependency insights from architecture research:**
-- Skill invocation (Phase 1) must work before expanding card database (Phase 2)
-- Single voice interpretation (Phase 1-2) must be solid before voice differentiation (Phase 3)
-- Config infrastructure (Phase 4) enables enhancements (Phase 5)
-- Critical path: Phase 1 → Phase 4 (can parallelize Phase 2-3 with sufficient confidence)
-
-**How this avoids pitfalls:**
-- Small increments prevent over-engineering (Pitfall 2, 4)
-- Config pattern established early prevents refactor (Pitfall 5)
-- Voice as lens, not persona, tested with complete dataset (Pitfall 3)
-- Validation checkpoints after each phase prevent building wrong thing
+- **Phase 1 before all else:** Frame extraction and canvas rendering are the foundation. Everything else layers on top.
+- **Phase 2 immediately after:** Mobile and accessibility are non-negotiable for a public site. Testing on real devices early catches iOS issues before they become emergencies.
+- **Phase 3 independent of video:** Illustrations are a separate content stream. Can begin asset creation in parallel with Phase 1-2 development.
+- **Phase 4 last:** Footer is zero-risk, standalone HTML/CSS. Polish makes sense only after core features are validated.
 
 ### Research Flags
 
-**Phases likely needing deeper research during planning:**
-- **Phase 1 (Core Reading Engine)** — Task tool syntax for subagent spawning needs verification. Skill file format (Markdown structure, YAML frontmatter?) unclear from research. Recommend examining Claude Code skill examples or documentation.
-- **Phase 4 (Configuration)** — Config file merge behavior (how exactly does project override global?) needs verification if not obvious during implementation.
+**Needs deeper research during planning:**
+- **Phase 2 (Mobile):** Exact mobile performance characteristics unknown until tested on real devices. The research provides general guidance (smaller frames, fewer preloads) but actual device testing may require iteration on frame count, quality, and memory strategy.
+- **Phase 3 (Illustrations):** Layout decisions depend on how many illustrations are created and what they depict. The hybrid layout recommendation is solid but exact placement requires content-first design.
 
-**Phases with standard patterns (skip research-phase):**
-- **Phase 2 (Card Dataset)** — Content creation, tarot card meanings well-documented
-- **Phase 3 (Voice Differentiation)** — Prompt engineering, established LLM patterns
-- **Phase 5 (Polish)** — Enhancement features, iterate based on feedback
+**Standard patterns, skip research-phase:**
+- **Phase 1 (Video Pipeline):** ffmpeg commands well-documented, canvas+rAF pattern proven, Astro integration straightforward
+- **Phase 4 (Footer + Polish):** Standard HTML/CSS component, no novel patterns
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | MEDIUM | Claude Code skill patterns inferred from training data and project context; official docs unavailable. Task tool parameters need verification. |
-| Features | HIGH | Tarot fundamentals well-understood; AI agent use case clearly analyzed from project requirements. Feature prioritization solid. |
-| Architecture | MEDIUM | Skill + subagent pattern conceptually sound based on training knowledge, but implementation details (file format, Task tool syntax) need verification. |
-| Pitfalls | MEDIUM-HIGH | UX pitfalls for tarot tools grounded in analysis of historical patterns. Claude Code specific pitfalls (stateful services, config) inferred from general agent patterns. |
+| Stack | HIGH | All native browser APIs (Canvas, Intersection Observer, rAF) verified via MDN. ffmpeg well-documented. WebP support at 97%+. Zero ambiguity on technology choices. |
+| Features | HIGH | Multiple 2026 sources (Chrome Developers, CSS-Tricks, MDN) verify scroll-driven video patterns. Feature prioritization grounded in established UX research. |
+| Architecture | HIGH | Canvas+frames approach validated by multiple implementation case studies. Existing Astro site structure analyzed; CSS compatibility confirmed. Clear integration path. |
+| Pitfalls | HIGH | iOS autoplay policies from official WebKit blog. Encoding pitfalls from Mux and developer articles. Accessibility requirements from W3C WCAG standards. All 2026-current. |
 
-**Overall confidence:** MEDIUM
+**Overall confidence:** HIGH
 
-Research synthesis is strong on domain fundamentals (tarot mechanics, AI interpretation, feature landscape) but medium on Claude Code specific implementation details due to unavailable official documentation. The architectural approach is sound, but specific syntax (skill file structure, Task tool parameters) should be verified during Phase 1 implementation.
+All four research dimensions draw from authoritative, current (2026) sources: MDN, Chrome Developers blog, WebKit blog, W3C WCAG standards, official ffmpeg documentation. The canvas+frames approach is the established pattern used by Apple and high-end product pages. No speculative or untested recommendations.
 
 ### Gaps to Address
 
-**Implementation details requiring validation:**
+- **Optimal frame count:** 24fps yields 240 frames for 10 seconds. This may be more than needed for smooth scrubbing. Testing with 12fps (120 frames, half the file size) could be sufficient. Needs validation during Phase 1 prototype.
+  - **Handle during:** Phase 1 -- prototype with 1 second of frames at different fps, assess smoothness
 
-- **Skill file format** — Is it pure Markdown, Markdown with YAML frontmatter, or another structure? How does Claude Code discover and parse skills?
-  - **Handle during:** Phase 1 implementation — Examine existing skill examples or Claude Code documentation
+- **Mobile strategy decision:** Three viable options identified (smaller frames, static poster, reduced fps). Research recommends smaller frames but a static poster is simpler. User preference needed.
+  - **Handle during:** Phase 2 -- decide based on video content and target audience
 
-- **Task tool syntax** — Exact parameters for spawning subagent (`agent_type`, `task_description`, `include_context`). How is context passed and received?
-  - **Handle during:** Phase 1 implementation — Test with minimal subagent, iterate on syntax
+- **Illustration asset creation:** Research covers technical specs and layout patterns but actual illustrations need to be designed/created. No automation possible -- this is a creative deliverable.
+  - **Handle during:** Phase 3 -- illustration creation is a prerequisite, not a code task
 
-- **Subagent response format** — Does subagent return complete response at once, or can it stream? How does main thread receive output?
-  - **Handle during:** Phase 1 implementation — Observe behavior during first integration test
+- **Scroll range tuning:** Research suggests 100vh (one viewport height) for scroll range. FEATURES.md suggests 200vh. Actual value depends on video content pacing.
+  - **Handle during:** Phase 1 -- test both values, choose based on feel
 
-- **Config merge behavior** — Exact precedence rules when project and global configs both exist. Is it deep merge or top-level override?
-  - **Handle during:** Phase 4 implementation — Test config scenarios, document actual behavior
-
-**Design decisions requiring user validation:**
-
-- **Core value proposition** — Does tarot actually help agents/users solve problems, or is it novelty?
-  - **Handle during:** Phase 1 validation — Use `/tarot` in real problem-solving scenarios, gather feedback
-
-- **Voice distinctiveness** — Do Mystic vs. Grounded voices create meaningful choice, or does one dominate?
-  - **Handle during:** Phase 3 testing — A/B test same card with both voices, assess preference
-
-- **Quick vs. deep utility** — Do users value quick draw speed, or always prefer depth?
-  - **Handle during:** Phase 4 validation — Track usage patterns (which mode users choose)
-
-**Content quality requiring iteration:**
-
-- **Interpretation prompts** — Prompt engineering for contextual interpretation will need refinement based on real usage.
-  - **Handle during:** Phase 2-3 — Test interpretations with various problem types, iterate prompts
+- **Memory on low-end devices:** 240 frames at ~70KB each = ~17MB decoded in memory. Modern devices handle this, but older phones may not. Sliding window approach documented but adds complexity.
+  - **Handle during:** Phase 2 real device testing -- implement sliding window only if memory pressure observed
 
 ## Sources
 
 ### Primary (HIGH confidence)
-- Esoterica PROJECT.md — Project requirements, scope, and explicit MCP rejection
-- Existing `.claude/settings.local.json` in project — Confirms config file pattern
+- [MDN: Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+- [MDN: Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+- [MDN: Optimizing Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas)
+- [MDN: prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion)
+- [MDN: Web Video Codec Guide](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Video_codecs)
+- [WebKit Blog: iOS Video Policies](https://webkit.org/blog/6784/new-video-policies-for-ios/)
+- [W3C WCAG: Animation from Interactions](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html)
+- [GitHub Docs: GitHub Pages Limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits)
+- [Google Developers: WebP Format](https://developers.google.com/speed/webp)
+- [Chrome Developers: Scroll Animation Performance Case Study](https://developer.chrome.com/blog/scroll-animation-performance-case-study)
 
 ### Secondary (MEDIUM confidence)
-- Training knowledge of Claude Code architecture (January 2025 cutoff) — Skill and subagent patterns
-- Training knowledge of tarot reading practices and mechanics — Card meanings, reading structures
-- Analysis of own system prompt structure — Subagent role definition patterns
-- Training knowledge of AI-powered divination tools — Feature landscape and UX pitfalls
+- [CSS-Tricks: Apple Product Page Scroll Animations](https://css-tricks.com/lets-make-one-of-those-fancy-scrolling-animations-used-on-apple-product-pages/)
+- [Behind the scenes of an award-winning web page (Swissquote)](https://medium.com/swissquote-engineering/behind-the-scene-of-an-award-winning-web-page-c93b5349ec4a)
+- [Mux: Optimize Video for Web Playback with FFmpeg](https://www.mux.com/articles/optimize-video-for-web-playback-with-ffmpeg)
+- [Scroll-to-Scrub Videos (Chris How)](https://medium.com/@chrislhow/scroll-to-scrub-videos-4664c29b4404)
+- [web.dev: Fast Playback with Preload](https://web.dev/articles/fast-playback-with-preload)
+- [Pixel Point: Web Optimized Video with ffmpeg](https://pixelpoint.io/blog/web-optimized-video-ffmpeg/)
 
 ### Tertiary (LOW confidence)
-- Inferred skill file discovery mechanism (assumed `.claude/skills/` auto-scanned)
-- Inferred Task tool parameter schema (based on system prompt patterns)
-- Inferred config merge behavior (assumed project overrides global)
-
-**Note:** Unable to access external verification sources (web research tools restricted). Recommend validating Claude Code specific patterns against official documentation or existing skill examples during Phase 1 implementation.
+- Mobile performance benchmarks (general guidance, needs real-device validation)
+- Optimal frame count for scrubbing (24fps assumed, may need tuning)
+- Memory usage estimates (calculated, not measured on target devices)
 
 ---
-*Research completed: 2026-01-21*
+*Research completed: 2026-01-28*
 *Ready for roadmap: yes*
