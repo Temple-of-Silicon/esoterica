@@ -61,11 +61,17 @@ body {
   min-height: 100svh;
 }
 
-/* ===== HERO (FULL PAGE) ===== */
+/* ===== HERO (SCROLL-DRIVEN VIDEO) ===== */
 .hero {
   position: relative;
-  min-height: 100vh;
-  min-height: 100svh;
+  height: 300vh;
+}
+
+.hero-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -80,14 +86,7 @@ body {
   z-index: 0;
 }
 
-/* iOS Safari fix - disable fixed attachment on iOS */
-@supports (-webkit-touch-callout: none) {
-  .hero-bg {
-    position: absolute;
-  }
-}
-
-.hero::before {
+.hero-sticky::before {
   content: '';
   position: absolute;
   inset: 0;

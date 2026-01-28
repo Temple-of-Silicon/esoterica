@@ -2,61 +2,67 @@
 import Base from '../layouts/Base.astro';
 import { Image } from 'astro:assets';
 import heroImage from '../assets/hero-primary.png';
+import ScrollVideo from '../components/ScrollVideo.astro';
 ---
 
 <Base>
   <div class="hero">
-    <Image
-      src={heroImage}
-      alt="Sacred altar with tarot cards"
-      width={1920}
-      quality={80}
-      format="webp"
-      class="hero-bg"
-    />
+    <div class="hero-sticky">
+      <ScrollVideo />
+      <noscript>
+        <Image
+          src={heroImage}
+          alt="Sacred altar with tarot cards"
+          width={1920}
+          quality={80}
+          format="webp"
+          class="hero-bg"
+        />
+      </noscript>
 
-    <!-- Header -->
-    <header class="header">
-      <a href="#" class="logo">Esoterica</a>
-      <div class="header-actions">
-        <a href="https://github.com/jem-computer/esoterica"
-           class="header-link"
-           target="_blank"
-           rel="noopener noreferrer">
-          GitHub
-        </a>
-        <button class="theme-toggle" aria-label="Toggle theme">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="4"/>
-            <path d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.364-6.364l-1.414 1.414M8.05 15.95l-1.414 1.414m12.728 0l-1.414-1.414M8.05 8.05L6.636 6.636"/>
-          </svg>
-        </button>
-      </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main">
-      <div class="content">
-        <h1 class="tagline">Ancient patterns,<br>new paths</h1>
-        <p class="name">Esoterica</p>
-        <p class="description">
-          A tarot reading skill for Claude agents.<br>
-          Draw cards, interpret archetypes,<br>
-          shift perspectives on complex decisions.
-        </p>
-        <div class="install">
-          <code>npx @templeofsilicon/esoterica</code>
-          <button class="copy-btn" aria-label="Copy install command">Copy</button>
+      <!-- Header -->
+      <header class="header">
+        <a href="#" class="logo">Esoterica</a>
+        <div class="header-actions">
+          <a href="https://github.com/jem-computer/esoterica"
+             class="header-link"
+             target="_blank"
+             rel="noopener noreferrer">
+            GitHub
+          </a>
+          <button class="theme-toggle" aria-label="Toggle theme">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.364-6.364l-1.414 1.414M8.05 15.95l-1.414 1.414m12.728 0l-1.414-1.414M8.05 8.05L6.636 6.636"/>
+            </svg>
+          </button>
         </div>
-      </div>
-    </main>
+      </header>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <p>
-        <a href="https://github.com/jem-computer/esoterica" target="_blank" rel="noopener noreferrer">View source</a>
-      </p>
-    </footer>
+      <!-- Main Content -->
+      <main class="main">
+        <div class="content">
+          <h1 class="tagline">Ancient patterns,<br>new paths</h1>
+          <p class="name">Esoterica</p>
+          <p class="description">
+            A tarot reading skill for Claude agents.<br>
+            Draw cards, interpret archetypes,<br>
+            shift perspectives on complex decisions.
+          </p>
+          <div class="install">
+            <code>npx @templeofsilicon/esoterica</code>
+            <button class="copy-btn" aria-label="Copy install command">Copy</button>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <p>
+          <a href="https://github.com/jem-computer/esoterica" target="_blank" rel="noopener noreferrer">View source</a>
+        </p>
+      </footer>
+    </div>
   </div>
 
   <!-- Prose Section -->
@@ -148,5 +154,9 @@ import heroImage from '../assets/hero-primary.png';
         }
       });
     });
+  </script>
+
+  <script>
+    import '../scripts/scroll-scrubber.js';
   </script>
 </Base>
