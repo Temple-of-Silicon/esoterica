@@ -5,22 +5,22 @@
 See: .planning/PROJECT.md (updated 2026-01-28)
 
 **Core value:** Agents can draw and interpret tarot cards as a perspective-shifting tool
-**Current focus:** v1.4 Website Upgrade -- Phase 20 (Mobile + Accessibility)
+**Current focus:** v1.4 Website Upgrade -- Phase 20 complete, ready for Phase 21
 
 ## Current Position
 
 Milestone: v1.4 Website Upgrade
 Phase: 20 of 22 (Mobile + Accessibility)
-Plan: 01 of 02 (Reduced Motion + Resize)
-Status: In progress
-Last activity: 2026-01-28 -- Completed 20-01-PLAN.md
+Plan: 02 of 02 (Scroll Hint)
+Status: Phase complete
+Last activity: 2026-01-28 -- Completed 20-02-PLAN.md
 
-Progress: [===================.] 90% (19/22 phases complete; 33 plans shipped)
+Progress: [===================.] 91% (20/22 phases complete; 34 plans shipped)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 33 (5 v1.0 + 5 v1.1 + 12 v1.2 + 8 v1.3 + 3 v1.4)
+- Total plans completed: 34 (5 v1.0 + 5 v1.1 + 12 v1.2 + 8 v1.3 + 4 v1.4)
 - Average duration (v1.1): 2.4 min
 - Average duration (v1.2): 7.6 min
 - Average duration (v1.3): 2.0 min
@@ -43,7 +43,7 @@ Progress: [===================.] 90% (19/22 phases complete; 33 plans shipped)
 | Phase 17 (Minor Arcana Content) | 4 | ~12 min | ~3 min |
 | Phase 18 (Wizard Enhancement) | 2 | ~3.7 min | ~1.9 min |
 | Phase 19 (Scroll Video) | 2 | ~10 min | ~5 min |
-| Phase 20 (Mobile + A11y) | 1 | ~2 min | ~2 min |
+| Phase 20 (Mobile + A11y) | 2 | ~4 min | ~2 min |
 
 ## Accumulated Context
 
@@ -73,6 +73,12 @@ All decisions logged in PROJECT.md Key Decisions table.
 - Resize handler reuses existing ticking flag and updateVideoTime function
 - iOS Safari: poster attribute + #t=0.001 for first-frame display
 
+**Phase 20 Mobile + A11y (Plan 02):**
+- SVG chevron scroll hint in hero, appears after 1.5s with bounce animation
+- Animation gated behind prefers-reduced-motion: no-preference
+- JS fades hint at >20% scroll progress, restores CSS animation on scroll-back
+- display: none in reduced-motion media query
+
 ### Pending Todos
 
 - [ ] Let users save readings to file (future candidate)
@@ -89,12 +95,13 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-28
-Stopped at: Completed 20-01-PLAN.md
+Stopped at: Completed 20-02-PLAN.md (Phase 20 complete)
 Resume file: None
 
 ## Next Steps
 
-1. Execute Phase 20 Plan 02 (Touch Targets + Mobile Viewport)
+1. Execute Phase 21 (Illustrations)
+2. Execute Phase 22 (Final Polish)
 
 ---
-*Last updated: 2026-01-28 -- Phase 20 Plan 01 complete*
+*Last updated: 2026-01-28 -- Phase 20 complete (both plans shipped)*
