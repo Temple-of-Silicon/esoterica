@@ -123,11 +123,9 @@ All decisions logged in PROJECT.md Key Decisions table.
 
 - [ ] Let users save readings to file (v1.4 candidate)
 - [ ] Debug ugly argument parsing in Skill
-- [x] Split tarot card descriptions from main skill — v1.3 ARCH-01
 - [ ] Explore subagent benefits for tarot skill
 - [ ] Integrate tarot with GSD workflow while keeping independence
 - [ ] Remove .claude-plugin directory (not configured properly)
-- [x] Add npx installation support — published as @templeofsilicon/esoterica
 - [ ] Add contribution policy - coven members only (no random PRs)
 
 ### Blockers/Concerns
