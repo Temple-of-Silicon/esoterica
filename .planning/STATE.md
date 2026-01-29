@@ -81,6 +81,7 @@ All decisions logged in PROJECT.md Key Decisions table.
 
 ### Pending Todos
 
+- [ ] Debug Chrome scroll animation lag (works fine in Safari)
 - [ ] Let users save readings to file (future candidate)
 - [ ] Debug ugly argument parsing in Skill
 - [ ] Explore subagent benefits for tarot skill
