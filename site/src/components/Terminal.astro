@@ -1,0 +1,33 @@
+---
+// Terminal.astro - Demo terminal widget
+// All text in DOM from start for accessibility
+// Phase 24 will add scroll-driven animation
+---
+
+<div class="terminal-container">
+  <section class="terminal" aria-label="Esoterica demo">
+    <!-- Witchy window chrome -->
+    <div class="terminal-chrome" aria-hidden="true">
+      <span class="terminal-btn">&#x2726;</span>
+      <span class="terminal-btn">&#x2605;</span>
+      <span class="terminal-btn">&#x273B;</span>
+    </div>
+
+    <!-- Terminal screen with all content pre-loaded -->
+    <div class="terminal-screen" role="log" aria-live="polite" aria-atomic="false">
+      <pre class="terminal-content"><span class="terminal-line" data-phase="1"><span class="terminal-prompt" aria-hidden="true">$</span> <span class="terminal-text">esoterica</span></span>
+<span class="terminal-line" data-phase="2"><span class="terminal-text">Drawing cards...</span></span>
+<span class="terminal-line" data-phase="3"><span class="terminal-text">The Tower speaks of transformation...</span></span>
+<span class="terminal-line" data-phase="4"><span class="terminal-text">Integrating insight into your workflow...</span></span></pre>
+      <span class="terminal-cursor" aria-hidden="true"></span>
+    </div>
+
+    <!-- Phase progress indicators -->
+    <nav class="terminal-indicators" aria-label="Demo progress">
+      <span class="indicator active" aria-current="step" data-phase="1"></span>
+      <span class="indicator" data-phase="2"></span>
+      <span class="indicator" data-phase="3"></span>
+      <span class="indicator" data-phase="4"></span>
+    </nav>
+  </section>
+</div>
