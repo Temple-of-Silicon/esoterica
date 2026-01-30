@@ -8,6 +8,17 @@ A framework for Claude Code agents to use tarot (and eventually other esoteric t
 
 Agents can draw and interpret tarot cards as a perspective-shifting tool for problem-solving, planning, and self-mythologizing.
 
+## Current Milestone: v1.5 Demo Widget
+
+**Goal:** Add an interactive terminal demo to the landing page that shows esoterica in action through a scroll-triggered, four-phase narrative.
+
+**Target features:**
+- Scroll-triggered terminal simulation (phases advance as user scrolls)
+- Four-phase narrative: ask question → pull cards → get interpretation → integrate learnings
+- Claude Code-style terminal appearance with full typewriter effect
+- Pre-scripted highlight reel showing curated moments
+- Positioned after hero video, before illustrations
+
 ## Current State (v1.4 Shipped)
 
 **Shipped:** 2026-01-29
@@ -107,7 +118,13 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 
 ### Active
 
-(No active milestone — run `/gsd:new-milestone` to start next)
+**v1.5 Demo Widget:**
+- [ ] DEMO-01: Scroll-triggered terminal simulation on landing page
+- [ ] DEMO-02: Four-phase narrative (ask → pull → interpret → integrate)
+- [ ] DEMO-03: Claude Code-style terminal visual treatment
+- [ ] DEMO-04: Full typewriter animation effect
+- [ ] DEMO-05: Pre-scripted highlight reel content
+- [ ] DEMO-06: Placement after hero, before illustrations
 
 ### Out of Scope
 
@@ -172,4 +189,4 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 - [ ] Reversed card meanings (v1.4 candidate)
 
 ---
-*Last updated: 2026-01-29 -- v1.4 Website Upgrade milestone complete*
+*Last updated: 2026-01-30 -- v1.5 Demo Widget milestone started*

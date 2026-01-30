@@ -2,20 +2,20 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-29)
+See: .planning/PROJECT.md (updated 2026-01-30)
 
 **Core value:** Agents can draw and interpret tarot cards as a perspective-shifting tool
-**Current focus:** Planning next milestone
+**Current focus:** v1.5 Demo Widget
 
 ## Current Position
 
-Milestone: v1.4 Website Upgrade — SHIPPED
-Phase: 22 of 22 (complete)
-Plan: All complete
-Status: Ready for next milestone
-Last activity: 2026-01-29 -- v1.4 milestone archived
+Milestone: v1.5 Demo Widget — DEFINING REQUIREMENTS
+Phase: Not started
+Plan: —
+Status: Defining requirements
+Last activity: 2026-01-30 -- Milestone v1.5 started
 
-Progress: [====================] 100% (22/22 phases complete; 38 plans shipped)
+Progress: [                    ] 0% (defining requirements)
 
 ## Performance Metrics
 
@@ -71,7 +71,9 @@ Resume file: None
 
 ## Next Steps
 
-1. Run `/gsd:new-milestone` to start next milestone (questioning → research → requirements → roadmap)
+1. Define requirements for demo widget
+2. Create roadmap
+3. Run `/gsd:plan-phase [N]` to start execution
 
 ---
-*Last updated: 2026-01-29 -- v1.4 Website Upgrade milestone archived*
+*Last updated: 2026-01-30 -- v1.5 Demo Widget milestone started*
