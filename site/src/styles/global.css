@@ -294,6 +294,52 @@ body {
   color: var(--text-hero);
 }
 
+/* ===== SITE FOOTER (Bottom of Page) ===== */
+.site-footer {
+  position: relative;
+  z-index: 10;
+  padding: 1.5rem 2rem;
+  text-align: center;
+}
+
+.site-footer small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 0.75rem;
+  color: var(--text-hero-muted);
+}
+
+.site-footer a {
+  color: var(--text-hero-muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.site-footer a:hover {
+  color: var(--text-hero);
+}
+
+.site-footer a:first-child {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.footer-github {
+  display: flex;
+  align-items: center;
+}
+
+.footer-github svg {
+  opacity: 0.8;
+  transition: opacity 0.15s ease;
+}
+
+.footer-github:hover svg {
+  opacity: 1;
+}
+
 /* ===== PROSE SECTION ===== */
 .prose {
   background: var(--bg-page, #FAF9F6);
