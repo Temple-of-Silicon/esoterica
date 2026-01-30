@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-01-28)
 
 **Core value:** Agents can draw and interpret tarot cards as a perspective-shifting tool
-**Current focus:** v1.4 Website Upgrade -- Phase 21 complete, ready for Phase 22
+**Current focus:** v1.4 Website Upgrade -- Phase 22 in progress
 
 ## Current Position
 
 Milestone: v1.4 Website Upgrade
-Phase: 21 of 22 (Gateway Illustrations)
-Plan: 02 of 02 (Illustration Integration)
-Status: Phase complete
-Last activity: 2026-01-29 -- Completed quick task 003: LinkedIn carousel posts
+Phase: 22 of 22 (Footer + Polish)
+Plan: 01 of 02 (Chrome Scroll Fix)
+Status: In progress
+Last activity: 2026-01-29 -- Completed 22-01-PLAN.md (Chrome scroll fix)
 
-Progress: [====================] 95% (21/22 phases complete; 36 plans shipped)
+Progress: [====================] 97% (21/22 phases complete; 37 plans shipped)
 
 ## Performance Metrics
 
@@ -45,6 +45,7 @@ Progress: [====================] 95% (21/22 phases complete; 36 plans shipped)
 | Phase 19 (Scroll Video) | 2 | ~10 min | ~5 min |
 | Phase 20 (Mobile + A11y) | 2 | ~4 min | ~2 min |
 | Phase 21 (Illustrations) | 2 | ~3 hrs | ~1.5 hrs |
+| Phase 22 (Footer + Polish) | 1 | ~1.7 min | ~1.7 min |
 
 ## Accumulated Context
 
@@ -89,9 +90,15 @@ All decisions logged in PROJECT.md Key Decisions table.
 - IntersectionObserver scroll reveal with threshold 0.15, rootMargin -50px
 - Archive saved to ~/Pictures/esoterica-illustrations-archive/
 
+**Phase 22 Chrome Scroll Fix:**
+- Re-encoded hero.mp4 with keyframes every 10 frames (25 I-frames)
+- CRF 32 for 2.6MB file size (originally 3.8MB at CRF 28)
+- canplaythrough event + 3s timeout fallback for poster hiding
+- Video readiness pattern: canplaythrough listener with { once: true }
+
 ### Pending Todos
 
-- [ ] Debug Chrome scroll animation lag (works fine in Safari)
+- [x] Debug Chrome scroll animation lag (works fine in Safari) -- FIXED in 22-01
 - [ ] Let users save readings to file (future candidate)
 - [ ] Debug ugly argument parsing in Skill
 - [ ] Explore subagent benefits for tarot skill
@@ -112,12 +119,12 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Completed 21-02-PLAN.md (Phase 21 complete)
+Stopped at: Completed 22-01-PLAN.md (Chrome scroll fix)
 Resume file: None
 
 ## Next Steps
 
-1. Execute Phase 22 (Footer + Polish)
+1. Execute 22-02-PLAN.md (Footer remaining work)
 
 ---
-*Last updated: 2026-01-29 -- Quick task 003 complete (LinkedIn carousel posts)*
+*Last updated: 2026-01-29 -- Completed 22-01-PLAN.md (Chrome scroll fix)*
