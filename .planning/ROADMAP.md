@@ -64,87 +64,18 @@ See: `.planning/milestones/v1.3-ROADMAP.md` for full details.
 
 </details>
 
-### v1.4 Website Upgrade
+<details>
+<summary>v1.4 Website Upgrade (Phases 19-22) - SHIPPED 2026-01-29</summary>
 
-**Milestone Goal:** Transform the landing page from static hero image to an immersive scroll-driven video experience with Gateway Process illustrations and proper site footer.
+See: `.planning/milestones/v1.4-ROADMAP.md` for full details.
 
-- [x] **Phase 19: Scroll Video** - Scroll-driven video hero with `<video>` element currentTime mapping
-- [x] **Phase 20: Mobile + Accessibility** - Mobile fallback, reduced-motion support, scroll hint
-- [x] **Phase 21: Gateway Illustrations** - Illustration prompts, integration, hybrid layout
-- [x] **Phase 22: Footer + Polish** - Site footer, loading states, Lighthouse audit
+4 phases, 8 plans, 6 requirements delivered:
+- Phase 19: Scroll Video (scroll-driven video hero)
+- Phase 20: Mobile + Accessibility (reduced-motion, scroll hint)
+- Phase 21: Gateway Illustrations (AI-generated line art)
+- Phase 22: Footer + Polish (footer, Lighthouse 94)
 
-## Phase Details
-
-### Phase 19: Scroll Video
-**Goal**: Visitors experience Apple-style scroll-driven video playback tied to scroll position
-**Depends on**: Phase 18 (existing Astro site from quick-002 migration)
-**Requirements**: WEB-01, WEB-02
-**Success Criteria** (what must be TRUE):
-  1. Scrolling the hero section plays the video forward; scrolling back plays it in reverse
-  2. First frame displays immediately as poster state before any scrolling
-  3. Video is a `<video>` element with currentTime driven by scroll position
-  4. Source video is compressed from 25MB to under 5MB
-  5. Page loads without jank -- scroll handler uses requestAnimationFrame throttling
-**Plans:** 2 plans
-Plans:
-- [x] 19-01-PLAN.md -- Compress source video with ffmpeg for web delivery
-- [x] 19-02-PLAN.md -- Build scroll-driven video hero component and integrate
-
-### Phase 20: Mobile + Accessibility
-**Goal**: The scroll video works gracefully on mobile devices and respects accessibility preferences
-**Depends on**: Phase 19
-**Requirements**: (extends WEB-01 -- mobile and a11y dimensions)
-**Success Criteria** (what must be TRUE):
-  1. Mobile visitors see a static poster or reduced frame set instead of full 240-frame sequence
-  2. Users with `prefers-reduced-motion` enabled see a static frame with no scroll animation
-  3. A scroll hint chevron communicates that the hero section is interactive
-  4. Text overlay fades in sync with scroll progress
-  5. Canvas resizes correctly when viewport dimensions change
-**Plans:** 2 plans
-Plans:
-- [x] 20-01-PLAN.md -- Reduced-motion support, poster extraction, viewport resize handling
-- [x] 20-02-PLAN.md -- Scroll hint element with delayed appearance and scroll fade
-
-### Phase 21: Gateway Illustrations
-**Goal**: The landing page features Gateway Process-style illustrations that explain Esoterica's concepts
-**Depends on**: Phase 18 (independent of video phases; can run after 19-20 or in parallel)
-**Requirements**: WEB-03, WEB-04, WEB-05
-**Success Criteria** (what must be TRUE):
-  1. Illustration prompts are generated and ready for Nano Banana Pro image creation
-  2. Illustrations appear on the landing page interspersed with prose and/or in a 3-column grid
-  3. Illustrations are theme-aware (adapt to dark/light mode via CSS custom properties)
-  4. Illustrations fade in on scroll using Intersection Observer
-**Plans:** 2 plans
-Plans:
-- [x] 21-01-PLAN.md -- Generate three Gateway Process-style line art illustrations via Nano Banana Pro
-- [x] 21-02-PLAN.md -- Integrate illustrations into page with CSS breakout, theme filter, scroll reveal
-
-### Phase 22: Footer + Polish
-**Goal**: The site has a complete footer and passes quality benchmarks
-**Depends on**: Phases 19, 20, 21
-**Requirements**: WEB-06
-**Success Criteria** (what must be TRUE):
-  1. Footer displays "(c) 02026-, Temple of Silicon" linking to templeofsilicon.com and GitHub icon linking to the repo
-  2. Loading states show poster frame while video frames load
-  3. Site scores 90+ on Lighthouse performance audit
-  4. Site renders correctly in Chrome, Safari, Firefox, and Edge
-**Plans:** 2 plans
-Plans:
-- [x] 22-01-PLAN.md -- Re-encode video with keyframes for Chrome performance, add loading state
-- [x] 22-02-PLAN.md -- Implement semantic footer, run Lighthouse audit, cross-browser verification
-
-## Requirement Coverage
-
-| Requirement | Description | Phase | Status |
-|-------------|-------------|-------|--------|
-| WEB-01 | Scroll-scrubbed hero video | Phase 19, extended by Phase 20 | Complete |
-| WEB-02 | Compress and integrate AI-generated hero video | Phase 19 | Complete |
-| WEB-03 | Gateway Process-style illustrations | Phase 21 | Complete |
-| WEB-04 | Illustration prompt generation for Nano Banana Pro | Phase 21 | Complete |
-| WEB-05 | Page layout for illustrations | Phase 21 | Complete |
-| WEB-06 | Footer with copyright and links | Phase 22 | Complete |
-
-Coverage: 6/6 requirements mapped.
+</details>
 
 ---
 
@@ -179,4 +110,4 @@ Coverage: 6/6 requirements mapped.
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-29 -- Phase 22 complete, v1.4 Website Upgrade shipped*
+*Last updated: 2026-01-29 -- v1.4 Website Upgrade archived*

@@ -1,5 +1,34 @@
 # Project Milestones: Esoterica
 
+## v1.4 Website Upgrade (Shipped: 2026-01-29)
+
+**Delivered:** Immersive scroll-driven video hero, Gateway Process-style illustrations, and semantic footer with Lighthouse score of 94.
+
+**Phases completed:** 19-22 (8 plans total)
+
+**Key accomplishments:**
+
+- Apple-style scroll-driven video hero (video.currentTime mapped to scroll position)
+- Video compressed from 25MB to 2.6MB with keyframe optimization for smooth Chrome seeking
+- Reduced-motion accessibility (static poster, no video download, collapsed hero)
+- Three Gateway Process-style line art illustrations with scroll reveal
+- Custom stamp-filter.mjs replicating Photoshop Stamp filter
+- Semantic footer with copyright and GitHub links
+- Lighthouse performance score 94 (exceeds 90+ target)
+
+**Stats:**
+
+- 53 files created/modified
+- 4,289 lines added
+- 4 phases, 8 plans, 6 requirements
+- 2 days from start to ship (2026-01-28 → 2026-01-29)
+
+**Git range:** `docs(19): research` → `docs(22): complete`
+
+**What's next:** Next milestone TBD — skill features (save readings, reversed meanings) or new esoteric tools
+
+---
+
 ## v1.3 Minor Arcana (Shipped: 2026-01-26)
 
 **Delivered:** Complete 78-card tarot deck with 56 Minor Arcana cards at full interpretive depth, deck selection in wizard, and fuzzy matching for physical mode.

@@ -2,18 +2,18 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-28)
+See: .planning/PROJECT.md (updated 2026-01-29)
 
 **Core value:** Agents can draw and interpret tarot cards as a perspective-shifting tool
-**Current focus:** v1.4 Website Upgrade complete
+**Current focus:** Planning next milestone
 
 ## Current Position
 
-Milestone: v1.4 Website Upgrade
-Phase: 22 of 22 (Footer + Polish)
-Plan: 02 of 02 (Footer & Quality Audit)
-Status: Milestone complete
-Last activity: 2026-01-29 -- Completed Phase 22, v1.4 shipped
+Milestone: v1.4 Website Upgrade — SHIPPED
+Phase: 22 of 22 (complete)
+Plan: All complete
+Status: Ready for next milestone
+Last activity: 2026-01-29 -- v1.4 milestone archived
 
 Progress: [====================] 100% (22/22 phases complete; 38 plans shipped)
 
@@ -24,28 +24,17 @@ Progress: [====================] 100% (22/22 phases complete; 38 plans shipped)
 - Average duration (v1.1): 2.4 min
 - Average duration (v1.2): 7.6 min
 - Average duration (v1.3): 2.0 min
+- Average duration (v1.4): ~25 min (skewed by illustration generation)
 
-**By Phase:**
+**By Milestone:**
 
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| v1.0 Phases 1-5 | 5 | - | - |
-| Phase 6 (Wizard Infrastructure) | 1 | 3 min | 3 min |
-| Phase 7 (Spread Options) | 2 | 4 min | 2 min |
-| Phase 8 (Reading Modes) | 1 | 3 min | 3 min |
-| Phase 9 (Multi-Card Interpretation) | 1 | 2 min | 2 min |
-| Phase 10 (Positioning) | 2 | ~13 min | ~6.5 min |
-| Phase 11 (Documentation) | 1 | 1.4 min | 1.4 min |
-| Phase 12 (Visual Language) | 4 | 21.5 min | 5.4 min |
-| Phase 13 (Landing Page) | 2 | ~46 min | ~23 min |
-| Phase 14 (Launch Materials) | 3 | ~39 min | ~13 min |
-| Phase 16 (Architecture Refactor) | 2 | 5 min | 2.5 min |
-| Phase 17 (Minor Arcana Content) | 4 | ~12 min | ~3 min |
-| Phase 18 (Wizard Enhancement) | 2 | ~3.7 min | ~1.9 min |
-| Phase 19 (Scroll Video) | 2 | ~10 min | ~5 min |
-| Phase 20 (Mobile + A11y) | 2 | ~4 min | ~2 min |
-| Phase 21 (Illustrations) | 2 | ~3 hrs | ~1.5 hrs |
-| Phase 22 (Footer + Polish) | 2 | ~7 min | ~3.5 min |
+| Milestone | Phases | Plans | Days |
+|-----------|--------|-------|------|
+| v1.0 Tarot Skill | 5 | 5 | 1 |
+| v1.1 Wizard UI | 4 | 5 | 1 |
+| v1.2 Brand & Marketing | 6 | 13 | 4 |
+| v1.3 Minor Arcana | 3 | 8 | 1 |
+| v1.4 Website Upgrade | 4 | 8 | 2 |
 
 ## Accumulated Context
 
@@ -53,60 +42,15 @@ Progress: [====================] 100% (22/22 phases complete; 38 plans shipped)
 
 All decisions logged in PROJECT.md Key Decisions table.
 
-**v1.4 Roadmap:**
-- 4 phases derived from 6 requirements (depth=quick)
-- Video element with scroll-driven currentTime (NOT canvas + frame images)
-- Vanilla JS only -- zero runtime dependencies preserved
-- ffmpeg for video compression
-- Phase 21 (illustrations) independent of video phases -- could parallelize
-- Source video: /Users/jem/Downloads/weavy-Kling First & Last Frame-2026-01-28 at 11.59.12.mp4
-
-**Phase 19 Scroll Video:**
-- CRF 28 yields 1.8MB from 25MB source (93% reduction)
-- h264 Main profile, Level 4.0, faststart, no audio
-- Video committed to repo (1.8MB, small enough for git — no CI pipeline for generation)
-- 300vh hero with sticky inner container, scroll maps to video.currentTime
-- BASE_URL trailing slash bug found and fixed
-
-**Phase 20 Mobile + A11y (Plan 01):**
-- Poster img hidden by default, shown via CSS reduced-motion query (no JS needed for swap)
-- Video src removed via JS for reduced-motion users to prevent 1.8MB download
-- Hero collapses to 100vh/100svh in reduced-motion mode
-- Resize handler reuses existing ticking flag and updateVideoTime function
-- iOS Safari: poster attribute + #t=0.001 for first-frame display
-
-**Phase 20 Mobile + A11y (Plan 02):**
-- SVG chevron scroll hint in hero, appears after 1.5s with bounce animation
-- Animation gated behind prefers-reduced-motion: no-preference
-- JS fades hint at >20% scroll progress, restores CSS animation on scroll-back
-- display: none in reduced-motion media query
-
-**Phase 21 Gateway Illustrations:**
-- Nano Banana Pro via Replicate API for line art generation (60+ variations)
-- Custom stamp-filter.mjs replicates Photoshop Stamp filter (sharp: grayscale → blur → threshold)
-- User style suffix: "fineliner line art, heavy stippling texture, imperfect, rough drawings..."
-- CSS breakout layout: margin-left 50% + translateX(-50%) pattern
-- Dark mode: filter invert(1) on img only (not caption)
-- IntersectionObserver scroll reveal with threshold 0.15, rootMargin -50px
-- Archive saved to ~/Pictures/esoterica-illustrations-archive/
-
-**Phase 22 Footer + Polish:**
-- Re-encoded hero.mp4 with keyframes every 10 frames (25 I-frames) for Chrome scroll
-- CRF 28 for 2.6MB file size (tradeoff: larger but smooth seeking)
-- canplaythrough event + 3s timeout fallback for poster hiding
-- Semantic footer with Temple of Silicon link to github.com/temple-of-silicon
-- Lighthouse score: 94 (desktop)
-- Cross-browser verified: Chrome, Safari, Firefox, Edge
-
 ### Pending Todos
 
-- [x] Debug Chrome scroll animation lag (works fine in Safari) -- FIXED in 22-01
 - [ ] Let users save readings to file (future candidate)
 - [ ] Debug ugly argument parsing in Skill
 - [ ] Explore subagent benefits for tarot skill
 - [ ] Integrate tarot with GSD workflow while keeping independence
 - [ ] Remove .claude-plugin directory (not configured properly)
 - [ ] Add contribution policy - coven members only (no random PRs)
+- [ ] Reversed card meanings (future candidate)
 
 ### Blockers/Concerns
 
@@ -121,13 +65,12 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Milestone v1.4 complete
+Stopped at: v1.4 milestone archived
 Resume file: None
 
 ## Next Steps
 
-1. Run `/gsd:audit-milestone` to verify v1.4 before archiving
-2. Or `/gsd:complete-milestone` to archive and prepare for next version
+1. Run `/gsd:new-milestone` to start next milestone (questioning → research → requirements → roadmap)
 
 ---
-*Last updated: 2026-01-29 -- v1.4 Website Upgrade milestone complete*
+*Last updated: 2026-01-29 -- v1.4 Website Upgrade milestone archived*

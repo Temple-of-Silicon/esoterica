@@ -8,9 +8,9 @@ A framework for Claude Code agents to use tarot (and eventually other esoteric t
 
 Agents can draw and interpret tarot cards as a perspective-shifting tool for problem-solving, planning, and self-mythologizing.
 
-## Current State (v1.3 Shipped)
+## Current State (v1.4 Shipped)
 
-**Shipped:** 2026-01-26
+**Shipped:** 2026-01-29
 
 **What's working:**
 - `/tarot` skill with interactive wizard (AskUserQuestion)
@@ -23,37 +23,40 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 - Physical mode with ritual opening, fuzzy card matching (supports "3 cups", "queen wands", "Q s")
 - Multi-card interpretation with woven narratives connecting cards across positions
 - npm package: `npx @templeofsilicon/esoterica` for easy installation
-- Landing page at jem-computer.github.io/esoterica
+- **Landing page:** jem-computer.github.io/esoterica with:
+  - Scroll-driven video hero (Apple-style currentTime mapping)
+  - Gateway Process-style line art illustrations with scroll reveal
+  - Reduced-motion accessibility (static poster, no video download)
+  - Semantic footer with Temple of Silicon + GitHub links
+  - Lighthouse score: 94
 
 **Tech stack:**
 - 860 lines in SKILL.md (orchestration + card index)
 - 719 lines in card data files (5 files: major-arcana + 4 suits)
 - Shell injection for randomness and config reading
 - AskUserQuestion for interactive wizard flow
+- Astro + vanilla JS for landing page (zero runtime dependencies)
+- Nano Banana Pro via Replicate for illustrations
 
-## Previous State (v1.2 Shipped)
+<details>
+<summary>Previous State (v1.3 Shipped)</summary>
 
 **Shipped:** 2026-01-26
 
 **What's working:**
 - `/tarot` skill with interactive wizard (AskUserQuestion)
-- 22 Major Arcana cards with rich archetypal meanings
+- 78-card deck: 22 Major Arcana + 56 Minor Arcana with full interpretive depth
+- Deck selection: Choose Major-only (22) or Full deck (78) in wizard
+- Lazy loading: Card data in separate files, loaded only after draw
 - Two voices: Mystic (cosmic priestess) and Grounded (pragmatic advisor)
 - Four spread types: Single card, Situation/Action/Outcome, LLM-suggested, Custom (1-5 positions)
 - Two reading modes: Digital (random shuf) and Physical (enter cards from real deck)
-- Physical mode with ritual opening, fuzzy card matching, duplicate prevention
+- Physical mode with ritual opening, fuzzy card matching
 - Multi-card interpretation with woven narratives connecting cards across positions
-- Position-aware interpretation engine with card relationship patterns
 - npm package: `npx @templeofsilicon/esoterica` for easy installation
-- Landing page at jem-computer.github.io/esoterica (enable GitHub Pages)
-- Brand assets: hero image, social variants, favicon, brand guide
+- Landing page at jem-computer.github.io/esoterica
 
-**Tech stack:**
-- 842 lines in SKILL.md (single file, all-embedded)
-- Shell injection for randomness and config reading
-- AskUserQuestion for interactive wizard flow
-- Remotion for demo video generation
-- Replicate API for AI image generation (skills/generate-image/)
+</details>
 
 ## Requirements
 
@@ -94,15 +97,17 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 - ✓ Lazy loading architecture (card files separate from SKILL.md) — v1.3
 - ✓ Fuzzy matching for all 78 cards in physical mode — v1.3
 
+**v1.4:**
+- ✓ WEB-01: Scroll-scrubbed hero video (Apple-style, playback tied to scroll position) — v1.4
+- ✓ WEB-02: Compress and integrate AI-generated hero video — v1.4
+- ✓ WEB-03: Gateway Process-style illustrations for landing page — v1.4
+- ✓ WEB-04: Illustration prompt generation for Nano Banana Pro — v1.4
+- ✓ WEB-05: Page layout for illustrations (interspersed with prose) — v1.4
+- ✓ WEB-06: Footer with copyright and links — v1.4
+
 ### Active
 
-**v1.4 -- Website Upgrade:**
-- [ ] WEB-01: Scroll-scrubbed hero video (Apple-style, playback tied to scroll position) -- Phase 19
-- [ ] WEB-02: Compress and integrate AI-generated hero video -- Phase 19
-- [ ] WEB-03: Gateway Process-style illustrations for landing page -- Phase 21
-- [ ] WEB-04: Illustration prompt generation for Nano Banana Pro -- Phase 21
-- [ ] WEB-05: Page layout for illustrations (interspersed with prose or 3-col grid) -- Phase 21
-- [ ] WEB-06: Footer with copyright and links -- Phase 22
+(No active milestone — run `/gsd:new-milestone` to start next)
 
 ### Out of Scope
 
@@ -152,7 +157,10 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 | Suit-based numbering (v1.3) | Wands 22-35, Cups 36-49, Swords 50-63, Pentacles 64-77 | ✓ Good -- clear structure |
 | Major-only default (v1.3) | Backwards compatible deck selection | ✓ Good -- preserves behavior |
 | Optional "of" (v1.3) | "three cups" = "three of cups" | ✓ Good -- natural input |
-| Canvas + WebP frames (v1.4) | Eliminates video.currentTime seek lag; zero runtime deps | Pending |
+| Video element scroll mapping (v1.4) | Simpler than canvas + frames; keyframes fix Chrome seeking | ✓ Good — works great |
+| Keyframes every 10 frames (v1.4) | Fixes Chrome scroll animation lag | ✓ Good — smooth seeking |
+| Stamp filter postprocessing (v1.4) | Replicates Photoshop Stamp for illustration style | ✓ Good — consistent look |
+| CSS breakout layout (v1.4) | margin-left 50% + translateX(-50%) for illustrations | ✓ Good — clean pattern |
 
 ## Pending Todos
 
@@ -164,4 +172,4 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 - [ ] Reversed card meanings (v1.4 candidate)
 
 ---
-*Last updated: 2026-01-28 -- v1.4 roadmap created*
+*Last updated: 2026-01-29 -- v1.4 Website Upgrade milestone complete*
