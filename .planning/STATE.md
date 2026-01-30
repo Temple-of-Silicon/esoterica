@@ -9,22 +9,23 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 
 ## Current Position
 
-Milestone: v1.5 Demo Widget — ROADMAP COMPLETE
-Phase: 23 - Terminal Foundation (pending)
-Plan: —
-Status: Ready for phase planning
-Last activity: 2026-01-30 -- Roadmap created
+Milestone: v1.5 Demo Widget
+Phase: 23 - Terminal Foundation (in progress)
+Plan: 01 of ~2 (Terminal Component complete)
+Status: Phase 23 in progress
+Last activity: 2026-01-30 -- Completed 23-01-PLAN.md
 
-Progress: [                    ] 0% (0/3 phases)
+Progress: [======              ] 33% (1/3 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 38 (5 v1.0 + 5 v1.1 + 12 v1.2 + 8 v1.3 + 8 v1.4)
+- Total plans completed: 39 (5 v1.0 + 5 v1.1 + 12 v1.2 + 8 v1.3 + 8 v1.4 + 1 v1.5)
 - Average duration (v1.1): 2.4 min
 - Average duration (v1.2): 7.6 min
 - Average duration (v1.3): 2.0 min
 - Average duration (v1.4): ~25 min (skewed by illustration generation)
+- Average duration (v1.5): ~15 min (1 plan so far)
 
 **By Milestone:**
 
@@ -42,6 +43,12 @@ Progress: [                    ] 0% (0/3 phases)
 ### Decisions
 
 All decisions logged in PROJECT.md Key Decisions table.
+
+**v1.5 Decisions:**
+- Unicode symbols for terminal window chrome (witchy aesthetic)
+- 2s cursor pulse animation (gentle, not harsh)
+- All demo text in DOM from page load (accessibility-first)
+- data-phase attributes for scroll-driven animation targeting
 
 ### Pending Todos
 
@@ -67,14 +74,14 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-30
-Stopped at: Roadmap created for v1.5
+Stopped at: Completed 23-01-PLAN.md (Terminal Component)
 Resume file: None
 
 ## Next Steps
 
-1. Run `/gsd:plan-phase 23` to plan Terminal Foundation
-2. Execute Phase 23 plans
-3. Continue with Phases 24-25
+1. Run `/gsd:plan-phase 23` to create 23-02-PLAN.md (if needed)
+2. Or continue to Phase 24 (Scroll Animation)
+3. Then Phase 25 (Demo Content)
 
 ---
-*Last updated: 2026-01-30 -- v1.5 Demo Widget roadmap created*
+*Last updated: 2026-01-30 -- Plan 23-01 complete*
