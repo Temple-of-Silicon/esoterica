@@ -7,6 +7,7 @@
 - **v1.2 Brand & Marketing** - Phases 10-15 (shipped 2026-01-26)
 - **v1.3 Minor Arcana** - Phases 16-18 (shipped 2026-01-26)
 - **v1.4 Website Upgrade** - Phases 19-22 (shipped 2026-01-29)
+- **v1.5 Demo Widget** - Phases 23-25 (in progress)
 
 ## Phases
 
@@ -77,11 +78,23 @@ See: `.planning/milestones/v1.4-ROADMAP.md` for full details.
 
 </details>
 
+<details open>
+<summary>v1.5 Demo Widget (Phases 23-25) - IN PROGRESS</summary>
+
+See: `.planning/milestones/v1.5-ROADMAP.md` for full details.
+
+3 phases, ~5 plans, 15 requirements:
+- Phase 23: Terminal Foundation (visual shell, sticky container, DOM text)
+- Phase 24: Animation Engine (scroll phases, typewriter animation)
+- Phase 25: Content + Accessibility (4-phase content, reduced-motion)
+
+</details>
+
 ---
 
 ## Progress
 
-**Execution Order:** 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14 -> 15 -> 16 -> 17 -> 18 -> 19 -> 20 -> 21 -> 22
+**Execution Order:** 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14 -> 15 -> 16 -> 17 -> 18 -> 19 -> 20 -> 21 -> 22 -> 23 -> 24 -> 25
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -107,7 +120,10 @@ See: `.planning/milestones/v1.4-ROADMAP.md` for full details.
 | 20. Mobile + Accessibility | v1.4 | 2/2 | Complete | 2026-01-28 |
 | 21. Gateway Illustrations | v1.4 | 2/2 | Complete | 2026-01-29 |
 | 22. Footer + Polish | v1.4 | 2/2 | Complete | 2026-01-29 |
+| 23. Terminal Foundation | v1.5 | 0/? | Pending | - |
+| 24. Animation Engine | v1.5 | 0/? | Pending | - |
+| 25. Content + Accessibility | v1.5 | 0/? | Pending | - |
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-29 -- v1.4 Website Upgrade archived*
+*Last updated: 2026-01-30 -- v1.5 Demo Widget roadmap added*

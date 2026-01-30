@@ -15,7 +15,7 @@ Requirements for the demo widget milestone. Core features only.
 
 ### Scroll Phases
 
-- [ ] **SCRL-01**: Four scroll-triggered phases (ask → pull → interpret → integrate)
+- [ ] **SCRL-01**: Four scroll-triggered phases (ask -> pull -> interpret -> integrate)
 - [ ] **SCRL-02**: IntersectionObserver detects phase transitions
 - [ ] **SCRL-03**: Phase persistence — scrolling up shows completed state, not re-animation
 
@@ -71,27 +71,27 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| TERM-01 | TBD | Pending |
-| TERM-02 | TBD | Pending |
-| TERM-03 | TBD | Pending |
-| SCRL-01 | TBD | Pending |
-| SCRL-02 | TBD | Pending |
-| SCRL-03 | TBD | Pending |
-| TYPE-01 | TBD | Pending |
-| TYPE-02 | TBD | Pending |
-| TYPE-03 | TBD | Pending |
-| A11Y-01 | TBD | Pending |
-| A11Y-02 | TBD | Pending |
-| CONT-01 | TBD | Pending |
-| CONT-02 | TBD | Pending |
-| CONT-03 | TBD | Pending |
-| CONT-04 | TBD | Pending |
+| TERM-01 | Phase 23 | Pending |
+| TERM-02 | Phase 23 | Pending |
+| TERM-03 | Phase 23 | Pending |
+| A11Y-02 | Phase 23 | Pending |
+| SCRL-01 | Phase 24 | Pending |
+| SCRL-02 | Phase 24 | Pending |
+| SCRL-03 | Phase 24 | Pending |
+| TYPE-01 | Phase 24 | Pending |
+| TYPE-02 | Phase 24 | Pending |
+| TYPE-03 | Phase 24 | Pending |
+| CONT-01 | Phase 25 | Pending |
+| CONT-02 | Phase 25 | Pending |
+| CONT-03 | Phase 25 | Pending |
+| CONT-04 | Phase 25 | Pending |
+| A11Y-01 | Phase 25 | Pending |
 
 **Coverage:**
 - v1.5 requirements: 15 total
-- Mapped to phases: 0
-- Unmapped: 15 ⚠️
+- Mapped to phases: 15
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-30*
-*Last updated: 2026-01-30 after initial definition*
+*Last updated: 2026-01-30 -- Traceability completed*

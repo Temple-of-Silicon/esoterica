@@ -9,13 +9,13 @@ See: .planning/PROJECT.md (updated 2026-01-30)
 
 ## Current Position
 
-Milestone: v1.5 Demo Widget — DEFINING REQUIREMENTS
-Phase: Not started
+Milestone: v1.5 Demo Widget — ROADMAP COMPLETE
+Phase: 23 - Terminal Foundation (pending)
 Plan: —
-Status: Defining requirements
-Last activity: 2026-01-30 -- Milestone v1.5 started
+Status: Ready for phase planning
+Last activity: 2026-01-30 -- Roadmap created
 
-Progress: [                    ] 0% (defining requirements)
+Progress: [                    ] 0% (0/3 phases)
 
 ## Performance Metrics
 
@@ -35,6 +35,7 @@ Progress: [                    ] 0% (defining requirements)
 | v1.2 Brand & Marketing | 6 | 13 | 4 |
 | v1.3 Minor Arcana | 3 | 8 | 1 |
 | v1.4 Website Upgrade | 4 | 8 | 2 |
+| v1.5 Demo Widget | 3 | ~5 | TBD |
 
 ## Accumulated Context
 
@@ -44,7 +45,7 @@ All decisions logged in PROJECT.md Key Decisions table.
 
 ### Pending Todos
 
-- [ ] Add demo widget with terminal simulation (2026-01-30)
+- [ ] Add demo widget with terminal simulation (2026-01-30) -- IN PROGRESS
 - [ ] Let users save readings to file (future candidate)
 - [ ] Debug ugly argument parsing in Skill
 - [ ] Explore subagent benefits for tarot skill
@@ -65,15 +66,15 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-29
-Stopped at: v1.4 milestone archived
+Last session: 2026-01-30
+Stopped at: Roadmap created for v1.5
 Resume file: None
 
 ## Next Steps
 
-1. Define requirements for demo widget
-2. Create roadmap
-3. Run `/gsd:plan-phase [N]` to start execution
+1. Run `/gsd:plan-phase 23` to plan Terminal Foundation
+2. Execute Phase 23 plans
+3. Continue with Phases 24-25
 
 ---
-*Last updated: 2026-01-30 -- v1.5 Demo Widget milestone started*
+*Last updated: 2026-01-30 -- v1.5 Demo Widget roadmap created*
