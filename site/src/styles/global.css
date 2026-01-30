@@ -374,11 +374,13 @@ body {
   height: auto;
   display: block;
   margin: 0 auto;
+  mix-blend-mode: multiply;
 }
 
 /* Theme adaptation: invert line art for dark mode (target img only, not caption) */
 [data-theme="dark"] .illustration img {
   filter: invert(1);
+  mix-blend-mode: screen;
 }
 
 /* Caption styling */
