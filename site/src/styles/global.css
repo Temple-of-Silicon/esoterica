@@ -20,6 +20,13 @@
   /* Typography */
   --font-heading: 'New Spirit', Georgia, 'Times New Roman', serif;
   --font-body: 'Geist Mono', 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+
+  /* Terminal Demo */
+  --terminal-green: #33ff66;
+  --terminal-green-dim: #22aa44;
+  --terminal-glow: rgba(51, 255, 102, 0.4);
+  --terminal-bg: #0a0a0a;
+  --terminal-chrome: #1a1a1a;
 }
 
 /* Light Theme */
@@ -437,6 +444,132 @@ body {
   margin-top: 1rem;
 }
 
+/* ===== TERMINAL DEMO ===== */
+.terminal-container {
+  position: relative;
+  height: 400vh;
+  background: var(--bg-page, #FAF9F6);
+}
+
+.terminal {
+  position: sticky;
+  top: 2rem;
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.terminal-chrome {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--terminal-chrome);
+  border-radius: 0.5rem 0.5rem 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: none;
+}
+
+.terminal-btn {
+  font-size: 0.75rem;
+  color: var(--terminal-green-dim);
+  opacity: 0.6;
+}
+
+.terminal-screen {
+  position: relative;
+  background: var(--terminal-bg);
+  padding: 1.5rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: none;
+  min-height: 12rem;
+  overflow: hidden;
+}
+
+/* Scanline overlay for CRT effect */
+.terminal-screen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+.terminal-content {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--terminal-green);
+  text-shadow: 0 0 8px var(--terminal-glow);
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+.terminal-line {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.terminal-line:last-child {
+  margin-bottom: 0;
+}
+
+.terminal-prompt {
+  color: var(--terminal-green-dim);
+  margin-right: 0.5rem;
+}
+
+.terminal-text {
+  color: var(--terminal-green);
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 0.6rem;
+  height: 1.1rem;
+  background: var(--terminal-green);
+  margin-left: 0.25rem;
+  vertical-align: text-bottom;
+  animation: cursor-pulse 2s ease-in-out infinite;
+}
+
+@keyframes cursor-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.terminal-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--terminal-chrome);
+  border-radius: 0 0 0.5rem 0.5rem;
+  margin-top: -0.5rem;
+}
+
+.terminal-indicators .indicator {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--terminal-green-dim);
+  opacity: 0.3;
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+
+.terminal-indicators .indicator.active {
+  opacity: 1;
+  background: var(--terminal-green);
+  box-shadow: 0 0 6px var(--terminal-glow);
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 640px) {
   .header {
@@ -462,6 +595,14 @@ body {
   .illustration {
     width: calc(100vw - 2rem);
     padding: 2rem 0;
+  }
+
+  .terminal {
+    top: 1rem;
+  }
+
+  .terminal-content {
+    font-size: 0.8125rem;
   }
 }
 
@@ -505,5 +646,15 @@ body {
     opacity: 1 !important;
     transform: translateX(-50%) !important;
     transition: none !important;
+  }
+
+  /* Terminal reduced motion */
+  .terminal-cursor {
+    animation: none !important;
+    opacity: 1;
+  }
+
+  .terminal-screen::after {
+    opacity: 0.1;
   }
 }
