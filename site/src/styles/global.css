@@ -368,19 +368,17 @@ body {
   transform: translateX(-50%) translateY(0);
 }
 
-.illustration img {
+.illustration-bg {
   width: 100%;
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  mix-blend-mode: multiply;
+  aspect-ratio: 3 / 2;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-/* Theme adaptation: invert line art for dark mode (target img only, not caption) */
-[data-theme="dark"] .illustration img {
+/* Theme adaptation: invert line art for dark mode */
+[data-theme="dark"] .illustration-bg {
   filter: invert(1);
-  mix-blend-mode: screen;
 }
 
 /* Caption styling */
