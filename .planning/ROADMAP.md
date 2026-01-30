@@ -128,7 +128,10 @@ Plans:
   2. Loading states show poster frame while video frames load
   3. Site scores 90+ on Lighthouse performance audit
   4. Site renders correctly in Chrome, Safari, Firefox, and Edge
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 22-01-PLAN.md -- Re-encode video with keyframes for Chrome performance, add loading state
+- [ ] 22-02-PLAN.md -- Implement semantic footer, run Lighthouse audit, cross-browser verification
 
 ## Requirement Coverage
 
@@ -172,8 +175,8 @@ Coverage: 6/6 requirements mapped.
 | 19. Scroll Video | v1.4 | 2/2 | Complete | 2026-01-28 |
 | 20. Mobile + Accessibility | v1.4 | 2/2 | Complete | 2026-01-28 |
 | 21. Gateway Illustrations | v1.4 | 2/2 | Complete | 2026-01-29 |
-| 22. Footer + Polish | v1.4 | 0/TBD | Not started | - |
+| 22. Footer + Polish | v1.4 | 0/2 | Not started | - |
 
 ---
 *Roadmap created: 2026-01-22*
-*Last updated: 2026-01-29 -- Phase 21 complete (gateway illustrations)*
+*Last updated: 2026-01-29 -- Phase 22 planned (2 plans in 2 waves)*
