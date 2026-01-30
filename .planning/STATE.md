@@ -13,7 +13,7 @@ Milestone: v1.4 Website Upgrade
 Phase: 21 of 22 (Gateway Illustrations)
 Plan: 02 of 02 (Illustration Integration)
 Status: Phase complete
-Last activity: 2026-01-29 -- Completed 21-02-PLAN.md
+Last activity: 2026-01-29 -- Completed quick task 003: LinkedIn carousel posts
 
 Progress: [====================] 95% (21/22 phases complete; 36 plans shipped)
 
@@ -103,6 +103,12 @@ All decisions logged in PROJECT.md Key Decisions table.
 
 None.
 
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 003 | LinkedIn carousel posts with witchy voice | 2026-01-29 | ee5383f | [003-linkedin-carousel-posts](./quick/003-linkedin-carousel-posts/) |
+
 ## Session Continuity
 
 Last session: 2026-01-29
@@ -114,4 +120,4 @@ Resume file: None
 1. Execute Phase 22 (Footer + Polish)
 
 ---
-*Last updated: 2026-01-29 -- Phase 21 complete (both plans shipped)*
+*Last updated: 2026-01-29 -- Quick task 003 complete (LinkedIn carousel posts)*
