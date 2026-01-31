@@ -570,6 +570,52 @@ body {
   box-shadow: 0 0 6px var(--terminal-glow);
 }
 
+.terminal-indicators .indicator.completed {
+  opacity: 0.7;
+  background: var(--terminal-green);
+  box-shadow: 0 0 4px var(--terminal-glow);
+}
+
+/* ===== PHASE TRIGGERS ===== */
+.phase-trigger {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  pointer-events: none;
+}
+
+.phase-trigger[data-phase="1"] { top: 5%; }
+.phase-trigger[data-phase="2"] { top: 30%; }
+.phase-trigger[data-phase="3"] { top: 55%; }
+.phase-trigger[data-phase="4"] { top: 80%; }
+
+/* ===== TERMINAL LINE ANIMATION STATES ===== */
+/* Default: dimmed, text visually hidden but accessible */
+.terminal-line[data-phase] .terminal-text {
+  clip-path: inset(0 100% 0 0);
+  opacity: 0.4;
+  transition: clip-path 0s, opacity 0.3s ease;
+}
+
+/* Active: fully visible, bright */
+.terminal-line[data-phase].is-active .terminal-text {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+}
+
+/* Typing: text revealed progressively (clip-path controlled by JS) */
+.terminal-line[data-phase].is-typing .terminal-text {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+}
+
+/* Completed: visible but dimmed */
+.terminal-line[data-phase].is-completed .terminal-text {
+  clip-path: inset(0 0 0 0);
+  opacity: 0.5;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 640px) {
   .header {
