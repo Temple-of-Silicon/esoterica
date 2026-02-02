@@ -22,7 +22,9 @@ Esoterica is a tarot framework for AI agents — 78 cards waiting to reframe you
 
 ### Prerequisites
 
+One of:
 - [Claude Code](https://claude.ai/code) (Anthropic's CLI for Claude)
+- [OpenClaw](https://openclaw.ai) (AI agent framework)
 
 ### Installation
 
@@ -30,15 +32,28 @@ Esoterica is a tarot framework for AI agents — 78 cards waiting to reframe you
 npx @templeofsilicon/esoterica
 ```
 
-That's it. The installer copies the tarot skill to `~/.claude/skills/tarot/`.
+The installer auto-detects your environment:
+- If OpenClaw is installed (`~/.openclaw` exists): installs globally for all agents
+- Otherwise: installs to Claude Code (`~/.claude/skills/tarot/`)
+
+#### Explicit targeting
+
+```bash
+# Claude Code
+npx @templeofsilicon/esoterica --claude-code
+
+# OpenClaw (global - all agents)
+npx @templeofsilicon/esoterica --openclaw
+
+# OpenClaw (specific agent)
+npx @templeofsilicon/esoterica --agent axiom
+```
 
 ### Your First Reading
 
-In Claude Code, invoke the tarot skill:
+**Claude Code:** Type `/tarot` to begin your reading.
 
-```
-/tarot
-```
+**OpenClaw:** The skill is automatically available to agents. Ask your agent for a tarot reading.
 
 The wizard guides you through four choices:
 - Your question or context
@@ -115,9 +130,13 @@ Configure your preferred voice:
 # Project-level (in your repo root)
 echo "voice=mystic" > .tarot
 
-# Global default (grounded is the default voice)
+# Claude Code global default
 mkdir -p ~/.claude/tarot
 echo "voice=grounded" > ~/.claude/tarot/config
+
+# OpenClaw global default
+mkdir -p ~/.openclaw/tarot
+echo "voice=grounded" > ~/.openclaw/tarot/config
 ```
 
 ---

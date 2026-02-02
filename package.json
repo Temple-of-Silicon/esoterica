@@ -1,7 +1,7 @@
 {
   "name": "@templeofsilicon/esoterica",
-  "version": "1.0.0",
-  "description": "A tarot reading skill for Claude Code - ancient patterns, new paths",
+  "version": "1.1.0",
+  "description": "A tarot reading skill for Claude Code & OpenClaw - ancient patterns, new paths",
   "main": "bin/install.js",
   "bin": {
     "esoterica": "bin/install.js"
@@ -14,6 +14,7 @@
   ],
   "keywords": [
     "claude-code",
+    "openclaw",
     "skill",
     "tarot",
     "ai",
@@ -26,10 +27,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jem-computer/esoterica.git"
+    "url": "https://github.com/Temple-of-Silicon/esoterica.git"
   },
-  "homepage": "https://github.com/jem-computer/esoterica#readme",
+  "homepage": "https://github.com/Temple-of-Silicon/esoterica#readme",
   "bugs": {
-    "url": "https://github.com/jem-computer/esoterica/issues"
+    "url": "https://github.com/Temple-of-Silicon/esoterica/issues"
   }
 }
