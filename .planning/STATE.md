@@ -9,13 +9,13 @@ See: .planning/PROJECT.md (updated 2026-01-29)
 
 ## Current Position
 
-Milestone: v1.4 Website Upgrade — SHIPPED
-Phase: 22 of 22 (complete)
-Plan: All complete
-Status: Ready for next milestone
-Last activity: 2026-01-29 -- v1.4 milestone archived
+Milestone: v2.0 OpenClaw + OpenCode Compatibility
+Phase: Not started (defining requirements)
+Plan: —
+Status: Researching platform capabilities
+Last activity: 2026-02-01 -- v2.0 milestone started
 
-Progress: [====================] 100% (22/22 phases complete; 38 plans shipped)
+Progress: [░░░░░░░░░░░░░░░░░░░░] 0% (research phase)
 
 ## Performance Metrics
 

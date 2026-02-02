@@ -107,7 +107,11 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 
 ### Active
 
-(No active milestone — run `/gsd:new-milestone` to start next)
+**v2.0 OpenClaw + OpenCode Compatibility:**
+- [ ] Platform abstraction layer (skill works on Claude Code, OpenClaw, OpenCode)
+- [ ] Subagent refactoring for context efficiency (if platforms support it)
+- [ ] Updated installation flow for multiple platforms
+- [ ] Docs/landing page reflecting multi-platform support
 
 ### Out of Scope
 
@@ -171,5 +175,20 @@ Agents can draw and interpret tarot cards as a perspective-shifting tool for pro
 - [ ] GSD workflow integration
 - [ ] Reversed card meanings (v1.4 candidate)
 
+## Current Milestone: v2.0 OpenClaw + OpenCode Compatibility
+
+**Goal:** Make Esoterica (skill, installation, docs) work across Claude Code, OpenClaw, and OpenCode.
+
+**Target features:**
+- Platform abstraction layer (skill works on all three platforms)
+- Subagent refactoring for context efficiency (if platforms support it)
+- Updated installation flow for multiple platforms
+- Docs/landing page reflecting multi-platform support
+
+**Key unknowns (research needed):**
+- What do OpenClaw/OpenCode support? (skills format, subagents, AskUserQuestion, bash injection)
+- How different are their skill mechanisms from Claude Code?
+- Can we abstract or do we need separate implementations?
+
 ---
-*Last updated: 2026-01-29 -- v1.4 Website Upgrade milestone complete*
+*Last updated: 2026-02-01 -- v2.0 milestone started*
