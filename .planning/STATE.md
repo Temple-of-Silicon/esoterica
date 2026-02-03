@@ -72,7 +72,7 @@ None.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 003 | LinkedIn carousel posts with witchy voice | 2026-01-29 | ee5383f | [003-linkedin-carousel-posts](./quick/003-linkedin-carousel-posts/) |
-| 004 | Add three witchy skills (micro-ritual, sacred-blessing, romantical) | 2026-02-02 | e57f230 | [004-add-three-witchy-skills](./quick/004-add-three-witchy-skills/) |
+| 004 | Add five witchy skills (micro-ritual, sacred-blessing, romantical, correspondence, incantation) | 2026-02-02 | 16dd52b | [004-add-three-witchy-skills](./quick/004-add-three-witchy-skills/) |
 
 ## Session Continuity
 
