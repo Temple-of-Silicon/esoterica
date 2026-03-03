@@ -6,9 +6,14 @@
   },
   "plugins": [
     {
+      "name": "tarot",
+      "source": "./tarot",
+      "description": "Composable thinking lens — draw cards for perspective on decisions, blockers, and creative reframing."
+    },
+    {
       "name": "esoterica",
       "source": "./esoterica",
-      "description": "Esoteric thinking tools — tarot, micro-rituals, sacred blessings, correspondence, and incantations as composable lenses for agents and humans."
+      "description": "Ceremonial tools — micro-rituals, sacred blessings, correspondence, incantations, and romantical."
     }
   ]
 }

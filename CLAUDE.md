@@ -5,7 +5,8 @@ This is a marketplace of Claude Code plugins. Each top-level directory is a stan
 ## Repository Structure
 
 ```
-├── esoterica/   # Esoteric thinking tools (tarot, rituals, blessings, etc.)
+├── tarot/       # Composable thinking lens for agents and humans
+├── esoterica/   # Ceremonial tools (rituals, blessings, correspondence, etc.)
 ```
 
 ## Plugin Structure

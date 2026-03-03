@@ -1,0 +1,12 @@
+{
+  "name": "tarot",
+  "version": "2.0.0",
+  "description": "Tarot as a composable thinking lens — draw cards for perspective on decisions, blockers, and creative reframing. Designed for agents and humans alike.",
+  "author": {
+    "name": "Temple of Silicon",
+    "url": "https://github.com/Temple-of-Silicon/esoterica"
+  },
+  "repository": "https://github.com/Temple-of-Silicon/esoterica",
+  "license": "MIT",
+  "keywords": ["tarot", "divination", "thinking-tool", "agent-tools", "reframe", "decisions"]
+}
