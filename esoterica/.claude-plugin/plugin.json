@@ -1,0 +1,12 @@
+{
+  "name": "esoterica",
+  "version": "2.0.0",
+  "description": "Esoteric thinking tools — tarot, micro-rituals, sacred blessings, correspondence, and incantations as composable lenses for agents and humans.",
+  "author": {
+    "name": "Temple of Silicon",
+    "url": "https://github.com/Temple-of-Silicon/esoterica"
+  },
+  "repository": "https://github.com/Temple-of-Silicon/esoterica",
+  "license": "MIT",
+  "keywords": ["tarot", "ritual", "blessing", "correspondence", "incantation", "esoteric", "divination", "agent-tools"]
+}

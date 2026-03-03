@@ -1,35 +1,24 @@
 {
   "name": "@templeofsilicon/esoterica",
-  "version": "1.1.0",
-  "description": "A tarot reading skill for Claude Code & OpenClaw - ancient patterns, new paths",
-  "main": "bin/install.js",
-  "bin": {
-    "esoterica": "bin/install.js"
-  },
+  "version": "2.0.0",
+  "description": "Esoteric thinking tools for Claude Code — tarot, micro-rituals, sacred blessings, correspondence, and incantations",
   "files": [
-    "bin/",
-    "skills/tarot/",
-    "skills/micro-ritual/",
-    "skills/sacred-blessing/",
-    "skills/romantical/",
-    "skills/correspondence/",
-    "skills/incantation/",
+    "esoterica/",
     "README.md",
     "LICENSE"
   ],
   "keywords": [
     "claude-code",
-    "openclaw",
+    "claude-plugin",
     "skill",
     "tarot",
+    "ritual",
+    "esoteric",
     "ai",
     "claude"
   ],
-  "author": "jem-computer",
+  "author": "Temple of Silicon",
   "license": "MIT",
-  "engines": {
-    "node": ">=16.7.0"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Temple-of-Silicon/esoterica.git"

@@ -1,0 +1,14 @@
+{
+  "name": "temple-of-silicon",
+  "owner": {
+    "name": "Temple of Silicon",
+    "url": "https://github.com/Temple-of-Silicon"
+  },
+  "plugins": [
+    {
+      "name": "esoterica",
+      "source": "./esoterica",
+      "description": "Esoteric thinking tools — tarot, micro-rituals, sacred blessings, correspondence, and incantations as composable lenses for agents and humans."
+    }
+  ]
+}
