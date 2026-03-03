@@ -1,12 +1,13 @@
 # Temple of Silicon: Plugin Marketplace
 
-This is a marketplace of Claude Code plugins. Each top-level directory is a standalone plugin.
+This is a marketplace of Claude Code plugins. Each plugin lives in `plugins/`.
 
 ## Repository Structure
 
 ```
-├── tarot/       # Composable thinking lens for agents and humans
-├── esoterica/   # Ceremonial tools (rituals, blessings, correspondence, etc.)
+├── plugins/
+│   ├── tarot/       # Composable thinking lens for agents and humans
+│   └── esoterica/   # Ceremonial tools (rituals, blessings, correspondence, etc.)
 ```
 
 ## Plugin Structure

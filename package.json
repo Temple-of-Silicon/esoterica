@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Esoteric thinking tools for Claude Code — tarot, micro-rituals, sacred blessings, correspondence, and incantations",
   "files": [
-    "esoterica/",
+    "plugins/",
     "README.md",
     "LICENSE"
   ],
