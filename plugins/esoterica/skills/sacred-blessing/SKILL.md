@@ -1,6 +1,12 @@
 ---
 name: sacred-blessing
-description: Creates personalized sacred blessings for tasks, transitions, or life moments using inclusive feminine spiritual language. Draws from Hebrew Priestess traditions with a modern, witchy sensibility.
+description: >
+  Create personalized sacred blessings for tasks, transitions, or life moments using inclusive feminine
+  spiritual language. Use this skill when someone says "bless this", "I need a blessing", "sacred blessing",
+  "give me a blessing for", or "bless my [thing]". Also use when someone is about to begin something
+  meaningful — a medical procedure, a creative project, a hard conversation — and wants words of
+  consecration. Agents composing rituals or ceremonial flows can invoke this as one element alongside
+  tarot, correspondence, or micro-ritual.
 agent: general-purpose
 ---
 

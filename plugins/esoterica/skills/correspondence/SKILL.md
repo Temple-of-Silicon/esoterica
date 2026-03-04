@@ -1,6 +1,12 @@
 ---
 name: correspondence
-description: Finds the symbolic vocabulary for any intention—herbs, colors, stones, times, directions, and elements that align with what you're working toward. Practical magic for altars, outfit choices, or encoding meaning into action.
+description: >
+  Find the symbolic vocabulary for any intention — herbs, colors, stones, times, directions, and elements
+  that align with what you're working toward. Use this skill when someone says "what corresponds to",
+  "correspondences for", "what herbs for", "what color for", "what stone for", "symbolic associations",
+  or asks about magical ingredients for an intention. Also use when someone is building an altar, choosing
+  outfit colors with intention, or encoding meaning into a space or action. Agents composing rituals,
+  blessings, or creative work can invoke this to ground symbolic choices in traditional correspondence.
 agent: general-purpose
 ---
 

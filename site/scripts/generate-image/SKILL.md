@@ -1,6 +1,11 @@
 ---
 name: generate-image
-description: Generate images using Replicate's Nano Banana Pro model with Esoterica's eco-futurist aesthetic. Use when creating hero images, social assets, or exploring visual variations.
+description: >
+  Generate images using Replicate's Nano Banana Pro model with Esoterica's eco-futurist divine feminine
+  aesthetic. Use this skill when someone says "generate an image", "create a visual", "hero image",
+  "make me an image", or wants visuals in the 1980s-meets-2180s Kodak film aesthetic. Also use when
+  creating social assets, exploring visual variations, or producing branded imagery for Esoterica content.
+  Agents producing content or building ritual experiences can invoke this to generate accompanying visuals.
 agent: general-purpose
 ---
 

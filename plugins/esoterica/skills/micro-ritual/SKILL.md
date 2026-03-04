@@ -1,6 +1,13 @@
 ---
 name: micro-ritual
-description: Designs simple, embodied rituals for life moments using ordinary objects at hand. Grounded witchcraft for the modern practitioner—no special equipment, no performance, just presence.
+description: >
+  Design simple, embodied micro-rituals for life moments using ordinary objects at hand. Use this skill
+  when someone says "create a ritual", "I need a ritual for", "ritual for this moment", "mark this
+  transition", or "how do I make this feel sacred". Also use when someone describes a transition, threshold,
+  or moment they want to honor with intention — starting a new job, closing a chapter, facing something
+  hard — and wants a grounded, practical way to mark it. Agents in orchestrated flows can invoke this
+  to compose rituals that weave in other elements like tarot draws, correspondence lookups, blessings,
+  or incantations.
 agent: general-purpose
 ---
 

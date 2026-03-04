@@ -1,6 +1,12 @@
 ---
 name: incantation
-description: Generates a single-sentence power phrase for a specific moment or intention. Not affirmation (passive) but incantation (active)—words meant to be spoken aloud, carried into action, or encoded into work.
+description: >
+  Generate a single-sentence power phrase for a specific moment or intention — not an affirmation (passive)
+  but an incantation (active), words meant to be spoken aloud or carried into action. Use this skill when
+  someone says "give me an incantation", "I need words for", "power phrase", "words to carry into",
+  or "something to say before". Also use when someone is facing a specific moment — a meeting, a
+  confrontation, a creation — and needs words that declare rather than describe. Agents composing rituals
+  or ceremonial flows can invoke this to add a spoken-word element to a composed experience.
 agent: general-purpose
 ---
 
